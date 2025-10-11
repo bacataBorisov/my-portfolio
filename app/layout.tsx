@@ -11,7 +11,8 @@ export const metadata: Metadata = {
   description:
     "Portfolio of Vasil Borisov. Electro-Technical Officer turned Software Engineer — iOS/macOS, Python, C, and Navigation Technology.",
   icons: {
-    icon: "/icons/favicon.ico",
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
   },
 };
 
