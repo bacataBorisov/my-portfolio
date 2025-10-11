@@ -7,9 +7,12 @@ import Image from "next/image";
 import HummingbirdAura from "@/components/HummingbirdAura";
 
 export const metadata: Metadata = {
-  title: "bacata.borisov",
+  title: "Vasil Borisov — Portfolio",
   description:
-    "Electro-Technical Officer → Software Engineer. iOS/macOS, Python & C. Navigation tools, simulators, connectivity.",
+    "Portfolio of Vasil Borisov. Electro-Technical Officer turned Software Engineer — iOS/macOS, Python, C, and Navigation Technology.",
+  icons: {
+    icon: "/icons/favicon.ico",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
