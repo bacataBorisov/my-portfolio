@@ -49,14 +49,13 @@ export default function ChatWidget() {
                 body: JSON.stringify({ messages: newMessages }),
             });
             const data = await res.json();
+            const content = data.reply ?? data.error ?? "Something went wrong.";
+            setMessages((prev) => [...prev, { role: "assistant", content }]);
+        } catch (err) {
+            const msg = err instanceof Error ? err.message : "Network error — please try again.";
             setMessages((prev) => [
                 ...prev,
-                { role: "assistant", content: data.reply ?? data.error ?? "Something went wrong." },
-            ]);
-        } catch {
-            setMessages((prev) => [
-                ...prev,
-                { role: "assistant", content: "Sorry, something went wrong. Please try again." },
+                { role: "assistant", content: msg },
             ]);
         } finally {
             setLoading(false);

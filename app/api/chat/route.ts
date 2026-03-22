@@ -70,16 +70,25 @@ export async function POST(req: NextRequest) {
 
     const client = new OpenAI({ apiKey });
 
-    const completion = await client.chat.completions.create({
-        model: "gpt-4o-mini",
-        messages: [
-            { role: "system", content: SYSTEM_PROMPT },
-            ...messages,
-        ],
-        max_tokens: 300,
-        temperature: 0.7,
-    });
+    try {
+        const completion = await client.chat.completions.create({
+            model: "gpt-4o-mini",
+            messages: [
+                { role: "system", content: SYSTEM_PROMPT },
+                ...messages,
+            ],
+            max_tokens: 300,
+            temperature: 0.7,
+        });
 
-    const reply = completion.choices[0]?.message?.content ?? "Sorry, I couldn't generate a response.";
-    return NextResponse.json({ reply });
+        const reply = completion.choices[0]?.message?.content ?? "Sorry, I couldn't generate a response.";
+        return NextResponse.json({ reply });
+    } catch (err) {
+        const message = err instanceof Error ? err.message : String(err);
+        console.error("[chat] OpenAI error:", message);
+        return NextResponse.json(
+            { error: `OpenAI error: ${message}` },
+            { status: 502 }
+        );
+    }
 }
