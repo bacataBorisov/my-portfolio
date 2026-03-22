@@ -8,6 +8,7 @@ import HummingbirdAura from "@/components/HummingbirdAura";
 import { Analytics } from "@vercel/analytics/next";
 import ChatWidget from "@/components/ChatWidget";
 import ThemeProvider from "@/components/ThemeProvider";
+import CursorFollower from "@/components/CursorFollower";
 import { site } from "@/lib/site";
 
 const personSchema = {
@@ -91,6 +92,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
           <Analytics />
           <ChatWidget />
+          <CursorFollower />
 
         </ThemeProvider>
       </body>

@@ -84,6 +84,17 @@ export const site = {
         },
     ],
 
+    /**
+     * "Currently" card — update whenever your situation changes.
+     * Shown on the homepage bento grid.
+     */
+    currently: {
+        working: "Extasy Complete Navigation — polar diagram & waypoint enhancements",
+        learning: "React Server Components & Next.js App Router deep-dives",
+        location: "Pacific Ocean aboard R/V Falkor (too)",
+        ship: "R/V Falkor (too)",
+    },
+
     /** Hummingbird palette hex values — keeps globals.css in sync with Tailwind config */
     colors: {
         teal: "#3E8C86",

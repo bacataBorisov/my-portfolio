@@ -13,6 +13,13 @@
   color-scheme: dark;
 }
 
+/* Hide native cursor on mouse-driven devices — replaced by CursorFollower */
+@media (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}
+
 /* ─── Hummingbird aura blobs ─────────────────────────────────────────── */
 
 .hb-aura {
