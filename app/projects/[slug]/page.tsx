@@ -1,12 +1,11 @@
 // app/projects/[slug]/page.tsx
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import Section from "@/components/Section";
 import Badge from "@/components/Badge";
+import Button from "@/components/Button";
 import CarouselGallery from "@/components/CarouselGallery";
 import Shot from "@/components/Shot";
-
 import { projects } from "@/lib/projects";
 
 export async function generateStaticParams() {
@@ -19,7 +18,6 @@ export default async function ProjectPage({
     params: Promise<{ slug: string }>;
 }) {
     const { slug } = await params;
-
     const project = projects.find((p) => p.slug === slug);
     if (!project) return notFound();
 
@@ -52,7 +50,7 @@ export default async function ProjectPage({
                 ) : null}
             </header>
 
-            {/* Screenshots (carousel) */}
+            {/* Screenshots */}
             {project.covers && project.covers.length > 0 && (
                 <div className="mt-6">
                     {project.covers.length === 1 ? (
@@ -84,29 +82,18 @@ export default async function ProjectPage({
                 </Section>
             ) : null}
 
-            {/* Demo / Docs buttons */}
+            {/* Links */}
             {(demoLinks?.length || repoUrl) ? (
                 <div className="flex flex-wrap items-center gap-3">
                     {demoLinks?.map((d, i) => (
-                        <Link
-                            key={i}
-                            href={d.href}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="inline-flex items-center justify-center rounded-lg border border-black/15 bg-black/5 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-black/10 dark:border-white/15 dark:bg-white/5 dark:text-white/90 dark:hover:bg-white/10"
-                        >
+                        <Button key={i} href={d.href} variant="secondary" external>
                             {d.label}
-                        </Link>
+                        </Button>
                     ))}
                     {repoUrl && (
-                        <Link
-                            href={repoUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="inline-flex items-center justify-center rounded-lg bg-hummingbird-teal px-4 py-2 text-sm font-medium text-white transition hover:bg-hummingbird-sage"
-                        >
+                        <Button href={repoUrl} external>
                             View Full Documentation →
-                        </Link>
+                        </Button>
                     )}
                 </div>
             ) : null}

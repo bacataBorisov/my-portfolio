@@ -40,8 +40,9 @@
   opacity: 0.38;
 }
 
+/* Colors match site.colors.blobTeal/Aqua/Indigo from lib/site.ts */
 .hb-blob.teal {
-  background: radial-gradient(closest-side, #26d6c6 0%, transparent 70%);
+  background: radial-gradient(closest-side, #3E8C86 0%, transparent 70%);
   left: -12vw;
   top: -10vh;
   animation: hb-float 10s ease-in-out infinite;
@@ -49,7 +50,7 @@
 }
 
 .hb-blob.aqua {
-  background: radial-gradient(closest-side, #22d3ee 0%, transparent 70%);
+  background: radial-gradient(closest-side, #8FD9DB 0%, transparent 70%);
   right: -16vw;
   top: 22vh;
   animation: hb-float 11s ease-in-out infinite;
@@ -57,7 +58,7 @@
 }
 
 .hb-blob.indigo {
-  background: radial-gradient(closest-side, #6366f1 0%, transparent 70%);
+  background: radial-gradient(closest-side, #3D2A7A 0%, transparent 70%);
   left: 20vw;
   bottom: -12vh;
   animation: hb-float 12s ease-in-out infinite;

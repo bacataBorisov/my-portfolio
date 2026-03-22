@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 
 type Message = {
     role: "user" | "assistant";
@@ -23,15 +23,58 @@ export default function ChatWidget() {
     ]);
     const [input, setInput] = useState("");
     const [loading, setLoading] = useState(false);
-    const bottomRef = useRef<HTMLDivElement>(null);
-    const inputRef = useRef<HTMLInputElement>(null);
 
+    const panelRef = useRef<HTMLDivElement>(null);
+    const toggleRef = useRef<HTMLButtonElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const bottomRef = useRef<HTMLDivElement>(null);
+    const liveRef = useRef<HTMLDivElement>(null);
+
+    // Focus the input when opening
+    useEffect(() => {
+        if (open) {
+            setTimeout(() => inputRef.current?.focus(), 50);
+        }
+    }, [open]);
+
+    // Scroll to latest message
     useEffect(() => {
         if (open) {
             bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-            inputRef.current?.focus();
         }
     }, [open, messages]);
+
+    // Close on Escape, trap Tab inside panel
+    const handleKeyDown = useCallback(
+        (e: KeyboardEvent) => {
+            if (!open) return;
+            if (e.key === "Escape") {
+                setOpen(false);
+                toggleRef.current?.focus();
+                return;
+            }
+            if (e.key === "Tab" && panelRef.current) {
+                const focusable = panelRef.current.querySelectorAll<HTMLElement>(
+                    'button, input, [tabindex]:not([tabindex="-1"])'
+                );
+                const first = focusable[0];
+                const last = focusable[focusable.length - 1];
+                if (e.shiftKey && document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                } else if (!e.shiftKey && document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
+                }
+            }
+        },
+        [open]
+    );
+
+    useEffect(() => {
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [handleKeyDown]);
 
     async function send(text?: string) {
         const userText = (text ?? input).trim();
@@ -53,10 +96,7 @@ export default function ChatWidget() {
             setMessages((prev) => [...prev, { role: "assistant", content }]);
         } catch (err) {
             const msg = err instanceof Error ? err.message : "Network error — please try again.";
-            setMessages((prev) => [
-                ...prev,
-                { role: "assistant", content: msg },
-            ]);
+            setMessages((prev) => [...prev, { role: "assistant", content: msg }]);
         } finally {
             setLoading(false);
         }
@@ -64,18 +104,21 @@ export default function ChatWidget() {
 
     return (
         <>
-            {/* Floating button */}
+            {/* Floating toggle button */}
             <button
+                ref={toggleRef}
                 onClick={() => setOpen((v) => !v)}
-                aria-label="Open chat assistant"
-                className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-hummingbird-teal shadow-lg transition hover:bg-hummingbird-sage focus:outline-none focus:ring-2 focus:ring-hummingbird-aqua"
+                aria-label={open ? "Close chat assistant" : "Open chat assistant"}
+                aria-expanded={open}
+                aria-controls="chat-panel"
+                className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-hummingbird-teal shadow-lg transition hover:bg-hummingbird-sage focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hummingbird-aqua focus-visible:ring-offset-2"
             >
                 {open ? (
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 ) : (
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z" />
                     </svg>
                 )}
@@ -83,10 +126,17 @@ export default function ChatWidget() {
 
             {/* Chat panel */}
             {open && (
-                <div className="fixed bottom-24 right-6 z-50 flex w-[340px] flex-col rounded-2xl border border-black/10 bg-white/95 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-black/70 sm:w-[380px]">
+                <div
+                    id="chat-panel"
+                    ref={panelRef}
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label="Chat with Vasil's AI assistant"
+                    className="fixed bottom-24 right-6 z-50 flex w-[340px] flex-col rounded-2xl border border-black/10 bg-white/95 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-black/70 sm:w-[380px]"
+                >
                     {/* Header */}
                     <div className="flex items-center gap-3 border-b border-black/10 px-4 py-3 dark:border-white/10">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-hummingbird-teal text-xs font-bold text-white">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-hummingbird-teal text-xs font-bold text-white" aria-hidden>
                             VB
                         </div>
                         <div>
@@ -95,8 +145,15 @@ export default function ChatWidget() {
                         </div>
                     </div>
 
-                    {/* Messages */}
-                    <div className="flex max-h-72 flex-col gap-3 overflow-y-auto px-4 py-3">
+                    {/* Messages — aria-live so screen readers announce new replies */}
+                    <div
+                        ref={liveRef}
+                        role="log"
+                        aria-live="polite"
+                        aria-atomic="false"
+                        aria-label="Conversation"
+                        className="flex max-h-72 flex-col gap-3 overflow-y-auto px-4 py-3"
+                    >
                         {messages.map((m, i) => (
                             <div
                                 key={i}
@@ -114,7 +171,7 @@ export default function ChatWidget() {
                             </div>
                         ))}
                         {loading && (
-                            <div className="flex justify-start">
+                            <div className="flex justify-start" aria-label="Assistant is typing">
                                 <div className="rounded-xl bg-black/5 px-3 py-2 text-sm text-slate-400 dark:bg-white/10 dark:text-white/50">
                                     Thinking…
                                 </div>
@@ -125,7 +182,7 @@ export default function ChatWidget() {
 
                     {/* Suggested questions (only at start) */}
                     {messages.length === 1 && (
-                        <div className="flex flex-wrap gap-2 border-t border-black/10 px-4 py-2 dark:border-white/10">
+                        <div className="flex flex-wrap gap-2 border-t border-black/10 px-4 py-2 dark:border-white/10" aria-label="Suggested questions">
                             {SUGGESTED_QUESTIONS.map((q) => (
                                 <button
                                     key={q}
@@ -140,7 +197,9 @@ export default function ChatWidget() {
 
                     {/* Input */}
                     <div className="flex items-center gap-2 border-t border-black/10 px-3 py-3 dark:border-white/10">
+                        <label htmlFor="chat-input" className="sr-only">Message</label>
                         <input
+                            id="chat-input"
                             ref={inputRef}
                             type="text"
                             value={input}
@@ -155,7 +214,7 @@ export default function ChatWidget() {
                             aria-label="Send message"
                             className="flex h-8 w-8 items-center justify-center rounded-lg bg-hummingbird-teal text-white transition hover:bg-hummingbird-sage disabled:opacity-40"
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
                                 <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
                             </svg>
                         </button>

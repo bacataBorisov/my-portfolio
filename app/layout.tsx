@@ -8,25 +8,23 @@ import HummingbirdAura from "@/components/HummingbirdAura";
 import { Analytics } from "@vercel/analytics/next";
 import ChatWidget from "@/components/ChatWidget";
 import ThemeProvider from "@/components/ThemeProvider";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Vasil Borisov — Portfolio",
-  description:
-    "Portfolio of Vasil Borisov. Electro-Technical Officer turned Software Engineer — iOS/macOS, Python, C, and Navigation Technology.",
-  metadataBase: new URL("https://bacataborisov-dev.pro"),
+  title: `${site.name} — Portfolio`,
+  description: site.description,
+  metadataBase: new URL(site.url),
   openGraph: {
     type: "website",
-    url: "https://bacataborisov-dev.pro",
-    title: "Vasil Borisov — Portfolio",
-    description:
-      "Electro-Technical Officer turned Software Engineer — iOS/macOS, Python, C, and Navigation Technology.",
-    siteName: "Vasil Borisov",
+    url: site.url,
+    title: `${site.name} — Portfolio`,
+    description: site.ogDescription,
+    siteName: site.name,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Vasil Borisov — Portfolio",
-    description:
-      "Electro-Technical Officer turned Software Engineer — iOS/macOS, Python, C, and Navigation Technology.",
+    title: `${site.name} — Portfolio`,
+    description: site.ogDescription,
   },
   icons: {
     icon: "/favicon.ico",
@@ -50,8 +48,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {/* Top navigation bar */}
           <div className="sticky top-0 z-50 border-b border-black/10 bg-white/80 backdrop-blur-xl dark:border-white/10 dark:bg-black/30">
             <nav className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
-
-              {/* Logo / Home link */}
               <Link href="/" className="flex items-center gap-2">
                 <Image
                   src="/icons/brand-bb.png"
@@ -61,8 +57,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   className="rounded-full"
                 />
               </Link>
-
-              {/* Nav links + theme toggle */}
               <NavLinks />
             </nav>
           </div>
