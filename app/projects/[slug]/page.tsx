@@ -13,7 +13,6 @@ export async function generateStaticParams() {
     return projects.map((p) => ({ slug: p.slug }));
 }
 
-// ✅ On your Next.js version, params is async-like: await it.
 export default async function ProjectPage({
     params,
 }: {
@@ -24,25 +23,25 @@ export default async function ProjectPage({
     const project = projects.find((p) => p.slug === slug);
     if (!project) return notFound();
 
-    const { title, summary, tags, highlights, repoUrl, demoLinks, icon } = project;
+    const { title, summary, tags, highlights, repoUrl, demoLinks, icon, coverAspect } = project;
 
     return (
         <main className="mx-auto max-w-3xl px-4 py-10 space-y-10">
             {/* Header */}
             <header>
-                <h1 className="flex items-center gap-3 text-2xl font-semibold tracking-tight">
+                <h1 className="flex items-center gap-3 text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">
                     {icon && (
                         <Image
                             src={icon}
                             alt={`${title} icon`}
                             width={48}
                             height={48}
-                            className="rounded-lg border border-white/20"
+                            className="rounded-lg border border-black/10 dark:border-white/20"
                         />
                     )}
                     {title}
                 </h1>
-                {summary && <p className="mt-2 text-white/70">{summary}</p>}
+                {summary && <p className="mt-2 text-slate-600 dark:text-white/70">{summary}</p>}
 
                 {tags?.length ? (
                     <div className="mt-3 flex flex-wrap gap-2">
@@ -57,15 +56,13 @@ export default async function ProjectPage({
             {project.covers && project.covers.length > 0 && (
                 <div className="mt-6">
                     {project.covers.length === 1 ? (
-
                         <Shot
-                            src="/images/iphone_sowify.png"
-                            alt="Sowify iPhone screenshot"
-                            aspect={863 / 1722}   // exact aspect of your PNG
-                            maxW={380}          // tweak (320–420 looks great)
+                            src={project.covers[0]}
+                            alt={`${title} screenshot`}
+                            aspect={coverAspect}
+                            maxW={380}
                         />
                     ) : (
-                        // keep your CarouselGallery for multi-shot projects
                         <CarouselGallery
                             title={project.title}
                             shots={project.covers}
@@ -79,7 +76,7 @@ export default async function ProjectPage({
             {/* Highlights */}
             {highlights?.length ? (
                 <Section title="Highlights">
-                    <ul className="list-disc space-y-2 pl-6 text-white/80">
+                    <ul className="list-disc space-y-2 pl-6 text-slate-600 dark:text-white/80">
                         {highlights.map((h, i) => (
                             <li key={i}>{h}</li>
                         ))}
@@ -96,7 +93,7 @@ export default async function ProjectPage({
                             href={d.href}
                             target="_blank"
                             rel="noreferrer"
-                            className="inline-flex items-center justify-center rounded-lg border border-white/15 bg-white/5 px-4 py-2 text-sm font-medium text-white/90 transition hover:bg-white/10"
+                            className="inline-flex items-center justify-center rounded-lg border border-black/15 bg-black/5 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-black/10 dark:border-white/15 dark:bg-white/5 dark:text-white/90 dark:hover:bg-white/10"
                         >
                             {d.label}
                         </Link>

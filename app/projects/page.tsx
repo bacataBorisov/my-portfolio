@@ -4,12 +4,11 @@ import Section from "@/components/Section";
 import { projects } from "@/lib/projects";
 
 export default function ProjectsPage() {
-    // same palette cycle you used on the homepage (add/adjust as you like)
     const colors = [
-        "from-hummingbird-purple/50 to-hummingbird-aqua/20",
-        "from-hummingbird-teal/50 to-hummingbird-purple/20",
-        "from-hummingbird-sage/50 to-hummingbird-aqua/20",
-        "from-hummingbird-indigo/50 to-hummingbird-sage/20",
+        "from-hummingbird-purple/20 to-hummingbird-aqua/10 dark:from-hummingbird-purple/50 dark:to-hummingbird-aqua/20",
+        "from-hummingbird-teal/20 to-hummingbird-purple/10 dark:from-hummingbird-teal/50 dark:to-hummingbird-purple/20",
+        "from-hummingbird-sage/20 to-hummingbird-aqua/10 dark:from-hummingbird-sage/50 dark:to-hummingbird-aqua/20",
+        "from-hummingbird-indigo/10 to-hummingbird-sage/10 dark:from-hummingbird-indigo/50 dark:to-hummingbird-sage/20",
     ];
 
     return (
@@ -23,9 +22,8 @@ export default function ProjectsPage() {
                             subtitle={p.summary}
                             tags={p.tags}
                             href={`/projects/${p.slug}`}
-                            // if you added icons in lib/projects.ts, pass them through:
                             icon={p.icon}
-                            className={`h-full rounded-2xl border border-white/10 bg-gradient-to-br ${colors[i % colors.length]} backdrop-blur-sm`}
+                            className={`h-full rounded-2xl bg-gradient-to-br ${colors[i % colors.length]}`}
                         />
                     ))}
                 </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
@@ -110,13 +110,13 @@ export default function CarouselGallery({
             {/* Track */}
             <div
                 ref={sliderRef}
-                className="keen-slider overflow-hidden rounded-2xl border border-white/10 bg-black/30 backdrop-blur"
+                className="keen-slider overflow-hidden rounded-2xl border border-black/10 bg-white/50 backdrop-blur dark:border-white/10 dark:bg-black/30"
                 style={{ maxHeight: `min(${maxBase}vh, 900px)` }}
             >
                 {shots.map((src, i) => (
                     <div key={src + i} className="keen-slider__slide flex items-center justify-center">
                         <div
-                            className="relative w-full bg-black/20"
+                            className="relative w-full bg-slate-100/50 dark:bg-black/20"
                             style={{ aspectRatio: String(getAspect(i)) }}
                         >
                             <Image
@@ -159,7 +159,7 @@ export default function CarouselGallery({
                             key={i}
                             aria-label={`Go to slide ${i + 1}`}
                             onClick={() => instanceRef.current?.moveToIdx(i)}
-                            className={`h-1.5 w-4 rounded-full transition ${current === i ? "bg-hummingbird-aqua" : "bg-white/25 hover:bg-white/40"
+                            className={`h-1.5 w-4 rounded-full transition ${current === i ? "bg-hummingbird-teal dark:bg-hummingbird-aqua" : "bg-black/20 hover:bg-black/30 dark:bg-white/25 dark:hover:bg-white/40"
                                 }`}
                         />
                     ))}
@@ -186,7 +186,8 @@ export default function CarouselGallery({
                             transition={{ duration: 0.18, ease: "easeOut" }}
                             onClick={(e) => e.stopPropagation()}
                         >
-                            <div className="relative h-[80vh] rounded-xl border border-white/10 bg-black/60 p-3">
+                            <div className="relative h-[80vh] rounded-xl border border-black/10 bg-white/90 p-3 dark:border-white/10 dark:bg-black/60">
+                                {/* eslint-disable-next-line @next/next/no-img-element -- native <img> required for pinch-zoom in lightbox */}
                                 <img
                                     src={shots[open]}
                                     alt={`${title} enlarged ${open + 1}`}
@@ -213,7 +214,7 @@ export default function CarouselGallery({
                                 )}
                             </div>
 
-                            <div className="mt-3 text-center text-xs text-white/60">
+                            <div className="mt-3 text-center text-xs text-slate-500 dark:text-white/60">
                                 Click outside the image to close • Use ← / → for previous/next
                             </div>
                         </motion.div>
@@ -254,7 +255,7 @@ function IconButton({
         <button
             aria-label={label}
             onClick={onClick}
-            className={`grid h-9 w-9 place-items-center rounded-full border border-white/20 bg-black/50 text-white hover:bg-black/70 ${className}`}
+            className={`grid h-9 w-9 place-items-center rounded-full border border-black/20 bg-white/70 text-slate-800 hover:bg-white/90 dark:border-white/20 dark:bg-black/50 dark:text-white dark:hover:bg-black/70 ${className}`}
         >
             <span className="text-lg leading-none">{icon}</span>
         </button>

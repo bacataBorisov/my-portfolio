@@ -18,8 +18,8 @@ It showcases my projects, experience, and skills — and serves as a central pla
 While most users will simply visit the live site, developers or collaborators can run the project locally:
 
 ```
-git clone https://github.com//vasil-portfolio.git
-cd vasil-portfolio
+git clone https://github.com/bacataBorisov/my-portfolio.git
+cd my-portfolio
 npm install
 npm run dev
 ```

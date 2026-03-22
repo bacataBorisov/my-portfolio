@@ -2,20 +2,25 @@
 @config "../tailwind.config.ts";
 @import "tailwindcss";
 
-/* Optional tiny tweaks */
+/* Register class-based dark mode for Tailwind v4 */
+@variant dark (&:where(.dark, .dark *));
+
+/* Color scheme follows the applied theme class */
 :root {
+  color-scheme: light;
+}
+.dark {
   color-scheme: dark;
 }
 
-/* Hummingbird homepage aura — faster + more drift */
+/* ─── Hummingbird aura blobs ─────────────────────────────────────────── */
+
 .hb-aura {
   position: fixed;
   inset: 0;
   z-index: -10;
-  /* behind everything */
   pointer-events: none;
   animation: hb-hue 12s linear infinite;
-  /* was 24s → twice as fast */
 }
 
 .hb-blob {
@@ -24,18 +29,22 @@
   height: 42vw;
   border-radius: 9999px;
   filter: blur(60px);
-  opacity: 0.38;
-  /* a touch brighter (was .32) */
-  mix-blend-mode: screen;
+  /* light mode: multiply blends into the white bg */
+  mix-blend-mode: multiply;
+  opacity: 0.45;
 }
 
-/* individual blobs with staggered, faster float timings */
+/* In dark mode: switch to screen blend for the glowing effect */
+.dark .hb-blob {
+  mix-blend-mode: screen;
+  opacity: 0.38;
+}
+
 .hb-blob.teal {
   background: radial-gradient(closest-side, #26d6c6 0%, transparent 70%);
   left: -12vw;
   top: -10vh;
   animation: hb-float 10s ease-in-out infinite;
-  /* was 18s */
   animation-delay: 0s;
 }
 
@@ -55,9 +64,7 @@
   animation-delay: 1.4s;
 }
 
-/* bigger, smoother drift */
 @keyframes hb-float {
-
   0%,
   100% {
     transform: translate(0, 0) scale(1);
@@ -65,11 +72,9 @@
 
   50% {
     transform: translate(10vw, -6vh) scale(1.12);
-    /* was 3vw / -2vh / 1.05 */
   }
 }
 
-/* still subtle hue play, but loops quicker */
 @keyframes hb-hue {
   0% {
     filter: hue-rotate(0deg);
@@ -78,6 +83,4 @@
   100% {
     filter: hue-rotate(18deg);
   }
-
-  /* was 10deg */
 }

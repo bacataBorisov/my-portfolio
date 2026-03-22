@@ -6,6 +6,8 @@ export type Project = {
     summary: string;
     tags: string[];
     covers?: string[];
+    /** Aspect ratio (width/height) used when there is exactly one cover image */
+    coverAspect?: number;
     readme?: string;
     highlights?: string[];
     repoUrl?: string;
@@ -80,6 +82,7 @@ export const projects: Project[] = [
             "Reads serial signals and publishes them to phones/tablets in real time.",
         tags: ["C", "Python", "Sockets", "iOS client", "Swift", "RPi", "MQTT", "Serial Comm"],
         covers: ["/images/iphone_sowify.png"],
+        coverAspect: 863 / 1722,
         highlights: [
             "⚙️ Serial communication bridge — reads and writes data between RS232/422/485 devices and iOS over Wi-Fi",
             "🧠 Raspberry Pi integration — MOXA uPort1150 for serial conversion, battery-powered portability",
@@ -100,6 +103,6 @@ export const projects: Project[] = [
     },
 ];
 
-// export function getBySlug(slug: string) {
-//     return projects.find((p) => p.slug === slug);
-// }
+export function getBySlug(slug: string) {
+    return projects.find((p) => p.slug === slug);
+}
