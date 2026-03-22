@@ -3,6 +3,7 @@ import Section from "@/components/Section";
 import Card from "@/components/Card";
 import Badge from "@/components/Badge";
 import Button from "@/components/Button";
+import FadeIn from "@/components/FadeIn";
 import { projects } from "@/lib/projects";
 import { site, cardGradients } from "@/lib/site";
 
@@ -13,6 +14,7 @@ export default function Page() {
         <div>
             {/* HERO */}
             <header className="relative mx-auto max-w-5xl px-4 pb-12 pt-16">
+                <FadeIn>
                 <div className="rounded-3xl border border-black/10 bg-white/50 p-6 backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
                     <h1 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">
                         {site.tagline}
@@ -38,10 +40,12 @@ export default function Page() {
                         <Button href="/about" variant="secondary">About Me</Button>
                     </div>
                 </div>
+                </FadeIn>
             </header>
 
             <main className="mx-auto max-w-5xl space-y-16 px-4 pb-24">
                 {/* FEATURED WORK */}
+                <FadeIn>
                 <Section id="projects" title="Featured Work">
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-3 items-stretch">
                         {featured.map((p, i) => (
@@ -57,8 +61,10 @@ export default function Page() {
                         ))}
                     </div>
                 </Section>
+                </FadeIn>
 
                 {/* CONTACT CTA */}
+                <FadeIn delay={0.1}>
                 <Section id="contact" title="Let&apos;s collaborate">
                     <div className="rounded-2xl border border-black/10 bg-white/40 p-5 backdrop-blur dark:border-white/10 dark:bg-white/5">
                         <p className="text-slate-600 dark:text-white/70">
@@ -69,6 +75,7 @@ export default function Page() {
                         </div>
                     </div>
                 </Section>
+                </FadeIn>
             </main>
         </div>
     );

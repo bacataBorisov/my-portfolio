@@ -10,6 +10,20 @@ import ChatWidget from "@/components/ChatWidget";
 import ThemeProvider from "@/components/ThemeProvider";
 import { site } from "@/lib/site";
 
+const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: site.name,
+    url: site.url,
+    email: site.email,
+    jobTitle: "Electro-Technical Officer / Software Engineer",
+    sameAs: [
+        site.social.github,
+        site.social.linkedin,
+        site.social.instagram,
+    ],
+};
+
 export const metadata: Metadata = {
   title: `${site.name} — Portfolio`,
   description: site.description,
@@ -36,6 +50,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="flex flex-col min-h-screen relative antialiased text-slate-900 dark:text-white">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
 
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
 

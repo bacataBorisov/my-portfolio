@@ -1,4 +1,5 @@
 // app/projects/[slug]/page.tsx
+import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import Section from "@/components/Section";
@@ -7,9 +8,39 @@ import Button from "@/components/Button";
 import CarouselGallery from "@/components/CarouselGallery";
 import Shot from "@/components/Shot";
 import { projects } from "@/lib/projects";
+import { site } from "@/lib/site";
 
 export async function generateStaticParams() {
     return projects.map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+    const { slug } = await params;
+    const project = projects.find((p) => p.slug === slug);
+    if (!project) return {};
+
+    const title = `${project.title} — ${site.name}`;
+    const description = project.summary;
+
+    return {
+        title,
+        description,
+        openGraph: {
+            title,
+            description,
+            url: `${site.url}/projects/${slug}`,
+            type: "article",
+        },
+        twitter: {
+            card: "summary",
+            title,
+            description,
+        },
+    };
 }
 
 export default async function ProjectPage({
@@ -25,6 +56,11 @@ export default async function ProjectPage({
 
     return (
         <main className="mx-auto max-w-3xl px-4 py-10 space-y-10">
+            {/* Back link */}
+            <Button href="/projects" variant="secondary" size="sm">
+                ← All projects
+            </Button>
+
             {/* Header */}
             <header>
                 <h1 className="flex items-center gap-3 text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">
