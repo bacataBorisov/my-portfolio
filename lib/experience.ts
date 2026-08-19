@@ -10,6 +10,8 @@ export type ExperienceItem = {
     id: string;
     title: string;
     org: string;
+    /** Short company/project name shown on the bar */
+    barLabel: string;
     track: Track;
     start: string;
     end: string | null;
@@ -18,7 +20,7 @@ export type ExperienceItem = {
 
 export const trackLabels: Record<Track, string> = {
     sea: "At sea",
-    business: "Business & leadership",
+    business: "Business",
     education: "Education",
     software: "Software projects",
 };
@@ -30,6 +32,7 @@ export const experience: ExperienceItem[] = [
         id: "soi-falkor-too",
         title: "Electro-Technical Officer",
         org: "Schmidt Ocean Institute — R/V Falkor (too)",
+        barLabel: "Schmidt Ocean Institute",
         track: "sea",
         start: "2022-01",
         end: null,
@@ -40,6 +43,7 @@ export const experience: ExperienceItem[] = [
         id: "royal-caribbean-2nd",
         title: "2nd Electrical Engineer",
         org: "Royal Caribbean International — Harmony of the Seas",
+        barLabel: "Royal Caribbean",
         track: "sea",
         start: "2019-03",
         end: "2022-01",
@@ -50,6 +54,7 @@ export const experience: ExperienceItem[] = [
         id: "royal-caribbean-3rd",
         title: "3rd Electrical Engineer",
         org: "Royal Caribbean International — Harmony of the Seas",
+        barLabel: "Royal Caribbean",
         track: "sea",
         start: "2018-06",
         end: "2019-03",
@@ -59,6 +64,7 @@ export const experience: ExperienceItem[] = [
         id: "saga-cruises",
         title: "Electronics / AV-IT Engineer",
         org: "Saga Cruises — Saga Pearl II",
+        barLabel: "Saga Cruises",
         track: "sea",
         start: "2017-09",
         end: "2017-11",
@@ -68,6 +74,7 @@ export const experience: ExperienceItem[] = [
         id: "atlantic-container-line",
         title: "Electro-Technical Officer",
         org: "Atlantic Container Line — Atlantic Star",
+        barLabel: "Atlantic Container Line",
         track: "sea",
         start: "2017-03",
         end: "2017-08",
@@ -77,6 +84,7 @@ export const experience: ExperienceItem[] = [
         id: "thenamaris",
         title: "Electrical Engineer",
         org: "Thenamaris",
+        barLabel: "Thenamaris",
         track: "sea",
         start: "2012-04",
         end: "2017-01",
@@ -87,6 +95,7 @@ export const experience: ExperienceItem[] = [
         id: "ics",
         title: "Software Engineer",
         org: "ICS — Integrated Computer Systems",
+        barLabel: "ICS — Integrated Computer Systems",
         track: "business",
         start: "2010-06",
         end: null,
@@ -97,6 +106,7 @@ export const experience: ExperienceItem[] = [
         id: "oriflame",
         title: "Independent Partner / Manager",
         org: "Oriflame Cosmetics Bulgaria",
+        barLabel: "Oriflame",
         track: "business",
         start: "2020-06",
         end: null,
@@ -107,6 +117,7 @@ export const experience: ExperienceItem[] = [
         id: "naval-academy-bsc",
         title: "BSc — Ship Electrical Engineering",
         org: "Nikola Vaptsarov Naval Academy",
+        barLabel: "Naval Academy — BSc",
         track: "education",
         start: "2007-09",
         end: "2012-10",
@@ -116,6 +127,7 @@ export const experience: ExperienceItem[] = [
         id: "high-school-math",
         title: "Advanced Mathematics",
         org: "High School of Mathematics, Varna",
+        barLabel: "High School of Mathematics",
         track: "education",
         start: "2002-09",
         end: "2007-06",
@@ -125,6 +137,7 @@ export const experience: ExperienceItem[] = [
         id: "naval-academy-msc",
         title: "MSc — Simulator Engineering",
         org: "Nikola Vaptsarov Naval Academy",
+        barLabel: "Naval Academy — MSc",
         track: "education",
         start: "2023-01",
         end: null,
@@ -134,6 +147,7 @@ export const experience: ExperienceItem[] = [
         id: "extasy",
         title: "Extasy Complete Navigation",
         org: "Independent Project",
+        barLabel: "Extasy Complete Navigation",
         track: "software",
         start: "2023-01",
         end: null,
@@ -143,6 +157,7 @@ export const experience: ExperienceItem[] = [
         id: "mlm-no-limit",
         title: "MLM No Limit",
         org: "Independent Product",
+        barLabel: "MLM No Limit",
         track: "software",
         start: "2024-01",
         end: null,
@@ -152,6 +167,7 @@ export const experience: ExperienceItem[] = [
         id: "marine-simulator",
         title: "MarineSimulator",
         org: "Independent Project",
+        barLabel: "MarineSimulator",
         track: "software",
         start: "2025-06",
         end: null,
@@ -161,6 +177,7 @@ export const experience: ExperienceItem[] = [
         id: "sowify",
         title: "Sowify — Serial Over Wi-Fi",
         org: "Independent Project",
+        barLabel: "Sowify",
         track: "software",
         start: "2022-01",
         end: "2023-12",

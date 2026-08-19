@@ -6,7 +6,7 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
     title: "Experience",
-    description: `Career timeline of ${site.name} — sea duty aboard Falkor (too), Oriflame leadership, education, and software projects.`,
+    description: `Career timeline of ${site.name} — sea duty aboard Falkor (too), Oriflame, education, and software projects.`,
 };
 
 export default function ExperiencePage() {
@@ -19,7 +19,7 @@ export default function ExperiencePage() {
                 <p className="mt-2 max-w-2xl text-slate-600 dark:text-white/70">
                     Fourteen years at sea — from product carriers through cruise and container ships
                     to research vessel duty aboard Falkor (too) — alongside software products,
-                    Oriflame leadership, and naval academy studies.
+                    Oriflame, and naval academy studies.
                 </p>
             </FadeIn>
 

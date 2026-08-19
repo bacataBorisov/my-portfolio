@@ -6,42 +6,40 @@ import {
     type Track,
 } from "@/lib/experience";
 
-const BAR_HEIGHT = 36;
-const SUBLANE_GAP = 8;
-const TRACK_GAP = 28;
-const LABEL_WIDTH = 148;
+const BAR_HEIGHT = 48;
+const SUBLANE_GAP = 10;
+const TRACK_GAP = 32;
+const LABEL_WIDTH = 132;
+const YEAR_WIDTH = 168;
 
 const trackBarClass: Record<Track, string> = {
-    sea: "bg-hummingbird-teal/80 dark:bg-hummingbird-teal/70",
-    business: "bg-hummingbird-purple/70 dark:bg-hummingbird-purple/60",
-    education: "bg-hummingbird-sage/80 dark:bg-hummingbird-sage/70",
-    software:
-        "bg-hummingbird-aqua/80 text-slate-900 dark:bg-hummingbird-aqua/70 dark:text-slate-900",
+    sea: "bg-hummingbird-teal text-white dark:bg-hummingbird-teal",
+    business: "bg-hummingbird-purple text-white dark:bg-hummingbird-purple",
+    education: "bg-amber-600 text-white dark:bg-amber-500",
+    software: "bg-sky-700 text-white dark:bg-sky-600",
 };
 
 const trackLegendClass: Record<Track, string> = {
     sea: "bg-hummingbird-teal",
     business: "bg-hummingbird-purple",
-    education: "bg-hummingbird-sage",
-    software: "bg-hummingbird-aqua",
+    education: "bg-amber-600 dark:bg-amber-500",
+    software: "bg-sky-700 dark:bg-sky-600",
 };
 
 export default function ExperienceTimeline() {
     const { rows, minMonth, maxMonth, years } = buildTimelineRows(experience);
     const span = Math.max(maxMonth - minMonth, 1);
-    const chartMinWidth = Math.max(years.length * 88, 640);
+    const chartMinWidth = Math.max(years.length * YEAR_WIDTH, 960);
 
     return (
         <div className="rounded-2xl border border-black/10 bg-white/40 p-4 backdrop-blur dark:border-white/10 dark:bg-white/5 sm:p-6">
             <p className="mb-4 text-xs text-slate-500 dark:text-white/50">
-                Parallel tracks show overlapping roles — sea duty, business leadership, education,
-                and software projects running at the same time. Maritime and business months come
-                from LinkedIn; education and software-project months are still approximate.
+                Parallel tracks show overlapping roles — sea duty, business, education, and software
+                — at the same time. Scroll horizontally to read every company name.
             </p>
 
             <div className="overflow-x-auto pb-2">
                 <div style={{ minWidth: chartMinWidth + LABEL_WIDTH }}>
-                    {/* Year axis */}
                     <div
                         className="relative mb-3 border-b border-black/10 dark:border-white/10"
                         style={{ marginLeft: LABEL_WIDTH, height: 28 }}
@@ -62,7 +60,6 @@ export default function ExperienceTimeline() {
                         })}
                     </div>
 
-                    {/* Track rows */}
                     <div className="flex flex-col" style={{ gap: TRACK_GAP }}>
                         {rows.map(({ track, sublaneCount, items }) => {
                             const rowHeight =
@@ -82,7 +79,6 @@ export default function ExperienceTimeline() {
                                         className="relative flex-1"
                                         style={{ height: rowHeight, minWidth: chartMinWidth }}
                                     >
-                                        {/* Vertical grid lines */}
                                         {years.map((year) => {
                                             const monthIdx = year * 12;
                                             const leftPct = ((monthIdx - minMonth) / span) * 100;
@@ -103,7 +99,7 @@ export default function ExperienceTimeline() {
                                                 style={{
                                                     top: item.sublane * (BAR_HEIGHT + SUBLANE_GAP),
                                                     left: `${item.leftPct}%`,
-                                                    width: `${Math.max(item.widthPct, 1.5)}%`,
+                                                    width: `${Math.max(item.widthPct, 2)}%`,
                                                     height: BAR_HEIGHT,
                                                 }}
                                             >
@@ -111,9 +107,14 @@ export default function ExperienceTimeline() {
                                                     tabIndex={0}
                                                     role="img"
                                                     aria-label={`${item.title} at ${item.org}, ${formatRange(item.start, item.end)}`}
-                                                    className={`flex h-full cursor-default items-center overflow-hidden rounded-md px-2 text-xs font-medium text-white shadow-sm outline-none ring-hummingbird-aqua/60 transition hover:brightness-110 focus-visible:ring-2 ${trackBarClass[track]}`}
+                                                    className={`flex h-full cursor-default flex-col justify-center overflow-visible rounded-md px-2.5 outline-none ring-hummingbird-aqua/60 transition hover:brightness-110 focus-visible:ring-2 ${trackBarClass[track]}`}
                                                 >
-                                                    <span className="truncate">{item.title}</span>
+                                                    <span className="truncate text-[12px] font-semibold leading-tight">
+                                                        {item.barLabel}
+                                                    </span>
+                                                    <span className="truncate text-[10px] leading-tight opacity-80">
+                                                        {item.title}
+                                                    </span>
                                                 </div>
 
                                                 <div
@@ -143,7 +144,6 @@ export default function ExperienceTimeline() {
                 </div>
             </div>
 
-            {/* Legend */}
             <div className="mt-6 flex flex-wrap gap-4 border-t border-black/10 pt-4 dark:border-white/10">
                 {(Object.keys(trackLabels) as Track[]).map((track) => (
                     <div

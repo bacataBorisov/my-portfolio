@@ -1,4 +1,5 @@
 // app/projects/[slug]/page.tsx
+import type { ComponentType } from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -7,8 +8,17 @@ import Badge from "@/components/Badge";
 import Button from "@/components/Button";
 import CarouselGallery from "@/components/CarouselGallery";
 import Shot from "@/components/Shot";
-import { projects } from "@/lib/projects";
+import { projects, type DemoLinkIcon } from "@/lib/projects";
 import { site } from "@/lib/site";
+import { FaApple, FaGithub, FaGlobe, FaGooglePlay, FaPlay } from "react-icons/fa";
+
+const demoIcons: Record<DemoLinkIcon, ComponentType<{ className?: string }>> = {
+    website: FaGlobe,
+    appstore: FaApple,
+    play: FaGooglePlay,
+    github: FaGithub,
+    video: FaPlay,
+};
 
 export async function generateStaticParams() {
     return projects.map((p) => ({ slug: p.slug }));
@@ -133,11 +143,15 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             {/* Links */}
             {demoLinks?.length || repoUrl ? (
                 <div className="flex flex-wrap items-center gap-3">
-                    {demoLinks?.map((d, i) => (
-                        <Button key={i} href={d.href} variant="secondary" external>
-                            {d.label}
-                        </Button>
-                    ))}
+                    {demoLinks?.map((d, i) => {
+                        const Icon = d.icon ? demoIcons[d.icon] : null;
+                        return (
+                            <Button key={i} href={d.href} variant="secondary" external>
+                                {Icon && <Icon className="h-3.5 w-3.5" aria-hidden />}
+                                {d.label}
+                            </Button>
+                        );
+                    })}
                     {repoUrl && (
                         <Button href={repoUrl} external>
                             View Full Documentation →

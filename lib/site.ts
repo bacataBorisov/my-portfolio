@@ -29,7 +29,7 @@ export const site = {
 
     about: [
         "I am an Electro-Technical Officer and software developer with more than 14 years of experience in marine electrical engineering, automation, control systems and technical troubleshooting.",
-        "I currently serve as the Electro-Technical Officer aboard Schmidt Ocean Institute's research vessel R/V Falkor (too), where I am responsible for the vessel's electrical power, propulsion control, automation, instrumentation, machinery electrical systems and bridge/navigation electronics. My work ranges from 24 VDC instrumentation to 690 VAC power systems and includes PLCs, industrial communications, propulsion systems, generators, drives, UPS systems and complex fault diagnosis.",
+        "I currently serve as the Electro-Technical Officer aboard Schmidt Ocean Institute's research vessel R/V Falkor (too), where I am responsible for the vessel's electrical power, propulsion control, automation, instrumentation, machinery electrical systems and bridge/navigation electronics.",
         "Alongside my marine engineering career, I design and build software. My projects range from real-time marine telemetry, navigation and diagnostic systems to simulation tools and full-stack production web/mobile platforms. I am particularly interested in the boundary between physical systems and software: how data moves from sensors and equipment through communication protocols, processing and diagnostics to the applications people actually use.",
     ] as const,
 
@@ -54,7 +54,7 @@ export const site = {
         "React Native",
         "Expo",
         "Python",
-        "C",
+        "C Programming",
         "Supabase",
         "PostgreSQL",
         "Raspberry Pi",
@@ -114,6 +114,7 @@ export const heroSkills = [
     "TypeScript / React / Next.js",
     "React Native / Expo",
     "Python",
+    "C Programming",
     "Industrial Communications",
     "NMEA 0183",
     "Serial / MQTT",
@@ -136,6 +137,7 @@ export const aboutSkills = [
     "TypeScript / React / Next.js",
     "React Native / Expo",
     "Python",
+    "C Programming",
     "Supabase / PostgreSQL",
     "Raspberry Pi",
 ] as const;

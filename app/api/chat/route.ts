@@ -60,7 +60,7 @@ CONTACT:
 PERSONAL:
 - Passionate sailor — much of his software is inspired by his sailing experience
 - Plays guitar in his free time
-- Manages a team at Oriflame (Health & Beauty), developing leadership skills
+- Independent Partner / Manager at Oriflame Cosmetics Bulgaria
 
 INSTRUCTIONS:
 - Keep responses concise (2–4 sentences max) unless asked to elaborate

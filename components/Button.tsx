@@ -39,7 +39,7 @@ const sizes = {
 
 function classes(variant: "primary" | "secondary", size: "sm" | "md", extra = "") {
     return [
-        "inline-flex items-center justify-center rounded-lg font-medium transition",
+        "inline-flex items-center justify-center gap-2 rounded-lg font-medium transition",
         variants[variant],
         sizes[size],
         extra,

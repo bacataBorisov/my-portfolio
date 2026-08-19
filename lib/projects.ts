@@ -9,8 +9,10 @@ export type Project = {
     coverAspect?: number;
     highlights?: string[];
     repoUrl?: string;
-    demoLinks?: { label: string; href: string }[];
+    demoLinks?: { label: string; href: string; icon?: DemoLinkIcon }[];
 };
+
+export type DemoLinkIcon = "website" | "appstore" | "play" | "github" | "video";
 
 export const projects: Project[] = [
     {
@@ -41,17 +43,19 @@ export const projects: Project[] = [
             {
                 label: "iPhone demo video",
                 href: "https://drive.google.com/file/d/1rVJDbGBMlsVFmgOLY960FpXGMJToISZk/view?usp=sharing",
+                icon: "video",
             },
             {
                 label: "iPad demo video",
                 href: "https://drive.google.com/file/d/1omNMziGSfN7exxU7LXaitJ29QClQm2Oh/view?usp=sharing",
+                icon: "video",
             },
         ],
     },
 
     {
         slug: "mlm-no-limit",
-        icon: "/icons/mlm_no_limit_icon.svg",
+        icon: "/icons/mlm_no_limit_icon.png",
         title: "MLM No Limit",
         summary:
             "A production education platform designed, developed and operated as sole software developer — Next.js web application plus published iOS and Android apps.",
@@ -75,14 +79,16 @@ export const projects: Project[] = [
             "GitHub Actions CI and EAS mobile builds with OTA updates",
         ],
         demoLinks: [
-            { label: "Website", href: "https://mlmnolimit.com/" },
+            { label: "Website", href: "https://mlmnolimit.com/", icon: "website" },
             {
                 label: "App Store",
                 href: "https://apps.apple.com/ca/app/mlm-no-limit/id6759079526",
+                icon: "appstore",
             },
             {
                 label: "Google Play",
                 href: "https://play.google.com/store/apps/details?id=com.mlmnolimit.mobile",
+                icon: "play",
             },
         ],
     },
@@ -130,6 +136,7 @@ export const projects: Project[] = [
             {
                 label: "Raspberry Pi backend",
                 href: "https://github.com/bacataBorisov/Sowify_RPi",
+                icon: "github",
             },
         ],
     },
