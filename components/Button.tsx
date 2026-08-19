@@ -27,8 +27,7 @@ type AsButton = BaseProps & {
 type Props = AsLink | AsButton;
 
 const variants = {
-    primary:
-        "bg-hummingbird-teal text-white hover:bg-hummingbird-sage",
+    primary: "bg-hummingbird-teal text-white hover:bg-hummingbird-sage",
     secondary:
         "border border-black/15 bg-black/5 text-slate-700 hover:bg-black/10 dark:border-white/15 dark:bg-white/5 dark:text-white/90 dark:hover:bg-white/10",
 };
@@ -64,7 +63,7 @@ export default function Button({
 
     if (href) {
         return external ? (
-            <a href={href} target="_blank" rel="noreferrer" className={cls}>
+            <a href={href} target="_blank" rel="noreferrer noopener" className={cls}>
                 {children}
             </a>
         ) : (

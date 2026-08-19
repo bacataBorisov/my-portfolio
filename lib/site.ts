@@ -24,7 +24,15 @@ export const site = {
         instagram: "https://www.instagram.com/bacata.borisov/",
     },
 
-    /** Tags shown on the hero + about page */
+    /**
+     * About-page + chat-prompt bio. Keep these in sync with role / currently.
+     */
+    about: [
+        "I'm Vasil Borisov — friends call me Baca. I'm an Electro-Technical Officer aboard Falkor (too) at Schmidt Ocean Institute.",
+        "In my free time I build navigation tools, simulators, and data plumbing between sensors and UI. Comfortable with Swift/SwiftUI for iOS/macOS, and Python/C for tooling and connectivity.",
+    ] as const,
+
+    /** Canonical skill list — subsets below are picked from this. */
     skills: [
         "Swift",
         "SwiftUI",
@@ -38,33 +46,10 @@ export const site = {
         "Embedded",
         "Serial/UDP",
         "NMEA-0183",
-    ] as string[],
+    ] as const,
 
-    /** Skills shown in the hero (subset of skills) */
-    heroSkills: [
-        "Swift",
-        "SwiftUI",
-        "iOS",
-        "macOS",
-        "Python",
-        "C",
-        "Serial/UDP",
-        "NMEA-0183",
-    ] as string[],
-
-    /** Skills shown on the about page */
-    aboutSkills: [
-        "Swift",
-        "SwiftUI",
-        "iOS",
-        "macOS",
-        "Python",
-        "C",
-        "Sockets",
-        "UDP/NMEA",
-        "RPi",
-        "Embedded",
-    ] as string[],
+    /** Used by sitemap lastModified */
+    contentUpdated: "2026-08-18",
 
     education: [
         {
@@ -108,6 +93,32 @@ export const site = {
         blobIndigo: "#3D2A7A",
     },
 } as const;
+
+/** Skills shown on the homepage tile */
+export const heroSkills = [
+    "Swift",
+    "SwiftUI",
+    "iOS",
+    "macOS",
+    "Python",
+    "C",
+    "Serial/UDP",
+    "NMEA-0183",
+] as const satisfies readonly (typeof site.skills)[number][];
+
+/** Skills shown on the about page */
+export const aboutSkills = [
+    "Swift",
+    "SwiftUI",
+    "iOS",
+    "macOS",
+    "Python",
+    "C",
+    "Sockets",
+    "UDP/NMEA",
+    "RPi",
+    "Embedded",
+] as const satisfies readonly (typeof site.skills)[number][];
 
 /** Gradient classes cycled on project cards — single source used by all pages */
 export const cardGradients = [

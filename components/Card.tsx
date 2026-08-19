@@ -12,14 +12,7 @@ type Props = {
     className?: string;
 };
 
-export default function Card({
-    title,
-    subtitle,
-    tags = [],
-    href,
-    icon,
-    className = "",
-}: Props) {
+export default function Card({ title, subtitle, tags = [], href, icon, className = "" }: Props) {
     return (
         <Link
             href={href}
@@ -40,7 +33,9 @@ export default function Card({
                 </h3>
             </div>
 
-            <p className="mt-2 text-slate-600 text-sm leading-relaxed dark:text-white/70">{subtitle}</p>
+            <p className="mt-2 text-slate-600 text-sm leading-relaxed dark:text-white/70">
+                {subtitle}
+            </p>
 
             {tags.length > 0 && (
                 <div className="mt-4 flex flex-wrap gap-2">

@@ -5,16 +5,10 @@ import Button from "@/components/Button";
 import FadeIn from "@/components/FadeIn";
 import Link from "next/link";
 import { projects } from "@/lib/projects";
-import { site, cardGradients } from "@/lib/site";
+import { site, cardGradients, heroSkills } from "@/lib/site";
 
 // ─── Shared bento tile shell ────────────────────────────────────────────────
-function Tile({
-    children,
-    className = "",
-}: {
-    children: React.ReactNode;
-    className?: string;
-}) {
+function Tile({ children, className = "" }: { children: React.ReactNode; className?: string }) {
     return (
         <div
             className={`rounded-2xl border border-black/10 bg-white/50 p-5 backdrop-blur-xl dark:border-white/10 dark:bg-white/5 ${className}`}
@@ -63,7 +57,7 @@ function SkillsTile() {
                 Tech Stack
             </p>
             <div className="flex flex-wrap gap-2">
-                {site.heroSkills.map((t) => (
+                {heroSkills.map((t) => (
                     <Badge key={t}>{t}</Badge>
                 ))}
             </div>
@@ -95,10 +89,9 @@ export default function Page() {
     const featured = projects.slice(0, 3);
 
     return (
-        <div className="mx-auto max-w-5xl px-4 pb-24 pt-10">
+        <div className="pb-8">
             {/* ── Bento grid ── */}
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-
                 {/* Row 1: Hero (2 cols) + Currently (1 col) */}
                 <FadeIn className="md:col-span-2">
                     <Tile className="flex h-full flex-col justify-between gap-6">
@@ -107,13 +100,15 @@ export default function Page() {
                                 {site.tagline}
                             </h1>
                             <p className="mt-3 max-w-lg text-slate-600 dark:text-white/70">
-                                iOS/macOS, Python & C. Building navigation tools, simulators,
-                                and connectivity apps for maritime and research environments.
+                                iOS/macOS, Python & C. Building navigation tools, simulators, and
+                                connectivity apps for maritime and research environments.
                             </p>
                         </div>
                         <div className="flex flex-wrap gap-3">
                             <Button href="/projects">View Work →</Button>
-                            <Button href="/about" variant="secondary">About Me</Button>
+                            <Button href="/about" variant="secondary">
+                                About Me
+                            </Button>
                         </div>
                     </Tile>
                 </FadeIn>
@@ -144,7 +139,6 @@ export default function Page() {
                 <FadeIn delay={0.1}>
                     <ContactTile />
                 </FadeIn>
-
             </div>
 
             {/* All projects link */}

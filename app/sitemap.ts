@@ -3,6 +3,8 @@ import { projects } from "@/lib/projects";
 import { site } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+    const lastModified = new Date(site.contentUpdated);
+
     const staticPages = [
         { url: site.url, priority: 1.0 },
         { url: `${site.url}/projects`, priority: 0.9 },
@@ -10,14 +12,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
         { url: `${site.url}/contact`, priority: 0.7 },
     ].map(({ url, priority }) => ({
         url,
-        lastModified: new Date(),
+        lastModified,
         changeFrequency: "monthly" as const,
         priority,
     }));
 
     const projectPages = projects.map((p) => ({
         url: `${site.url}/projects/${p.slug}`,
-        lastModified: new Date(),
+        lastModified,
         changeFrequency: "monthly" as const,
         priority: 0.8,
     }));

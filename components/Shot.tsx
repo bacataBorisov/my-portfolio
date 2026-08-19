@@ -12,12 +12,7 @@ type Props = {
     maxW?: number; // px
 };
 
-export default function Shot({
-    src,
-    alt,
-    aspect = 9 / 19,
-    maxW = 420,
-}: Props) {
+export default function Shot({ src, alt, aspect = 9 / 19, maxW = 420 }: Props) {
     const padTop = `${100 / aspect}%`;
 
     return (

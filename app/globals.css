@@ -7,81 +7,75 @@
 
 /* Color scheme follows the applied theme class */
 :root {
-  color-scheme: light;
+    color-scheme: light;
 }
 .dark {
-  color-scheme: dark;
+    color-scheme: dark;
 }
 
 /* ─── Hummingbird aura blobs ─────────────────────────────────────────── */
 
 .hb-aura {
-  position: fixed;
-  inset: 0;
-  z-index: -10;
-  pointer-events: none;
-  animation: hb-hue 12s linear infinite;
+    position: fixed;
+    inset: 0;
+    z-index: -10;
+    pointer-events: none;
 }
 
 .hb-blob {
-  position: absolute;
-  width: 42vw;
-  height: 42vw;
-  border-radius: 9999px;
-  filter: blur(60px);
-  /* light mode: multiply blends into the white bg */
-  mix-blend-mode: multiply;
-  opacity: 0.45;
+    position: absolute;
+    width: 32vw;
+    height: 32vw;
+    border-radius: 9999px;
+    filter: blur(48px);
+    mix-blend-mode: multiply;
+    opacity: 0.32;
 }
 
-/* In dark mode: switch to screen blend for the glowing effect */
 .dark .hb-blob {
-  mix-blend-mode: screen;
-  opacity: 0.38;
+    mix-blend-mode: screen;
+    opacity: 0.28;
 }
 
 /* Colors match site.colors.blobTeal/Aqua/Indigo from lib/site.ts */
 .hb-blob.teal {
-  background: radial-gradient(closest-side, #3E8C86 0%, transparent 70%);
-  left: -12vw;
-  top: -10vh;
-  animation: hb-float 10s ease-in-out infinite;
-  animation-delay: 0s;
+    background: radial-gradient(closest-side, #3e8c86 0%, transparent 70%);
+    left: -12vw;
+    top: -10vh;
+    animation: hb-float 10s ease-in-out infinite;
+    animation-delay: 0s;
 }
 
 .hb-blob.aqua {
-  background: radial-gradient(closest-side, #8FD9DB 0%, transparent 70%);
-  right: -16vw;
-  top: 22vh;
-  animation: hb-float 11s ease-in-out infinite;
-  animation-delay: 0.7s;
+    background: radial-gradient(closest-side, #8fd9db 0%, transparent 70%);
+    right: -16vw;
+    top: 22vh;
+    animation: hb-float 11s ease-in-out infinite;
+    animation-delay: 0.7s;
 }
 
 .hb-blob.indigo {
-  background: radial-gradient(closest-side, #3D2A7A 0%, transparent 70%);
-  left: 20vw;
-  bottom: -12vh;
-  animation: hb-float 12s ease-in-out infinite;
-  animation-delay: 1.4s;
+    background: radial-gradient(closest-side, #3d2a7a 0%, transparent 70%);
+    left: 20vw;
+    bottom: -12vh;
+    animation: hb-float 12s ease-in-out infinite;
+    animation-delay: 1.4s;
 }
 
 @keyframes hb-float {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
 
-  50% {
-    transform: translate(10vw, -6vh) scale(1.12);
-  }
+    50% {
+        transform: translate(10vw, -6vh) scale(1.12);
+    }
 }
 
-@keyframes hb-hue {
-  0% {
-    filter: hue-rotate(0deg);
-  }
-
-  100% {
-    filter: hue-rotate(18deg);
-  }
+@media (prefers-reduced-motion: reduce) {
+    .hb-aura,
+    .hb-blob {
+        animation: none !important;
+    }
 }

@@ -2,15 +2,25 @@ import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 import { site } from "@/lib/site";
 import { projects } from "@/lib/projects";
+import { clientIp, rateLimit } from "@/lib/rateLimit";
+
+const MAX_MESSAGES = 20;
+const MAX_CONTENT = 500;
+const RATE_LIMIT = 10;
+const RATE_WINDOW_MS = 10 * 60 * 1000;
+
+type ChatRole = "user" | "assistant";
+type ChatMessage = { role: ChatRole; content: string };
 
 function buildSystemPrompt() {
     const educationLines = site.education
-        .map((e) => `- ${e.degree}${e.status === "in progress" ? " (in progress)" : ""} — ${e.school}`)
+        .map(
+            (e) =>
+                `- ${e.degree}${e.status === "in progress" ? " (in progress)" : ""} — ${e.school}`
+        )
         .join("\n");
 
-    const projectLines = projects
-        .map((p, i) => `${i + 1}. ${p.title} — ${p.summary}`)
-        .join("\n");
+    const projectLines = projects.map((p, i) => `${i + 1}. ${p.title} — ${p.summary}`).join("\n");
 
     const skillLines = site.skills.join(", ");
 
@@ -20,10 +30,8 @@ Your job is to answer questions about ${site.name} in a concise, warm, and profe
 Here is everything you know about ${site.name}:
 
 ABOUT:
-- Full name: ${site.name}, also goes by "${site.nickname}" with friends
-- Current role: ${site.role}
+${site.about.map((p) => `- ${p}`).join("\n")}
 - He is transitioning into software engineering — programming started as a hobby and has grown into a serious passion
-- He builds navigation tools, simulators, and data bridges between marine sensors and mobile/desktop UIs
 
 SKILLS:
 ${skillLines}
@@ -54,22 +62,45 @@ INSTRUCTIONS:
 - Don't pretend to be ${site.name} himself — you're an assistant on his behalf`;
 }
 
+function sanitizeMessages(raw: unknown): ChatMessage[] | null {
+    if (!Array.isArray(raw) || raw.length === 0) return null;
+
+    const out: ChatMessage[] = [];
+    for (const item of raw.slice(-MAX_MESSAGES)) {
+        if (!item || typeof item !== "object") continue;
+        const role = (item as { role?: unknown }).role;
+        const content = (item as { content?: unknown }).content;
+        if (role !== "user" && role !== "assistant") continue;
+        if (typeof content !== "string") continue;
+        const trimmed = content.trim().slice(0, MAX_CONTENT);
+        if (!trimmed) continue;
+        out.push({ role, content: trimmed });
+    }
+
+    return out.length ? out : null;
+}
+
 export async function POST(req: NextRequest) {
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) {
+        return NextResponse.json({ error: "Chat is not configured yet." }, { status: 503 });
+    }
+
+    if (!rateLimit("chat", clientIp(req), RATE_LIMIT, RATE_WINDOW_MS)) {
         return NextResponse.json(
-            { error: "Chat is not configured yet." },
-            { status: 503 }
+            { error: "Too many messages — try again in a few minutes." },
+            { status: 429 }
         );
     }
 
-    let messages: { role: "user" | "assistant"; content: string }[];
+    let messages: ChatMessage[];
     try {
         const body = await req.json();
-        messages = body.messages;
-        if (!Array.isArray(messages) || messages.length === 0) {
+        const sanitized = sanitizeMessages(body.messages);
+        if (!sanitized) {
             return NextResponse.json({ error: "Invalid messages." }, { status: 400 });
         }
+        messages = sanitized;
     } catch {
         return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
     }
@@ -79,21 +110,19 @@ export async function POST(req: NextRequest) {
     try {
         const completion = await client.chat.completions.create({
             model: "gpt-4o-mini",
-            messages: [
-                { role: "system", content: buildSystemPrompt() },
-                ...messages,
-            ],
+            messages: [{ role: "system", content: buildSystemPrompt() }, ...messages],
             max_tokens: 300,
             temperature: 0.7,
         });
 
-        const reply = completion.choices[0]?.message?.content ?? "Sorry, I couldn't generate a response.";
+        const reply =
+            completion.choices[0]?.message?.content ?? "Sorry, I couldn't generate a response.";
         return NextResponse.json({ reply });
     } catch (err) {
         const message = err instanceof Error ? err.message : String(err);
         console.error("[chat] OpenAI error:", message);
         return NextResponse.json(
-            { error: `OpenAI error: ${message}` },
+            { error: "The assistant is unavailable right now. Please try again." },
             { status: 502 }
         );
     }

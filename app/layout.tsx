@@ -6,7 +6,7 @@ import NavLinks from "@/components/NavLinks";
 import Image from "next/image";
 import HummingbirdAura from "@/components/HummingbirdAura";
 import { Analytics } from "@vercel/analytics/next";
-import ChatWidget from "@/components/ChatWidget";
+import ChatWidgetLazy from "@/components/ChatWidgetLazy";
 import ThemeProvider from "@/components/ThemeProvider";
 import { site } from "@/lib/site";
 
@@ -17,83 +17,113 @@ const personSchema = {
     url: site.url,
     email: site.email,
     jobTitle: "Electro-Technical Officer / Software Engineer",
-    sameAs: [
-        site.social.github,
-        site.social.linkedin,
-        site.social.instagram,
-    ],
+    sameAs: [site.social.github, site.social.linkedin, site.social.instagram],
 };
 
 export const metadata: Metadata = {
-  title: `${site.name} — Portfolio`,
-  description: site.description,
-  metadataBase: new URL(site.url),
-  openGraph: {
-    type: "website",
-    url: site.url,
-    title: `${site.name} — Portfolio`,
-    description: site.ogDescription,
-    siteName: site.name,
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: `${site.name} — Portfolio`,
-    description: site.ogDescription,
-  },
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-  },
+    title: {
+        default: `${site.name} — Portfolio`,
+        template: `%s — ${site.name}`,
+    },
+    description: site.description,
+    metadataBase: new URL(site.url),
+    openGraph: {
+        type: "website",
+        url: site.url,
+        title: `${site.name} — Portfolio`,
+        description: site.ogDescription,
+        siteName: site.name,
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: `${site.name} — Portfolio`,
+        description: site.ogDescription,
+    },
+    icons: {
+        icon: "/favicon.ico",
+        shortcut: "/favicon.ico",
+    },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="flex flex-col min-h-screen relative antialiased text-slate-900 dark:text-white">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
-        />
+    const year = new Date().getFullYear();
 
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-
-          {/* Static gradient background — light & dark variants */}
-          <div className="fixed inset-0 -z-10 bg-gradient-to-br from-hummingbird-aqua/30 via-white to-hummingbird-sage/20 blur-3xl dark:from-hummingbird-teal dark:via-hummingbird-aqua/30 dark:to-hummingbird-indigo/80" />
-
-          {/* Hummingbird animated aura — only on homepage */}
-          <HummingbirdAura />
-
-          {/* Top navigation bar */}
-          <div className="sticky top-0 z-50 border-b border-black/10 bg-white/80 backdrop-blur-xl dark:border-white/10 dark:bg-black/30">
-            <nav className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
-              <Link href="/" className="flex items-center gap-2">
-                <Image
-                  src="/icons/brand-bb.png"
-                  alt="Home"
-                  width={50}
-                  height={50}
-                  className="rounded-full"
+    return (
+        <html lang="en" suppressHydrationWarning>
+            <body className="flex flex-col min-h-screen relative antialiased text-slate-900 dark:text-white">
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
                 />
-              </Link>
-              <NavLinks />
-            </nav>
-          </div>
 
-          {/* Main content area */}
-          <main className="flex-grow mx-auto w-full max-w-5xl px-4 py-10">
-            <RouteTransition>{children}</RouteTransition>
-          </main>
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                    disableTransitionOnChange
+                >
+                    <a
+                        href="#main-content"
+                        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:text-slate-900 dark:focus:bg-black dark:focus:text-white"
+                    >
+                        Skip to content
+                    </a>
 
-          {/* Footer */}
-          <footer className="border-t border-hummingbird-aqua/20 text-center text-xs text-hummingbird-teal/70 py-3 dark:border-hummingbird-aqua/15 dark:text-hummingbird-aqua/60">
-            Color palette inspired by the hummingbird.
-          </footer>
+                    <div className="fixed inset-0 -z-10 bg-gradient-to-br from-hummingbird-aqua/30 via-white to-hummingbird-sage/20 blur-3xl dark:from-hummingbird-teal dark:via-hummingbird-aqua/30 dark:to-hummingbird-indigo/80" />
 
-          <Analytics />
-          <ChatWidget />
+                    <HummingbirdAura />
 
-        </ThemeProvider>
-      </body>
-    </html>
-  );
+                    <div className="sticky top-0 z-50 border-b border-black/10 bg-white/80 backdrop-blur-xl dark:border-white/10 dark:bg-black/30">
+                        <nav className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
+                            <Link href="/" className="flex items-center gap-2">
+                                <Image
+                                    src="/icons/brand-bb.png"
+                                    alt="Home"
+                                    width={50}
+                                    height={50}
+                                    className="rounded-full"
+                                />
+                            </Link>
+                            <NavLinks />
+                        </nav>
+                    </div>
+
+                    <main
+                        id="main-content"
+                        className="mx-auto w-full max-w-5xl flex-grow px-4 py-10"
+                    >
+                        <RouteTransition>{children}</RouteTransition>
+                    </main>
+
+                    <footer className="border-t border-hummingbird-aqua/20 py-4 text-xs text-hummingbird-teal/70 dark:border-hummingbird-aqua/15 dark:text-hummingbird-aqua/60">
+                        <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-2 px-4 sm:flex-row">
+                            <p>
+                                © {year} {site.name}
+                            </p>
+                            <p>Color palette inspired by the hummingbird.</p>
+                            <p className="flex gap-3">
+                                <a
+                                    href={`mailto:${site.email}`}
+                                    className="hover:text-hummingbird-teal dark:hover:text-hummingbird-aqua"
+                                >
+                                    Email
+                                </a>
+                                <a
+                                    href={site.social.github}
+                                    target="_blank"
+                                    rel="noreferrer noopener"
+                                    className="hover:text-hummingbird-teal dark:hover:text-hummingbird-aqua"
+                                >
+                                    GitHub
+                                </a>
+                            </p>
+                        </div>
+                    </footer>
+
+                    <Analytics />
+                    <ChatWidgetLazy />
+                </ThemeProvider>
+            </body>
+        </html>
+    );
 }

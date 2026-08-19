@@ -23,7 +23,7 @@ export async function generateMetadata({
     const project = projects.find((p) => p.slug === slug);
     if (!project) return {};
 
-    const title = `${project.title} — ${site.name}`;
+    const title = project.title;
     const description = project.summary;
 
     return {
@@ -43,11 +43,7 @@ export async function generateMetadata({
     };
 }
 
-export default async function ProjectPage({
-    params,
-}: {
-    params: Promise<{ slug: string }>;
-}) {
+export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
     const project = projects.find((p) => p.slug === slug);
     if (!project) return notFound();
@@ -55,7 +51,7 @@ export default async function ProjectPage({
     const { title, summary, tags, highlights, repoUrl, demoLinks, icon, coverAspect } = project;
 
     return (
-        <main className="mx-auto max-w-3xl px-4 py-10 space-y-10">
+        <div className="mx-auto max-w-3xl space-y-10">
             {/* Back link */}
             <Button href="/projects" variant="secondary" size="sm">
                 ← All projects
@@ -119,7 +115,7 @@ export default async function ProjectPage({
             ) : null}
 
             {/* Links */}
-            {(demoLinks?.length || repoUrl) ? (
+            {demoLinks?.length || repoUrl ? (
                 <div className="flex flex-wrap items-center gap-3">
                     {demoLinks?.map((d, i) => (
                         <Button key={i} href={d.href} variant="secondary" external>
@@ -133,6 +129,6 @@ export default async function ProjectPage({
                     )}
                 </div>
             ) : null}
-        </main>
+        </div>
     );
 }

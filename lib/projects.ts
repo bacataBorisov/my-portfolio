@@ -52,16 +52,13 @@ export const projects: Project[] = [
     },
 
     {
-        slug: "nmeasimulator",
+        slug: "marine-simulator",
         title: "MarineSimulator",
         icon: "/icons/simulator_icon.png",
         summary:
             "A macOS app (SwiftUI + MapKit) for simulating and visualizing marine navigation data without needing onboard instruments. Ideal for prototyping, testing, and demos of NMEA-style (not-only) workflows.",
         tags: ["macOS", "SwiftUI", "Serial", "UDP", "Random Generators"],
-        covers: [
-            "/images/dashboard.png",
-            "/images/configuration_page.png",
-        ],
+        covers: ["/images/dashboard.png", "/images/configuration_page.png"],
         highlights: [
             "🧭 Real-time simulation of vessel data (GPS, Compass, Wind, Speed & Depth)",
             "🗺️ Interactive MapKit view with a custom boat marker and smooth heading animation",
@@ -69,7 +66,7 @@ export const projects: Project[] = [
             "🎚️ Compact control panels (left) for quick tuning via sliders",
             "📊 Inspector panel (right) for live readouts and instrument widgets",
             "📡 UDP broadcast of NMEA-like sentences for external consumers",
-            "🧱 SwiftUI-first architecture with clean, extendable components"
+            "🧱 SwiftUI-first architecture with clean, extendable components",
         ],
         repoUrl: "https://github.com/bacataBorisov/MarineSimulator.git",
     },
@@ -78,8 +75,7 @@ export const projects: Project[] = [
         slug: "sowify",
         title: "Sowify",
         icon: "/icons/sowify_icon.png",
-        summary:
-            "Reads serial signals and publishes them to phones/tablets in real time.",
+        summary: "Reads serial signals and publishes them to phones/tablets in real time.",
         tags: ["C", "Python", "Sockets", "iOS client", "Swift", "RPi", "MQTT", "Serial Comm"],
         covers: ["/images/iphone_sowify.png"],
         coverAspect: 863 / 1722,
@@ -102,7 +98,3 @@ export const projects: Project[] = [
         ],
     },
 ];
-
-export function getBySlug(slug: string) {
-    return projects.find((p) => p.slug === slug);
-}

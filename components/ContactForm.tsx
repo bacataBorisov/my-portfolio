@@ -9,6 +9,7 @@ export default function ContactForm() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
+    const [company, setCompany] = useState("");
     const [status, setStatus] = useState<Status>("idle");
     const [errorMsg, setErrorMsg] = useState("");
 
@@ -21,7 +22,7 @@ export default function ContactForm() {
             const res = await fetch("/api/contact", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, email, message }),
+                body: JSON.stringify({ name, email, message, company }),
             });
             const data = await res.json();
             if (!res.ok) {
@@ -58,16 +59,32 @@ export default function ContactForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit} noValidate className="space-y-4">
+        <form onSubmit={handleSubmit} noValidate className="relative space-y-4">
+            <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden>
+                <label htmlFor="contact-company">Company</label>
+                <input
+                    id="contact-company"
+                    name="company"
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={company}
+                    onChange={(e) => setCompany(e.target.value)}
+                />
+            </div>
             <div className="grid gap-4 sm:grid-cols-2">
                 <div className="flex flex-col gap-1">
-                    <label htmlFor="contact-name" className="text-sm font-medium text-slate-700 dark:text-white/80">
+                    <label
+                        htmlFor="contact-name"
+                        className="text-sm font-medium text-slate-700 dark:text-white/80"
+                    >
                         Name
                     </label>
                     <input
                         id="contact-name"
                         type="text"
                         required
+                        maxLength={100}
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Your name"
@@ -75,7 +92,10 @@ export default function ContactForm() {
                     />
                 </div>
                 <div className="flex flex-col gap-1">
-                    <label htmlFor="contact-email" className="text-sm font-medium text-slate-700 dark:text-white/80">
+                    <label
+                        htmlFor="contact-email"
+                        className="text-sm font-medium text-slate-700 dark:text-white/80"
+                    >
                         Email
                     </label>
                     <input
@@ -91,12 +111,16 @@ export default function ContactForm() {
             </div>
 
             <div className="flex flex-col gap-1">
-                <label htmlFor="contact-message" className="text-sm font-medium text-slate-700 dark:text-white/80">
+                <label
+                    htmlFor="contact-message"
+                    className="text-sm font-medium text-slate-700 dark:text-white/80"
+                >
                     Message
                 </label>
                 <textarea
                     id="contact-message"
                     required
+                    maxLength={2000}
                     rows={5}
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}

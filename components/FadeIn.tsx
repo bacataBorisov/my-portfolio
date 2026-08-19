@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 type Props = {
     children: React.ReactNode;
@@ -11,17 +11,18 @@ type Props = {
     from?: "bottom" | "left" | "right" | "none";
 };
 
-export default function FadeIn({
-    children,
-    className,
-    delay = 0,
-    from = "bottom",
-}: Props) {
+export default function FadeIn({ children, className, delay = 0, from = "bottom" }: Props) {
+    const reduce = useReducedMotion();
+
+    if (reduce) {
+        return <div className={className}>{children}</div>;
+    }
+
     const offsets = {
         bottom: { y: 20, x: 0 },
-        left:   { y: 0,  x: -20 },
-        right:  { y: 0,  x: 20 },
-        none:   { y: 0,  x: 0 },
+        left: { y: 0, x: -20 },
+        right: { y: 0, x: 20 },
+        none: { y: 0, x: 0 },
     };
 
     return (
@@ -29,8 +30,8 @@ export default function FadeIn({
             className={className}
             initial={{ opacity: 0, ...offsets[from] }}
             whileInView={{ opacity: 1, y: 0, x: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.5, ease: "easeOut", delay }}
+            viewport={{ once: true, margin: "-20px" }}
+            transition={{ duration: 0.35, ease: "easeOut", delay }}
         >
             {children}
         </motion.div>

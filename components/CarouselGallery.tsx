@@ -25,9 +25,7 @@ export default function CarouselGallery({
     const [open, setOpen] = useState<number | null>(null);
 
     // Per-image aspect cache (w/h)
-    const [ratios, setRatios] = useState<number[]>(
-        () => new Array(shots.length).fill(NaN)
-    );
+    const [ratios, setRatios] = useState<number[]>(() => new Array(shots.length).fill(NaN));
 
     // Keen slider
     const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
@@ -83,7 +81,8 @@ export default function CarouselGallery({
         const onKey = (e: KeyboardEvent) => {
             if (e.key === "Escape") setOpen(null);
             if (e.key === "ArrowLeft") setOpen((i) => (i === null ? null : Math.max(0, i - 1)));
-            if (e.key === "ArrowRight") setOpen((i) => (i === null ? null : Math.min(shots.length - 1, i + 1)));
+            if (e.key === "ArrowRight")
+                setOpen((i) => (i === null ? null : Math.min(shots.length - 1, i + 1)));
         };
         window.addEventListener("keydown", onKey);
         return () => window.removeEventListener("keydown", onKey);
@@ -114,7 +113,10 @@ export default function CarouselGallery({
                 style={{ maxHeight: `min(${maxBase}vh, 900px)` }}
             >
                 {shots.map((src, i) => (
-                    <div key={src + i} className="keen-slider__slide flex items-center justify-center">
+                    <div
+                        key={src + i}
+                        className="keen-slider__slide flex items-center justify-center"
+                    >
                         <div
                             className="relative w-full bg-slate-100/50 dark:bg-black/20"
                             style={{ aspectRatio: String(getAspect(i)) }}
@@ -159,8 +161,11 @@ export default function CarouselGallery({
                             key={i}
                             aria-label={`Go to slide ${i + 1}`}
                             onClick={() => instanceRef.current?.moveToIdx(i)}
-                            className={`h-1.5 w-4 rounded-full transition ${current === i ? "bg-hummingbird-teal dark:bg-hummingbird-aqua" : "bg-black/20 hover:bg-black/30 dark:bg-white/25 dark:hover:bg-white/40"
-                                }`}
+                            className={`h-1.5 w-4 rounded-full transition ${
+                                current === i
+                                    ? "bg-hummingbird-teal dark:bg-hummingbird-aqua"
+                                    : "bg-black/20 hover:bg-black/30 dark:bg-white/25 dark:hover:bg-white/40"
+                            }`}
                         />
                     ))}
                 </div>
@@ -207,7 +212,9 @@ export default function CarouselGallery({
                                         <IconButton
                                             className="absolute right-3 top-1/2 -translate-y-1/2"
                                             label="Next"
-                                            onClick={() => setOpen(Math.min(shots.length - 1, open + 1))}
+                                            onClick={() =>
+                                                setOpen(Math.min(shots.length - 1, open + 1))
+                                            }
                                             icon="›"
                                         />
                                     </>
@@ -224,17 +231,17 @@ export default function CarouselGallery({
 
             {/* Responsive max-height caps */}
             <style jsx global>{`
-        @media (min-width: 768px) {
-          .keen-slider[style] {
-            max-height: min(${maxMd}vh, 900px) !important;
-          }
-        }
-        @media (min-width: 1024px) {
-          .keen-slider[style] {
-            max-height: min(${maxLg}vh, 900px) !important;
-          }
-        }
-      `}</style>
+                @media (min-width: 768px) {
+                    .keen-slider[style] {
+                        max-height: min(${maxMd}vh, 900px) !important;
+                    }
+                }
+                @media (min-width: 1024px) {
+                    .keen-slider[style] {
+                        max-height: min(${maxLg}vh, 900px) !important;
+                    }
+                }
+            `}</style>
         </div>
     );
 }
