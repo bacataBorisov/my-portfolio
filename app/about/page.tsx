@@ -92,6 +92,13 @@ export default function AboutPage() {
             </FadeIn>
 
             <p className="mt-12 text-sm text-slate-500 dark:text-white/60">
+                <Link
+                    className="underline hover:text-hummingbird-teal dark:hover:text-hummingbird-aqua"
+                    href="/experience"
+                >
+                    See the full timeline →
+                </Link>
+                {" · "}
                 Want to chat or collaborate?{" "}
                 <Link
                     className="underline hover:text-hummingbird-teal dark:hover:text-hummingbird-aqua"

@@ -19,17 +19,27 @@ export default function Card({ title, subtitle, tags = [], href, icon, className
             className={`flex flex-col rounded-xl border border-black/10 bg-white/40 p-4 backdrop-blur transition hover:border-hummingbird-teal/40 dark:border-white/10 dark:bg-white/5 dark:hover:border-hummingbird-aqua/30 ${className}`}
         >
             <div className="flex items-center gap-3">
-                {icon && (
-                    <Image
-                        src={icon}
-                        alt={`${title} icon`}
-                        width={38}
-                        height={38}
-                        sizes="38px"
-                        unoptimized
-                        className="h-[38px] w-[38px] rounded-md border border-black/10 dark:border-white/10"
-                    />
-                )}
+                {icon &&
+                    (icon.endsWith(".svg") ? (
+                        // eslint-disable-next-line @next/next/no-img-element -- static SVG icon
+                        <img
+                            src={icon}
+                            alt={`${title} icon`}
+                            width={38}
+                            height={38}
+                            className="h-[38px] w-[38px] rounded-md border border-black/10 dark:border-white/10"
+                        />
+                    ) : (
+                        <Image
+                            src={icon}
+                            alt={`${title} icon`}
+                            width={38}
+                            height={38}
+                            sizes="38px"
+                            unoptimized
+                            className="h-[38px] w-[38px] rounded-md border border-black/10 dark:border-white/10"
+                        />
+                    ))}
                 <h3 className="text-slate-900 text-lg font-semibold tracking-tight dark:text-white">
                     {title}
                 </h3>

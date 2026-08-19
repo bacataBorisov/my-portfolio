@@ -16,6 +16,29 @@ export type Project = {
 
 export const projects: Project[] = [
     {
+        slug: "mlm-no-limit",
+        icon: "/icons/mlm_no_limit_icon.svg",
+        title: "MLM No Limit",
+        summary:
+            "Free iOS & Android educational platform for structured training, personal development, and progress tracking in network marketing.",
+        tags: ["iOS", "Android", "Mobile", "Education", "Swift"],
+        highlights: [
+            "Structured training modules users can follow at their own pace",
+            "Interactive surveys and progress tracking for continuous improvement",
+            "Built to develop discipline, communication, and goal-setting habits",
+            "Magic-link login with reliable cold-start and background handling",
+            "Published on Google Play — iOS release in progress",
+            "Designed and developed end-to-end by Vasil Borisov",
+        ],
+        demoLinks: [
+            {
+                label: "Google Play",
+                href: "https://play.google.com/store/apps/details?id=com.mlmnolimit.mobile",
+            },
+        ],
+    },
+
+    {
         slug: "extasy-navigation",
         icon: "/icons/extasy_sail_free_icon.png",
         title: "Extasy Complete Navigation",

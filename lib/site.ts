@@ -29,7 +29,7 @@ export const site = {
      */
     about: [
         "I'm Vasil Borisov — friends call me Baca. I'm an Electro-Technical Officer aboard Falkor (too) at Schmidt Ocean Institute.",
-        "In my free time I build navigation tools, simulators, and data plumbing between sensors and UI. Comfortable with Swift/SwiftUI for iOS/macOS, and Python/C for tooling and connectivity.",
+        "In my free time I build navigation tools, simulators, and mobile apps — including MLM No Limit, a training platform on iOS and Android. Comfortable with Swift/SwiftUI for iOS/macOS, and Python/C for tooling and connectivity.",
     ] as const,
 
     /** Canonical skill list — subsets below are picked from this. */
@@ -49,7 +49,7 @@ export const site = {
     ] as const,
 
     /** Used by sitemap lastModified */
-    contentUpdated: "2026-08-18",
+    contentUpdated: "2026-08-19",
 
     education: [
         {

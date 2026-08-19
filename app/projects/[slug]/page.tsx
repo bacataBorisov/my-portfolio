@@ -60,17 +60,27 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             {/* Header */}
             <header>
                 <h1 className="flex items-center gap-3 text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">
-                    {icon && (
-                        <Image
-                            src={icon}
-                            alt={`${title} icon`}
-                            width={48}
-                            height={48}
-                            sizes="48px"
-                            unoptimized
-                            className="h-12 w-12 rounded-lg border border-black/10 dark:border-white/20"
-                        />
-                    )}
+                    {icon &&
+                        (icon.endsWith(".svg") ? (
+                            // eslint-disable-next-line @next/next/no-img-element -- static SVG icon
+                            <img
+                                src={icon}
+                                alt={`${title} icon`}
+                                width={48}
+                                height={48}
+                                className="h-12 w-12 rounded-lg border border-black/10 dark:border-white/20"
+                            />
+                        ) : (
+                            <Image
+                                src={icon}
+                                alt={`${title} icon`}
+                                width={48}
+                                height={48}
+                                sizes="48px"
+                                unoptimized
+                                className="h-12 w-12 rounded-lg border border-black/10 dark:border-white/20"
+                            />
+                        ))}
                     {title}
                 </h1>
                 {summary && <p className="mt-2 text-slate-600 dark:text-white/70">{summary}</p>}

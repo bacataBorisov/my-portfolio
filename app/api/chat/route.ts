@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 import { site } from "@/lib/site";
 import { projects } from "@/lib/projects";
+import { experience, formatRange } from "@/lib/experience";
 import { clientIp, rateLimit } from "@/lib/rateLimit";
 
 const MAX_MESSAGES = 20;
@@ -21,6 +22,10 @@ function buildSystemPrompt() {
         .join("\n");
 
     const projectLines = projects.map((p, i) => `${i + 1}. ${p.title} — ${p.summary}`).join("\n");
+
+    const experienceLines = experience
+        .map((e) => `- ${e.title} @ ${e.org} (${formatRange(e.start, e.end)})`)
+        .join("\n");
 
     const skillLines = site.skills.join(", ");
 
@@ -43,6 +48,9 @@ ${educationLines}
 PROJECTS:
 ${projectLines}
 
+EXPERIENCE (parallel roles — see /experience for timeline):
+${experienceLines}
+
 CONTACT:
 - Email: ${site.email}
 - LinkedIn: ${site.social.linkedin}
@@ -58,7 +66,7 @@ INSTRUCTIONS:
 - Keep responses concise (2–4 sentences max) unless asked to elaborate
 - Be warm and friendly, like a proud colleague introducing ${site.name}
 - If asked something you don't know, say so honestly — don't make things up
-- Direct visitors to the relevant pages or contact email for deeper questions
+- Direct visitors to the relevant pages (/projects, /experience, /about, /contact) or contact email for deeper questions
 - Don't pretend to be ${site.name} himself — you're an assistant on his behalf`;
 }
 

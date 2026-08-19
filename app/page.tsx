@@ -106,6 +106,9 @@ export default function Page() {
                         </div>
                         <div className="flex flex-wrap gap-3">
                             <Button href="/projects">View Work →</Button>
+                            <Button href="/experience" variant="secondary">
+                                Experience
+                            </Button>
                             <Button href="/about" variant="secondary">
                                 About Me
                             </Button>
@@ -149,6 +152,13 @@ export default function Page() {
                         className="text-sm text-slate-400 underline-offset-4 hover:text-hummingbird-teal hover:underline dark:text-white/40 dark:hover:text-hummingbird-aqua"
                     >
                         See all projects →
+                    </Link>
+                    <span className="mx-2 text-slate-300 dark:text-white/20">·</span>
+                    <Link
+                        href="/experience"
+                        className="text-sm text-slate-400 underline-offset-4 hover:text-hummingbird-teal hover:underline dark:text-white/40 dark:hover:text-hummingbird-aqua"
+                    >
+                        See the timeline →
                     </Link>
                 </div>
             </FadeIn>
