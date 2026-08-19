@@ -23,8 +23,10 @@ export default function AboutPage() {
                     <Image
                         src="/me.jpeg"
                         alt={`Photo of ${site.name}`}
-                        width={360}
-                        height={360}
+                        width={160}
+                        height={160}
+                        sizes="160px"
+                        unoptimized
                         className="h-40 w-40 rounded-4xl object-cover border border-black/10 dark:border-white/20"
                     />
 
