@@ -52,7 +52,7 @@ function CurrentlyTile() {
 // ─── Skills tile ─────────────────────────────────────────────────────────────
 function SkillsTile() {
     return (
-        <Tile className="flex flex-col gap-3">
+        <Tile className="flex h-full flex-col gap-3">
             <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-white/40">
                 Skills
             </p>
@@ -68,7 +68,7 @@ function SkillsTile() {
 // ─── Contact CTA tile ────────────────────────────────────────────────────────
 function ContactTile() {
     return (
-        <Tile className="flex flex-col justify-between gap-4 bg-gradient-to-br from-hummingbird-teal/20 to-hummingbird-aqua/10 dark:from-hummingbird-teal/30 dark:to-hummingbird-aqua/10">
+        <Tile className="flex h-full flex-col justify-between gap-4 bg-gradient-to-br from-hummingbird-teal/20 to-hummingbird-aqua/10 dark:from-hummingbird-teal/30 dark:to-hummingbird-aqua/10">
             <div>
                 <p className="text-xs font-semibold uppercase tracking-widest text-hummingbird-teal dark:text-hummingbird-aqua">
                     Let&apos;s collaborate
@@ -135,11 +135,11 @@ export default function Page() {
                 ))}
 
                 {/* Row 3: Skills (2 cols) + Contact CTA (1 col) */}
-                <FadeIn className="md:col-span-1 lg:col-span-2" delay={0.05}>
+                <FadeIn className="h-full md:col-span-1 lg:col-span-2" delay={0.05}>
                     <SkillsTile />
                 </FadeIn>
 
-                <FadeIn delay={0.1}>
+                <FadeIn className="h-full" delay={0.1}>
                     <ContactTile />
                 </FadeIn>
             </div>

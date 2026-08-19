@@ -107,10 +107,11 @@ export const projects: Project[] = [
         tags: ["macOS", "SwiftUI", "NMEA 0183", "UDP", "TCP", "MapKit"],
         coverDevice: "macos",
         covers: [
-            "/images/simulator_dashboard.png",
-            "/images/simulator_connection.png",
-            "/images/simulator_simulation.png",
-            "/images/simulator_manual.png",
+            "/images/simulator_dashboard.jpg",
+            "/images/simulator_connection.jpg",
+            "/images/simulator_simulation.jpg",
+            "/images/simulator_manual.jpg",
+            "/images/simulator_gps.jpg",
         ],
         highlights: [
             "Generates coherent vessel state — not unrelated random sensor values",
