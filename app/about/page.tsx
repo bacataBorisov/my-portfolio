@@ -17,6 +17,9 @@ export default function AboutPage() {
             <h1 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">
                 About
             </h1>
+            <p className="mt-1 text-sm text-hummingbird-teal dark:text-hummingbird-aqua">
+                {site.professionalTitle}
+            </p>
 
             <FadeIn>
                 <div className="mt-6 flex flex-col items-center gap-6 md:flex-row md:items-start">
@@ -36,11 +39,6 @@ export default function AboutPage() {
                                 {paragraph}
                             </p>
                         ))}
-
-                        <p className="text-slate-500 italic dark:text-white/70">
-                            Programming started as a hobby, but has grown into a passion I&apos;m
-                            committed to turning into a professional path.
-                        </p>
                     </div>
                 </div>
             </FadeIn>
@@ -74,18 +72,23 @@ export default function AboutPage() {
 
             <FadeIn delay={0.05}>
                 <div className="mt-4">
+                    <Section title="Languages">
+                        <ul className="list-disc pl-5 text-slate-600 space-y-1 dark:text-white/70">
+                            {site.languages.map((l) => (
+                                <li key={l.name}>
+                                    {l.name} — {l.level}
+                                </li>
+                            ))}
+                        </ul>
+                    </Section>
+                </div>
+            </FadeIn>
+
+            <FadeIn delay={0.05}>
+                <div className="mt-4">
                     <Section title="Beyond Engineering">
                         <p className="text-slate-600 dark:text-white/70">
-                            In addition to my technical work, I manage a team at{" "}
-                            <strong className="text-slate-800 dark:text-white/90">
-                                Oriflame (Health & Beauty)
-                            </strong>
-                            , developing leadership and communication skills. I&apos;m also a
-                            passionate{" "}
-                            <strong className="text-slate-800 dark:text-white/90">sailor</strong>,
-                            which inspires much of my navigation software, and I enjoy playing the{" "}
-                            <strong className="text-slate-800 dark:text-white/90">guitar</strong> in
-                            my free time.
+                            {site.beyondEngineering}
                         </p>
                     </Section>
                 </div>

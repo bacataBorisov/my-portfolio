@@ -38,6 +38,11 @@ const nextConfig = {
                 destination: "/projects/marine-simulator",
                 permanent: true,
             },
+            {
+                source: "/projects/extasy-navigation",
+                destination: "/projects/extasy-complete-navigation",
+                permanent: true,
+            },
         ];
     },
 };

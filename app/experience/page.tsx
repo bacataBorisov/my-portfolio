@@ -17,9 +17,9 @@ export default function ExperiencePage() {
                     Experience
                 </h1>
                 <p className="mt-2 max-w-2xl text-slate-600 dark:text-white/70">
-                    A horizontal view of what ran in parallel — research vessel duty at Schmidt
-                    Ocean Institute, team leadership at Oriflame, naval academy studies, and the
-                    navigation apps I build alongside it all.
+                    Fourteen years at sea — from product carriers through cruise and container ships
+                    to research vessel duty aboard Falkor (too) — alongside software products,
+                    Oriflame leadership, and naval academy studies.
                 </p>
             </FadeIn>
 

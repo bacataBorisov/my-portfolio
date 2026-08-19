@@ -1,8 +1,6 @@
 // lib/experience.ts
-// ─────────────────────────────────────────────────────────────────────────────
-// Career timeline data. Update dates when you refine your history — bars are
-// positioned from start/end month strings (YYYY-MM). end: null = present.
-// ─────────────────────────────────────────────────────────────────────────────
+// Career timeline — YYYY-MM dates. Where only a year is verified, months use Jan/Dec.
+// Refine exact months when CV dates are confirmed.
 
 export type Track = "sea" | "business" | "education" | "software";
 
@@ -11,9 +9,7 @@ export type ExperienceItem = {
     title: string;
     org: string;
     track: Track;
-    /** ISO month, e.g. "2022-09" */
     start: string;
-    /** ISO month or null for ongoing */
     end: string | null;
     summary: string;
 };
@@ -27,96 +23,131 @@ export const trackLabels: Record<Track, string> = {
 
 export const trackOrder: Track[] = ["sea", "business", "education", "software"];
 
-/**
- * Approximate ranges derived from public profile + education status.
- * Refine when you paste exact dates.
- */
 export const experience: ExperienceItem[] = [
     {
-        id: "soi-eto",
+        id: "soi-falkor-too",
         title: "Electro-Technical Officer",
-        org: "Schmidt Ocean Institute · R/V Falkor (too)",
+        org: "Schmidt Ocean Institute — R/V Falkor (too)",
         track: "sea",
-        start: "2020-06",
-        end: null,
-        summary:
-            "Maintaining research vessel electrical systems during global science expeditions.",
-    },
-    {
-        id: "oriflame-manager",
-        title: "Team Manager",
-        org: "Oriflame (Health & Beauty)",
-        track: "business",
-        start: "2017-01",
-        end: null,
-        summary: "Leading a distributor team — coaching, communication, and business development.",
-    },
-    {
-        id: "edu-msc",
-        title: "MSc Simulator Engineering",
-        org: "Nikola Vaptsarov Naval Academy",
-        track: "education",
-        start: "2022-09",
-        end: null,
-        summary: "Maritime, transport, and aviation simulator engineering (in progress).",
-    },
-    {
-        id: "edu-bsc",
-        title: "BSc Electro-Technical Engineering",
-        org: "Nikola Vaptsarov Naval Academy",
-        track: "education",
-        start: "2015-09",
-        end: "2019-06",
-        summary: "Electro-technical engineering foundation for shipboard systems.",
-    },
-    {
-        id: "edu-hs",
-        title: "Advanced Mathematics",
-        org: "High School of Mathematics, Varna",
-        track: "education",
-        start: "2010-09",
-        end: "2015-06",
-        summary: "Specialized mathematics program.",
-    },
-    {
-        id: "proj-mlm",
-        title: "MLM No Limit",
-        org: "iOS & Android app",
-        track: "software",
-        start: "2025-01",
-        end: null,
-        summary: "Educational platform with training modules, surveys, and progress tracking.",
-    },
-    {
-        id: "proj-extasy",
-        title: "Extasy Complete Navigation",
-        org: "iOS / macOS",
-        track: "software",
-        start: "2021-03",
-        end: null,
-        summary: "SwiftUI sailing navigation with NMEA integration and polar diagrams.",
-    },
-    {
-        id: "proj-simulator",
-        title: "MarineSimulator",
-        org: "macOS",
-        track: "software",
-        start: "2022-06",
-        end: null,
-        summary: "Marine data simulator with MapKit visualization and UDP broadcast.",
-    },
-    {
-        id: "proj-sowify",
-        title: "Sowify",
-        org: "RPi · iOS · MQTT",
-        track: "software",
         start: "2022-01",
         end: null,
-        summary: "Serial-to-wireless bridge for industrial and marine instruments.",
+        summary:
+            "Sole ETO responsible for vessel electrical power, automation, propulsion control and navigation systems.",
+    },
+    {
+        id: "royal-caribbean",
+        title: "2nd Electrical Engineer",
+        org: "Royal Caribbean International — Harmony of the Seas",
+        track: "sea",
+        start: "2018-01",
+        end: "2022-12",
+        summary:
+            "HV power, ABB Azipod propulsion, generators, automation and major electrical systems.",
+    },
+    {
+        id: "saga-cruises",
+        title: "Electronics / AV-IT Engineer",
+        org: "Saga Cruises — Saga Pearl II",
+        track: "sea",
+        start: "2017-01",
+        end: "2018-12",
+        summary: "Communication, navigation, IT and electronic systems.",
+    },
+    {
+        id: "atlantic-container-line",
+        title: "Electro-Technical Officer",
+        org: "Atlantic Container Line — Atlantic Star",
+        track: "sea",
+        start: "2017-01",
+        end: "2017-12",
+        summary: "Propulsion, generation, automation, environmental and cargo electrical systems.",
+    },
+    {
+        id: "thenamaris",
+        title: "Electrical Engineer",
+        org: "Thenamaris",
+        track: "sea",
+        start: "2012-01",
+        end: "2017-12",
+        summary:
+            "Electrical power, automation, motors and navigation systems aboard product carriers.",
+    },
+    {
+        id: "ics",
+        title: "Partner / Sales & Technical Projects",
+        org: "ICS — Integrated Computer Systems",
+        track: "business",
+        start: "2009-01",
+        end: "2012-12",
+        summary:
+            "Computer systems, Linux, hardware troubleshooting and early embedded/software projects.",
+    },
+    {
+        id: "oriflame",
+        title: "Independent Partner / Manager",
+        org: "Oriflame Cosmetics Bulgaria",
+        track: "business",
+        start: "2020-01",
+        end: null,
+        summary:
+            "Customer and consultant network management, training, communication and sales support.",
+    },
+    {
+        id: "naval-academy-bsc",
+        title: "BSc — Ship Electrical Engineering",
+        org: "Nikola Vaptsarov Naval Academy",
+        track: "education",
+        start: "2007-01",
+        end: "2012-12",
+        summary: "Marine electrical engineering, automation, electronics and control systems.",
+    },
+    {
+        id: "naval-academy-msc",
+        title: "MSc — Simulator Engineering",
+        org: "Nikola Vaptsarov Naval Academy",
+        track: "education",
+        start: "2023-01",
+        end: null,
+        summary: "Postgraduate study in maritime, transport and aviation simulation engineering.",
+    },
+    {
+        id: "extasy",
+        title: "Extasy Complete Navigation",
+        org: "Independent Project",
+        track: "software",
+        start: "2023-01",
+        end: null,
+        summary: "Real-time iOS/iPadOS yacht navigation, racing and telemetry system.",
+    },
+    {
+        id: "mlm-no-limit",
+        title: "MLM No Limit",
+        org: "Independent Product",
+        track: "software",
+        start: "2024-01",
+        end: null,
+        summary: "Production full-stack web, iOS and Android education platform.",
+    },
+    {
+        id: "marine-simulator",
+        title: "MarineSimulator",
+        org: "Independent Project",
+        track: "software",
+        start: "2025-06",
+        end: null,
+        summary: "macOS NMEA 0183 instrument simulator and communication test bench.",
+    },
+    {
+        id: "sowify",
+        title: "Sowify — Serial Over Wi-Fi",
+        org: "Independent Project",
+        track: "software",
+        start: "2022-01",
+        end: "2023-12",
+        summary: "Raspberry Pi / iOS field diagnostic system for serial equipment over MQTT.",
     },
 ];
 
-/** Parse YYYY-MM to a month index (year * 12 + month). */
 export function parseMonth(iso: string): number {
     const [y, m] = iso.split("-").map(Number);
     return y * 12 + (m - 1);
@@ -150,7 +181,6 @@ export type TrackRow = {
     items: PlacedItem[];
 };
 
-/** Assign sublanes within each track and compute bar positions. */
 export function buildTimelineRows(items: ExperienceItem[]): {
     rows: TrackRow[];
     minMonth: number;

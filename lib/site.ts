@@ -7,14 +7,17 @@
 export const site = {
     name: "Vasil Borisov",
     nickname: "Baca",
-    tagline: "Electro-Technical Officer → Software Engineer",
+    professionalTitle: "Electro-Technical Officer | Industrial Systems & Software Developer",
+    tagline:
+        "Marine electrical and automation engineer building software for real-world systems — from vessel instrumentation and navigation to production web and mobile platforms.",
+    heroDescription:
+        "Industrial systems, marine engineering and software — from sensors and protocols to production applications.",
     description:
-        "Portfolio of Vasil Borisov. Electro-Technical Officer turned Software Engineer — iOS/macOS, Python, C, and Navigation Technology.",
+        "Electro-Technical Officer and software developer building marine navigation, industrial communication, simulation, web and mobile systems. Creator of Extasy Complete Navigation, MarineSimulator, Sowify and MLM No Limit.",
     ogDescription:
-        "Electro-Technical Officer turned Software Engineer — iOS/macOS, Python, C, and Navigation Technology.",
-    /** Short subtitle shown on the OG image */
-    ogSubtitle: "iOS · macOS · Python · C · Navigation Technology",
-    role: "Electro-Technical Officer aboard Falkor (too) at Schmidt Ocean Institute",
+        "Electro-Technical Officer and software developer building marine navigation, industrial communication, simulation, web and mobile systems.",
+    ogSubtitle: "Marine Systems · Swift · Next.js · NMEA 0183 · Industrial Communications",
+    role: "Electro-Technical Officer aboard R/V Falkor (too) at Schmidt Ocean Institute",
     url: "https://bacataborisov-dev.pro",
 
     email: "vasil.borisovv@gmail.com",
@@ -24,70 +27,73 @@ export const site = {
         instagram: "https://www.instagram.com/bacata.borisov/",
     },
 
-    /**
-     * About-page + chat-prompt bio. Keep these in sync with role / currently.
-     */
     about: [
-        "I'm Vasil Borisov — friends call me Baca. I'm an Electro-Technical Officer aboard Falkor (too) at Schmidt Ocean Institute.",
-        "In my free time I build navigation tools, simulators, and mobile apps — including MLM No Limit, a training platform on iOS and Android. Comfortable with Swift/SwiftUI for iOS/macOS, and Python/C for tooling and connectivity.",
+        "I am an Electro-Technical Officer and software developer with more than 14 years of experience in marine electrical engineering, automation, control systems and technical troubleshooting.",
+        "I currently serve as the Electro-Technical Officer aboard Schmidt Ocean Institute's research vessel R/V Falkor (too), where I am responsible for the vessel's electrical power, propulsion control, automation, instrumentation, machinery electrical systems and bridge/navigation electronics. My work ranges from 24 VDC instrumentation to 690 VAC power systems and includes PLCs, industrial communications, propulsion systems, generators, drives, UPS systems and complex fault diagnosis.",
+        "Alongside my marine engineering career, I design and build software. My projects range from real-time marine telemetry, navigation and diagnostic systems to simulation tools and full-stack production web/mobile platforms. I am particularly interested in the boundary between physical systems and software: how data moves from sensors and equipment through communication protocols, processing and diagnostics to the applications people actually use.",
     ] as const,
 
-    /** Canonical skill list — subsets below are picked from this. */
+    beyondEngineering:
+        "Sailing is both a major interest and an extension of my engineering work. I race and cruise yachts and use that experience directly when developing Extasy Complete Navigation and related marine software. Outside engineering and software, my interests include fitness and playing guitar.",
+
     skills: [
+        "Marine electrical systems",
+        "PLCs & automation",
+        "Industrial instrumentation",
+        "RS-232 / RS-422 / RS-485",
+        "Modbus",
+        "CAN / CANopen",
+        "MQTT",
+        "NMEA 0183",
+        "TCP / UDP",
         "Swift",
         "SwiftUI",
-        "iOS",
-        "macOS",
+        "TypeScript",
+        "React",
+        "Next.js",
+        "React Native",
+        "Expo",
         "Python",
         "C",
-        "Sockets",
-        "UDP/NMEA",
-        "RPi",
-        "Embedded",
-        "Serial/UDP",
-        "NMEA-0183",
+        "Supabase",
+        "PostgreSQL",
+        "Raspberry Pi",
     ] as const,
 
-    /** Used by sitemap lastModified */
+    languages: [
+        { name: "Bulgarian", level: "Native" },
+        { name: "English", level: "Fluent" },
+    ] as const,
+
     contentUpdated: "2026-08-19",
 
     education: [
         {
-            degree: "MSc in Simulator Engineering in Maritime, Transport, and Aviation",
+            degree: "MSc — Simulator Engineering in Maritime, Transport and Aviation",
             school: "Nikola Vaptsarov Naval Academy",
             status: "in progress" as const,
         },
         {
-            degree: "BSc in Electro-Technical Engineering",
+            degree: "BSc — Ship Electrical Engineering",
             school: "Nikola Vaptsarov Naval Academy",
-            status: "completed" as const,
-        },
-        {
-            degree: "High School of Mathematics, Varna",
-            school: "Advanced Mathematics Program",
             status: "completed" as const,
         },
     ],
 
-    /**
-     * "Currently" card — update whenever your situation changes.
-     * Shown on the homepage bento grid.
-     */
     currently: {
-        working: "Extasy Complete Navigation — polar diagram & waypoint enhancements",
-        learning: "React Server Components & Next.js App Router deep-dives",
-        location: "Pacific Ocean aboard R/V Falkor (too)",
+        working:
+            "Extasy Complete Navigation — real-time navigation, racing performance and onboard instrument integration · MLM No Limit — production development across web, iOS and Android",
+        learning: "Simulator Engineering — MSc studies at Nikola Vaptsarov Naval Academy",
+        location: "At sea aboard R/V Falkor (too) / Bulgaria",
         ship: "R/V Falkor (too)",
     },
 
-    /** Hummingbird palette hex values — keeps globals.css in sync with Tailwind config */
     colors: {
         teal: "#3E8C86",
         aqua: "#8FD9DB",
         sage: "#6E9273",
         purple: "#3D2A7A",
         indigo: "#131247",
-        /** Blob animation colors — slightly more vivid than palette for glow effect */
         blobTeal: "#3E8C86",
         blobAqua: "#8FD9DB",
         blobIndigo: "#3D2A7A",
@@ -96,31 +102,36 @@ export const site = {
 
 /** Skills shown on the homepage tile */
 export const heroSkills = [
-    "Swift",
-    "SwiftUI",
-    "iOS",
-    "macOS",
+    "Swift / SwiftUI",
+    "TypeScript / React / Next.js",
+    "React Native / Expo",
     "Python",
-    "C",
-    "Serial/UDP",
-    "NMEA-0183",
-] as const satisfies readonly (typeof site.skills)[number][];
+    "Industrial Communications",
+    "NMEA 0183",
+    "Serial / MQTT",
+    "UDP / TCP",
+    "Raspberry Pi",
+    "Marine Automation",
+] as const;
 
 /** Skills shown on the about page */
 export const aboutSkills = [
-    "Swift",
-    "SwiftUI",
-    "iOS",
-    "macOS",
+    "Marine electrical systems",
+    "PLCs & automation",
+    "Power management",
+    "Industrial instrumentation",
+    "Modbus",
+    "CAN / CANopen",
+    "MQTT",
+    "NMEA 0183",
+    "Swift / SwiftUI",
+    "TypeScript / React / Next.js",
+    "React Native / Expo",
     "Python",
-    "C",
-    "Sockets",
-    "UDP/NMEA",
-    "RPi",
-    "Embedded",
-] as const satisfies readonly (typeof site.skills)[number][];
+    "Supabase / PostgreSQL",
+    "Raspberry Pi",
+] as const;
 
-/** Gradient classes cycled on project cards — single source used by all pages */
 export const cardGradients = [
     "from-hummingbird-purple/20 to-hummingbird-aqua/10 dark:from-hummingbird-purple/50 dark:to-hummingbird-aqua/20",
     "from-hummingbird-teal/20 to-hummingbird-purple/10 dark:from-hummingbird-teal/50 dark:to-hummingbird-purple/20",

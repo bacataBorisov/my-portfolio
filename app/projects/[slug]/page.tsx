@@ -48,7 +48,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     const project = projects.find((p) => p.slug === slug);
     if (!project) return notFound();
 
-    const { title, summary, tags, highlights, repoUrl, demoLinks, icon, coverAspect } = project;
+    const { title, summary, tags, status, highlights, repoUrl, demoLinks, icon, coverAspect } =
+        project;
 
     return (
         <div className="mx-auto max-w-3xl space-y-10">
@@ -84,6 +85,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                     {title}
                 </h1>
                 {summary && <p className="mt-2 text-slate-600 dark:text-white/70">{summary}</p>}
+                {status && (
+                    <p className="mt-1 text-sm text-slate-500 dark:text-white/50">{status}</p>
+                )}
 
                 {tags?.length ? (
                     <div className="mt-3 flex flex-wrap gap-2">

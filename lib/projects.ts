@@ -1,14 +1,12 @@
-// lib/projects.ts
 export type Project = {
     slug: string;
     icon?: string;
     title: string;
     summary: string;
     tags: string[];
+    status?: string;
     covers?: string[];
-    /** Aspect ratio (width/height) used when there is exactly one cover image */
     coverAspect?: number;
-    readme?: string;
     highlights?: string[];
     repoUrl?: string;
     demoLinks?: { label: string; href: string }[];
@@ -16,35 +14,13 @@ export type Project = {
 
 export const projects: Project[] = [
     {
-        slug: "mlm-no-limit",
-        icon: "/icons/mlm_no_limit_icon.svg",
-        title: "MLM No Limit",
-        summary:
-            "Free iOS & Android educational platform for structured training, personal development, and progress tracking in network marketing.",
-        tags: ["iOS", "Android", "Mobile", "Education", "Swift"],
-        highlights: [
-            "Structured training modules users can follow at their own pace",
-            "Interactive surveys and progress tracking for continuous improvement",
-            "Built to develop discipline, communication, and goal-setting habits",
-            "Magic-link login with reliable cold-start and background handling",
-            "Published on Google Play — iOS release in progress",
-            "Designed and developed end-to-end by Vasil Borisov",
-        ],
-        demoLinks: [
-            {
-                label: "Google Play",
-                href: "https://play.google.com/store/apps/details?id=com.mlmnolimit.mobile",
-            },
-        ],
-    },
-
-    {
-        slug: "extasy-navigation",
+        slug: "extasy-complete-navigation",
         icon: "/icons/extasy_sail_free_icon.png",
         title: "Extasy Complete Navigation",
         summary:
-            "iOS/macOS sailing navigation app built with SwiftUI, NMEA integration, and modular architecture.",
-        tags: ["iOS", "SwiftUI", "NMEA-0183", "UDP", "RPi", "C"],
+            "Real-time iOS/iPadOS sailing navigation and racing system integrating yacht instrumentation through NMEA 0183 over UDP/TCP, with navigation, tactical racing, performance and diagnostic tools.",
+        status: "In development / on-water testing · target v1.0 early 2027",
+        tags: ["iOS", "iPadOS", "SwiftUI", "NMEA 0183", "UDP", "TCP", "watchOS"],
         covers: [
             "/images/map_vmg_light_dark.png",
             "/images/map_vmg_light.png",
@@ -54,22 +30,59 @@ export const projects: Project[] = [
             "/images/vmg_ultimate_light.png",
         ],
         highlights: [
-            "📡 Real-time NMEA data: speed, wind, depth, compass, GPS",
-            "⛵ Polar diagram integration for optimal sailing",
-            "📊 Customizable multi-display layouts (tap-to-swap)",
-            "🗺️ Waypoint management with ETA/VMG",
-            "🚨 Depth alarms; configurable alerts planned",
-            "🌙 Light/Dark modes for day & night sailing",
+            "Real-time yacht instrument ingestion over UDP and TCP with checksum validation",
+            "AIS decoding, polar-based VMG/VMC, laylines and start-line geometry",
+            "Live NMEA terminal, sensor health monitoring and transport recovery",
+            "MapKit plus S-57 ENC integration and rule-based racing coach",
+            "Apple Watch companion with 600+ automated XCTest methods",
+            "On-water validation — not yet on the App Store",
         ],
-        repoUrl: "https://github.com/bacataBorisov/ExtasyCompleteNavigation",
         demoLinks: [
             {
-                label: "📱 iPhone demo video",
+                label: "iPhone demo video",
                 href: "https://drive.google.com/file/d/1rVJDbGBMlsVFmgOLY960FpXGMJToISZk/view?usp=sharing",
             },
             {
-                label: "🖥️ iPad demo video",
+                label: "iPad demo video",
                 href: "https://drive.google.com/file/d/1omNMziGSfN7exxU7LXaitJ29QClQm2Oh/view?usp=sharing",
+            },
+        ],
+    },
+
+    {
+        slug: "mlm-no-limit",
+        icon: "/icons/mlm_no_limit_icon.svg",
+        title: "MLM No Limit",
+        summary:
+            "A production education platform designed, developed and operated as sole software developer — Next.js web application plus published iOS and Android apps.",
+        tags: [
+            "TypeScript",
+            "Next.js",
+            "React Native",
+            "Expo",
+            "tRPC",
+            "Supabase",
+            "iOS",
+            "Android",
+        ],
+        highlights: [
+            "Sole developer for web, backend, iOS and Android",
+            "Shared TypeScript / tRPC architecture across web and mobile",
+            "Supabase Auth with magic-link / OTP and role-based access",
+            "Video learning, surveys, schedules, reminders and daily checklists",
+            "Admin interface for users, content, GDPR and system logs",
+            "Bulgarian and English localization · staging and production environments",
+            "GitHub Actions CI and EAS mobile builds with OTA updates",
+        ],
+        demoLinks: [
+            { label: "Website", href: "https://mlmnolimit.com/" },
+            {
+                label: "App Store",
+                href: "https://apps.apple.com/ca/app/mlm-no-limit/id6759079526",
+            },
+            {
+                label: "Google Play",
+                href: "https://play.google.com/store/apps/details?id=com.mlmnolimit.mobile",
             },
         ],
     },
@@ -79,44 +92,44 @@ export const projects: Project[] = [
         title: "MarineSimulator",
         icon: "/icons/simulator_icon.png",
         summary:
-            "A macOS app (SwiftUI + MapKit) for simulating and visualizing marine navigation data without needing onboard instruments. Ideal for prototyping, testing, and demos of NMEA-style (not-only) workflows.",
-        tags: ["macOS", "SwiftUI", "Serial", "UDP", "Random Generators"],
+            "A macOS NMEA 0183 instrument simulator and test bench that generates coherent vessel/sensor data and streams it over UDP/TCP to navigation applications.",
+        status: "Working development / test tool",
+        tags: ["macOS", "SwiftUI", "NMEA 0183", "UDP", "TCP", "MapKit"],
         covers: ["/images/dashboard.png", "/images/configuration_page.png"],
         highlights: [
-            "🧭 Real-time simulation of vessel data (GPS, Compass, Wind, Speed & Depth)",
-            "🗺️ Interactive MapKit view with a custom boat marker and smooth heading animation",
-            "🖐️ Manual pan/zoom with a one-tap “Center on Boat” control (no forced follow)",
-            "🎚️ Compact control panels (left) for quick tuning via sliders",
-            "📊 Inspector panel (right) for live readouts and instrument widgets",
-            "📡 UDP broadcast of NMEA-like sentences for external consumers",
-            "🧱 SwiftUI-first architecture with clean, extendable components",
+            "Generates coherent vessel state — not unrelated random sensor values",
+            "21 NMEA 0183 sentence types with realistic instrument update rates",
+            "Multi-endpoint UDP and TCP output with fault injection modes",
+            "Wind-triangle calculations and polar-interpolated boat speed",
+            "Live NMEA and transport history console",
+            "Built to test navigation software such as Extasy without a live vessel",
         ],
         repoUrl: "https://github.com/bacataBorisov/MarineSimulator.git",
     },
 
     {
         slug: "sowify",
-        title: "Sowify",
+        title: "Sowify — Serial Over Wi-Fi",
         icon: "/icons/sowify_icon.png",
-        summary: "Reads serial signals and publishes them to phones/tablets in real time.",
-        tags: ["C", "Python", "Sockets", "iOS client", "Swift", "RPi", "MQTT", "Serial Comm"],
+        summary:
+            "Portable field diagnostic system connecting industrial serial equipment to iPhone/iPad through a Raspberry Pi and MQTT — live monitoring, commands and remote configuration.",
+        status: "Working field prototype / sideloaded development tool",
+        tags: ["Swift", "UIKit", "Python", "MQTT", "Raspberry Pi", "RS-232/422/485"],
         covers: ["/images/iphone_sowify.png"],
         coverAspect: 863 / 1722,
         highlights: [
-            "⚙️ Serial communication bridge — reads and writes data between RS232/422/485 devices and iOS over Wi-Fi",
-            "🧠 Raspberry Pi integration — MOXA uPort1150 for serial conversion, battery-powered portability",
-            "📡 Wireless data link — iOS app connects automatically via MQTT on the same LAN",
-            "🧾 Operator panel — choose interface, start/stop streaming, monitor live serial output",
-            "🔁 Device control — send commands, reboot or power-off the Raspberry Pi remotely",
-            "💬 Status & alerts — top-bar warnings for connectivity/config issues",
-            "🐍 Python backend scripts — serial I/O + MQTT publishing on the RPi",
-            "🧩 Future expansion — MODBUS, auto-startup scripts planned",
+            "Replaces laptop + serial adapter workflow in difficult-access locations",
+            "Bidirectional serial over RS-232/422/485 via MOXA uPort 1150",
+            "Configurable baud rate, parity, stop bits and data bits",
+            "MQTT topics for data, commands, configuration and device control",
+            "Remote Raspberry Pi reboot/shutdown and serial fault classification",
+            "First serious iOS project — foundation for hardware/software integration work",
         ],
         repoUrl: "https://github.com/bacataBorisov/Sowify",
         demoLinks: [
             {
-                label: "Python Backend Scripts →",
-                href: "https://github.com/bacataBorisov/Sowify_RPi", // ← update if different
+                label: "Raspberry Pi backend",
+                href: "https://github.com/bacataBorisov/Sowify_RPi",
             },
         ],
     },

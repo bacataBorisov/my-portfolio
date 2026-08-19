@@ -54,7 +54,7 @@ function SkillsTile() {
     return (
         <Tile className="flex flex-col gap-3">
             <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-white/40">
-                Tech Stack
+                Skills
             </p>
             <div className="flex flex-wrap gap-2">
                 {heroSkills.map((t) => (
@@ -100,8 +100,7 @@ export default function Page() {
                                 {site.tagline}
                             </h1>
                             <p className="mt-3 max-w-lg text-slate-600 dark:text-white/70">
-                                iOS/macOS, Python & C. Building navigation tools, simulators, and
-                                connectivity apps for maritime and research environments.
+                                {site.heroDescription}
                             </p>
                         </div>
                         <div className="flex flex-wrap gap-3">

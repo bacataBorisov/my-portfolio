@@ -16,13 +16,13 @@ const personSchema = {
     name: site.name,
     url: site.url,
     email: site.email,
-    jobTitle: "Electro-Technical Officer / Software Engineer",
+    jobTitle: site.professionalTitle,
     sameAs: [site.social.github, site.social.linkedin, site.social.instagram],
 };
 
 export const metadata: Metadata = {
     title: {
-        default: `${site.name} — Portfolio`,
+        default: `${site.name} — Marine Systems & Software Engineer`,
         template: `%s — ${site.name}`,
     },
     description: site.description,
@@ -30,13 +30,13 @@ export const metadata: Metadata = {
     openGraph: {
         type: "website",
         url: site.url,
-        title: `${site.name} — Portfolio`,
+        title: `${site.name} — Marine Systems & Software Engineer`,
         description: site.ogDescription,
         siteName: site.name,
     },
     twitter: {
         card: "summary_large_image",
-        title: `${site.name} — Portfolio`,
+        title: `${site.name} — Marine Systems & Software Engineer`,
         description: site.ogDescription,
     },
     icons: {
