@@ -72,11 +72,19 @@ export const site = {
             degree: "MSc — Simulator Engineering in Maritime, Transport and Aviation",
             school: "Nikola Vaptsarov Naval Academy",
             status: "in progress" as const,
+            years: "In progress",
         },
         {
             degree: "BSc — Ship Electrical Engineering",
             school: "Nikola Vaptsarov Naval Academy",
             status: "completed" as const,
+            years: "Sep 2007 – Oct 2012",
+        },
+        {
+            degree: "Advanced Mathematics Program",
+            school: "High School of Mathematics, Varna",
+            status: "completed" as const,
+            years: "Sep 2002 – Jun 2007",
         },
     ],
 

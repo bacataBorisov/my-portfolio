@@ -1,7 +1,8 @@
 // lib/experience.ts
 // Career timeline — YYYY-MM dates.
-// Sea / business months from public LinkedIn (Aug 2026). Education and
-// software-project months are still approximate where LinkedIn has no listing.
+// Sea / business months from public LinkedIn (Aug 2026).
+// Saga: one 3-month contract immediately after ACL (confirmed).
+// Education: BSc and high school months confirmed; MSc in progress.
 
 export type Track = "sea" | "business" | "education" | "software";
 
@@ -59,8 +60,8 @@ export const experience: ExperienceItem[] = [
         title: "Electronics / AV-IT Engineer",
         org: "Saga Cruises — Saga Pearl II",
         track: "sea",
-        start: "2017-01",
-        end: "2018-06",
+        start: "2017-09",
+        end: "2017-11",
         summary: "Communication, navigation, IT and electronic systems.",
     },
     {
@@ -107,9 +108,18 @@ export const experience: ExperienceItem[] = [
         title: "BSc — Ship Electrical Engineering",
         org: "Nikola Vaptsarov Naval Academy",
         track: "education",
-        start: "2007-01",
-        end: "2012-12",
+        start: "2007-09",
+        end: "2012-10",
         summary: "Marine electrical engineering, automation, electronics and control systems.",
+    },
+    {
+        id: "high-school-math",
+        title: "Advanced Mathematics",
+        org: "High School of Mathematics, Varna",
+        track: "education",
+        start: "2002-09",
+        end: "2007-06",
+        summary: "Specialized mathematics program.",
     },
     {
         id: "naval-academy-msc",

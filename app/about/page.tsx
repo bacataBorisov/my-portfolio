@@ -63,6 +63,9 @@ export default function AboutPage() {
                                         {e.degree}
                                     </strong>
                                     {e.status === "in progress" && " (in progress)"}, {e.school}
+                                    {"years" in e && e.years && e.status !== "in progress"
+                                        ? ` · ${e.years}`
+                                        : ""}
                                 </li>
                             ))}
                         </ul>
