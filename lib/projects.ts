@@ -106,7 +106,12 @@ export const projects: Project[] = [
         status: "Working development / test tool",
         tags: ["macOS", "SwiftUI", "NMEA 0183", "UDP", "TCP", "MapKit"],
         coverDevice: "macos",
-        covers: ["/images/dashboard.png", "/images/configuration_page.png"],
+        covers: [
+            "/images/simulator_dashboard.png",
+            "/images/simulator_connection.png",
+            "/images/simulator_simulation.png",
+            "/images/simulator_manual.png",
+        ],
         highlights: [
             "Generates coherent vessel state — not unrelated random sensor values",
             "21 NMEA 0183 sentence types with realistic instrument update rates",

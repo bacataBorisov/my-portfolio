@@ -6,9 +6,9 @@ import {
     type Track,
 } from "@/lib/experience";
 
-const BAR_HEIGHT = 44;
-const SUBLANE_GAP = 8;
-const TRACK_GAP = 24;
+const BAR_HEIGHT = 32;
+const SUBLANE_GAP = 10;
+const TRACK_GAP = 28;
 const LABEL_WIDTH = 104;
 
 const trackBarClass: Record<Track, string> = {
@@ -86,7 +86,7 @@ export default function ExperienceTimeline() {
                                             style={{
                                                 top: item.sublane * (BAR_HEIGHT + SUBLANE_GAP),
                                                 left: `${item.leftPct}%`,
-                                                width: `${Math.max(item.widthPct, 1.2)}%`,
+                                                width: `${Math.max(item.widthPct, 2.5)}%`,
                                                 height: BAR_HEIGHT,
                                             }}
                                         >
@@ -94,13 +94,10 @@ export default function ExperienceTimeline() {
                                                 tabIndex={0}
                                                 role="img"
                                                 aria-label={`${item.title} at ${item.org}, ${formatRange(item.start, item.end)}`}
-                                                className={`flex h-full cursor-default flex-col justify-center overflow-hidden rounded-md px-1.5 outline-none ring-hummingbird-aqua/60 transition hover:brightness-110 focus-visible:ring-2 sm:px-2 ${trackBarClass[track]}`}
+                                                className={`flex h-full cursor-default items-center overflow-hidden rounded-full px-3 outline-none ring-hummingbird-aqua/60 transition hover:brightness-110 focus-visible:ring-2 ${trackBarClass[track]}`}
                                             >
-                                                <span className="truncate text-[11px] font-semibold leading-tight">
+                                                <span className="truncate text-[13px] font-semibold leading-none tracking-tight">
                                                     {item.barLabel}
-                                                </span>
-                                                <span className="hidden truncate text-[10px] leading-tight opacity-80 sm:block">
-                                                    {item.title}
                                                 </span>
                                             </div>
 
@@ -137,7 +134,7 @@ export default function ExperienceTimeline() {
                         className="flex items-center gap-2 text-xs text-slate-600 dark:text-white/70"
                     >
                         <span
-                            className={`inline-block h-2.5 w-2.5 rounded-sm ${trackLegendClass[track]}`}
+                            className={`inline-block h-2.5 w-2.5 rounded-full ${trackLegendClass[track]}`}
                         />
                         {trackLabels[track]}
                     </div>

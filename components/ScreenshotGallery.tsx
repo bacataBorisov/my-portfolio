@@ -42,7 +42,7 @@ export default function ScreenshotGallery({ title, shots, device }: Props) {
         [current, instanceRef]
     );
 
-    if (device === "macos" && shots.length <= 2) {
+    if (device === "macos") {
         return (
             <>
                 <div className="grid gap-4 sm:grid-cols-2">
