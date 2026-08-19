@@ -35,8 +35,8 @@ export default function ExperienceTimeline() {
         <div className="rounded-2xl border border-black/10 bg-white/40 p-4 backdrop-blur dark:border-white/10 dark:bg-white/5 sm:p-6">
             <p className="mb-4 text-xs text-slate-500 dark:text-white/50">
                 Parallel tracks show overlapping roles — sea duty, business leadership, education,
-                and software projects running at the same time. Month-level dates are approximate
-                where exact CV dates are not yet confirmed.
+                and software projects running at the same time. Maritime and business months come
+                from LinkedIn; education and software-project months are still approximate.
             </p>
 
             <div className="overflow-x-auto pb-2">

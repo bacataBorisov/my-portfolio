@@ -1,6 +1,7 @@
 // lib/experience.ts
-// Career timeline — YYYY-MM dates. Where only a year is verified, months use Jan/Dec.
-// Refine exact months when CV dates are confirmed.
+// Career timeline — YYYY-MM dates.
+// Sea / business months from public LinkedIn (Aug 2026). Education and
+// software-project months are still approximate where LinkedIn has no listing.
 
 export type Track = "sea" | "business" | "education" | "software";
 
@@ -35,14 +36,23 @@ export const experience: ExperienceItem[] = [
             "Sole ETO responsible for vessel electrical power, automation, propulsion control and navigation systems.",
     },
     {
-        id: "royal-caribbean",
+        id: "royal-caribbean-2nd",
         title: "2nd Electrical Engineer",
         org: "Royal Caribbean International — Harmony of the Seas",
         track: "sea",
-        start: "2018-01",
-        end: "2022-12",
+        start: "2019-03",
+        end: "2022-01",
         summary:
             "HV power, ABB Azipod propulsion, generators, automation and major electrical systems.",
+    },
+    {
+        id: "royal-caribbean-3rd",
+        title: "3rd Electrical Engineer",
+        org: "Royal Caribbean International — Harmony of the Seas",
+        track: "sea",
+        start: "2018-06",
+        end: "2019-03",
+        summary: "Electrical power, propulsion and automation systems aboard Harmony of the Seas.",
     },
     {
         id: "saga-cruises",
@@ -50,7 +60,7 @@ export const experience: ExperienceItem[] = [
         org: "Saga Cruises — Saga Pearl II",
         track: "sea",
         start: "2017-01",
-        end: "2018-12",
+        end: "2018-06",
         summary: "Communication, navigation, IT and electronic systems.",
     },
     {
@@ -58,8 +68,8 @@ export const experience: ExperienceItem[] = [
         title: "Electro-Technical Officer",
         org: "Atlantic Container Line — Atlantic Star",
         track: "sea",
-        start: "2017-01",
-        end: "2017-12",
+        start: "2017-03",
+        end: "2017-08",
         summary: "Propulsion, generation, automation, environmental and cargo electrical systems.",
     },
     {
@@ -67,27 +77,27 @@ export const experience: ExperienceItem[] = [
         title: "Electrical Engineer",
         org: "Thenamaris",
         track: "sea",
-        start: "2012-01",
-        end: "2017-12",
+        start: "2012-04",
+        end: "2017-01",
         summary:
             "Electrical power, automation, motors and navigation systems aboard product carriers.",
     },
     {
         id: "ics",
-        title: "Partner / Sales & Technical Projects",
+        title: "Software Engineer",
         org: "ICS — Integrated Computer Systems",
         track: "business",
-        start: "2009-01",
-        end: "2012-12",
+        start: "2010-06",
+        end: null,
         summary:
-            "Computer systems, Linux, hardware troubleshooting and early embedded/software projects.",
+            "Hardware/software development for computer systems, Linux, and embedded projects.",
     },
     {
         id: "oriflame",
         title: "Independent Partner / Manager",
         org: "Oriflame Cosmetics Bulgaria",
         track: "business",
-        start: "2020-01",
+        start: "2020-06",
         end: null,
         summary:
             "Customer and consultant network management, training, communication and sales support.",
