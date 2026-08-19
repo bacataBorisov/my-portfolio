@@ -21,6 +21,7 @@ export default function ProjectsPage() {
                         tags={p.tags}
                         href={`/projects/${p.slug}`}
                         icon={p.icon}
+                        iconClassName={p.iconClassName}
                         className={`h-full rounded-2xl bg-gradient-to-br ${cardGradients[i % cardGradients.length]}`}
                     />
                 ))}

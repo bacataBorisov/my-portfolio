@@ -9,10 +9,19 @@ type Props = {
     tags?: string[];
     href: string;
     icon?: string;
+    iconClassName?: string;
     className?: string;
 };
 
-export default function Card({ title, subtitle, tags = [], href, icon, className = "" }: Props) {
+export default function Card({
+    title,
+    subtitle,
+    tags = [],
+    href,
+    icon,
+    iconClassName = "",
+    className = "",
+}: Props) {
     return (
         <Link
             href={href}
@@ -27,7 +36,7 @@ export default function Card({ title, subtitle, tags = [], href, icon, className
                             alt={`${title} icon`}
                             width={38}
                             height={38}
-                            className="h-[38px] w-[38px] rounded-md border border-black/10 dark:border-white/10"
+                            className={`h-[38px] w-[38px] rounded-md border border-black/10 dark:border-white/10 ${iconClassName}`}
                         />
                     ) : (
                         <Image
@@ -37,7 +46,7 @@ export default function Card({ title, subtitle, tags = [], href, icon, className
                             height={38}
                             sizes="38px"
                             unoptimized
-                            className="h-[38px] w-[38px] rounded-md border border-black/10 dark:border-white/10"
+                            className={`h-[38px] w-[38px] rounded-md border border-black/10 dark:border-white/10 ${iconClassName}`}
                         />
                     ))}
                 <h3 className="text-slate-900 text-lg font-semibold tracking-tight dark:text-white">

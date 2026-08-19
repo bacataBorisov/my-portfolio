@@ -124,6 +124,7 @@ export default function Page() {
                     <FadeIn key={p.slug} delay={0.05 * (i + 1)}>
                         <Card
                             icon={p.icon}
+                            iconClassName={p.iconClassName}
                             title={p.title}
                             subtitle={p.summary}
                             tags={p.tags}

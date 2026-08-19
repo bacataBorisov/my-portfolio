@@ -1,6 +1,7 @@
 export type Project = {
     slug: string;
     icon?: string;
+    iconClassName?: string;
     title: string;
     summary: string;
     tags: string[];
@@ -56,6 +57,7 @@ export const projects: Project[] = [
     {
         slug: "mlm-no-limit",
         icon: "/icons/mlm_no_limit_icon.png",
+        iconClassName: "bg-black",
         title: "MLM No Limit",
         summary:
             "A production education platform designed, developed and operated as sole software developer — Next.js web application plus published iOS and Android apps.",

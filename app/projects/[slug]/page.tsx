@@ -58,8 +58,18 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     const project = projects.find((p) => p.slug === slug);
     if (!project) return notFound();
 
-    const { title, summary, tags, status, highlights, repoUrl, demoLinks, icon, coverAspect } =
-        project;
+    const {
+        title,
+        summary,
+        tags,
+        status,
+        highlights,
+        repoUrl,
+        demoLinks,
+        icon,
+        iconClassName = "",
+        coverAspect,
+    } = project;
 
     return (
         <div className="mx-auto max-w-3xl space-y-10">
@@ -79,7 +89,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                                 alt={`${title} icon`}
                                 width={48}
                                 height={48}
-                                className="h-12 w-12 rounded-lg border border-black/10 dark:border-white/20"
+                                className={`h-12 w-12 rounded-lg border border-black/10 dark:border-white/20 ${iconClassName}`}
                             />
                         ) : (
                             <Image
@@ -89,7 +99,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                                 height={48}
                                 sizes="48px"
                                 unoptimized
-                                className="h-12 w-12 rounded-lg border border-black/10 dark:border-white/20"
+                                className={`h-12 w-12 rounded-lg border border-black/10 dark:border-white/20 ${iconClassName}`}
                             />
                         ))}
                     {title}
