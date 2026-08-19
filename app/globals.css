@@ -79,3 +79,12 @@
         animation: none !important;
     }
 }
+
+/*
+ * next/image starts at opacity: 0 and fades in on load.
+ * Safari fires that load event on every visit (even cache hits), so icons
+ * flash. Chromium usually skips the fade for cached images.
+ */
+img[data-nimg] {
+    opacity: 1 !important;
+}

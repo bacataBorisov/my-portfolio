@@ -25,7 +25,9 @@ export default function Card({ title, subtitle, tags = [], href, icon, className
                         alt={`${title} icon`}
                         width={38}
                         height={38}
-                        className="rounded-md border border-black/10 dark:border-white/10"
+                        sizes="38px"
+                        unoptimized
+                        className="h-[38px] w-[38px] rounded-md border border-black/10 dark:border-white/10"
                     />
                 )}
                 <h3 className="text-slate-900 text-lg font-semibold tracking-tight dark:text-white">

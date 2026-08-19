@@ -66,7 +66,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                             alt={`${title} icon`}
                             width={48}
                             height={48}
-                            className="rounded-lg border border-black/10 dark:border-white/20"
+                            sizes="48px"
+                            unoptimized
+                            className="h-12 w-12 rounded-lg border border-black/10 dark:border-white/20"
                         />
                     )}
                     {title}

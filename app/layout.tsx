@@ -81,6 +81,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                                     alt="Home"
                                     width={50}
                                     height={50}
+                                    sizes="50px"
+                                    unoptimized
                                     className="rounded-full"
                                 />
                             </Link>
