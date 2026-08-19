@@ -35,12 +35,12 @@ export const projects: Project[] = [
             "/images/vmg_ultimate_light.png",
         ],
         highlights: [
-            "Real-time yacht instrument ingestion over UDP and TCP with checksum validation",
-            "AIS decoding, polar-based VMG/VMC, laylines and start-line geometry",
-            "Live NMEA terminal, sensor health monitoring and transport recovery",
-            "MapKit plus S-57 ENC integration and rule-based racing coach",
-            "Apple Watch companion with 600+ automated XCTest methods",
-            "On-water validation — not yet on the App Store",
+            "Concurrent telemetry pipeline for ~37 NMEA/AIS formats with checksum validation",
+            "Source arbitration, sensor-health monitoring and connection recovery",
+            "Polar-based VMG/VMC, laylines, start-line geometry and wind-shift analysis",
+            "Live communication diagnostics and Apple Watch companion",
+            "600+ automated XCTest methods and on-water validation",
+            "Not yet on the App Store",
         ],
         demoLinks: [
             {
@@ -62,7 +62,7 @@ export const projects: Project[] = [
         iconClassName: "bg-black",
         title: "MLM No Limit",
         summary:
-            "A production education platform designed, developed and operated as sole software developer — Next.js web application plus published iOS and Android apps.",
+            "A production education platform designed, developed and operated as sole software engineer — Next.js web application plus published iOS and Android apps.",
         tags: [
             "TypeScript",
             "Next.js",
@@ -74,13 +74,12 @@ export const projects: Project[] = [
             "Android",
         ],
         highlights: [
-            "Sole developer for web, backend, iOS and Android",
-            "Shared TypeScript / tRPC architecture across web and mobile",
-            "Supabase Auth with magic-link / OTP and role-based access",
-            "Video learning, surveys, schedules, reminders and daily checklists",
-            "Admin interface for users, content, GDPR and system logs",
-            "Bulgarian and English localization · staging and production environments",
-            "GitHub Actions CI and EAS mobile builds with OTA updates",
+            "Sole engineer for web, backend, iOS and Android",
+            "Shared TypeScript / tRPC architecture and PostgreSQL / Supabase backend",
+            "Auth, role-based authorization and database security",
+            "Video learning, scheduling, surveys, checklists, notifications and admin",
+            "GDPR / audit functionality · staging and production environments",
+            "CI/CD and mobile OTA across a shared web/mobile monorepo",
         ],
         demoLinks: [
             { label: "Website", href: "https://mlmnolimit.com/", icon: "website" },
@@ -104,7 +103,7 @@ export const projects: Project[] = [
         summary:
             "A macOS NMEA 0183 instrument simulator and test bench that generates coherent vessel/sensor data and streams it over UDP/TCP to navigation applications.",
         status: "Working development / test tool",
-        tags: ["macOS", "SwiftUI", "NMEA 0183", "UDP", "TCP", "MapKit"],
+        tags: ["macOS", "SwiftUI", "NMEA 0183", "UDP", "TCP", "Network.framework"],
         coverDevice: "macos",
         covers: [
             "/images/simulator_dashboard.jpg",
@@ -119,6 +118,7 @@ export const projects: Project[] = [
             "Multi-endpoint UDP and TCP output with fault injection modes",
             "Wind-triangle calculations and polar-interpolated boat speed",
             "Live NMEA and transport history console",
+            "Automated UDP/TCP loopback testing",
             "Built to test navigation software such as Extasy without a live vessel",
         ],
         repoUrl: "https://github.com/bacataBorisov/MarineSimulator.git",

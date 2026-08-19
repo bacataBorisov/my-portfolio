@@ -75,6 +75,18 @@ export default function AboutPage() {
 
             <FadeIn delay={0.05}>
                 <div className="mt-4">
+                    <Section title="Training & certification">
+                        <ul className="list-disc pl-5 text-slate-600 space-y-1 dark:text-white/70">
+                            {site.certifications.map((c) => (
+                                <li key={c}>{c}</li>
+                            ))}
+                        </ul>
+                    </Section>
+                </div>
+            </FadeIn>
+
+            <FadeIn delay={0.05}>
+                <div className="mt-4">
                     <Section title="Languages">
                         <ul className="list-disc pl-5 text-slate-600 space-y-1 dark:text-white/70">
                             {site.languages.map((l) => (

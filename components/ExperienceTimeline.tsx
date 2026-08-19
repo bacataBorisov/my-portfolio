@@ -65,7 +65,7 @@ export default function ExperienceTimeline() {
     return (
         <div className="rounded-2xl border border-black/10 bg-white/40 p-4 backdrop-blur dark:border-white/10 dark:bg-white/5 sm:p-6">
             <div className="overflow-x-auto">
-                <div className="min-w-[880px] pb-28">
+                <div className="min-w-[880px]">
                     <div
                         className="relative mb-3 h-5 border-b border-black/10 dark:border-white/10"
                         style={{ marginLeft: LABEL_WIDTH }}
@@ -104,80 +104,78 @@ export default function ExperienceTimeline() {
                                         {items.map((item) => {
                                             const bar = barPosition(item, minMonth, span);
                                             return (
-                                                <li
-                                                    key={item.id}
-                                                    className={`relative flex items-center gap-4 rounded-xl px-1 py-1 ${
-                                                        activeId === item.id
-                                                            ? "bg-black/[0.04] dark:bg-white/[0.06]"
-                                                            : ""
-                                                    }`}
-                                                    onMouseEnter={() => setActiveId(item.id)}
-                                                    onMouseLeave={() => setActiveId(null)}
-                                                >
-                                                    <div
-                                                        className="shrink-0"
-                                                        style={{ width: LABEL_WIDTH }}
-                                                    >
-                                                        <p className="text-sm font-semibold leading-snug text-slate-900 dark:text-white">
-                                                            {shortOrg(item)}
-                                                        </p>
-                                                        <p className="text-[12px] leading-snug text-slate-500 dark:text-white/50">
-                                                            {item.title}
-                                                        </p>
-                                                        <p className="mt-0.5 text-[11px] tabular-nums text-slate-400 dark:text-white/40">
-                                                            {formatRange(item.start, item.end)}
-                                                        </p>
-                                                    </div>
-
-                                                    <div className="relative h-3 min-w-0 flex-1 rounded-full bg-black/5 dark:bg-white/10">
-                                                        {axisYears.map((year) => {
-                                                            const left =
-                                                                ((year * 12 - minMonth) / span) *
-                                                                100;
-                                                            if (left <= 0 || left >= 100)
-                                                                return null;
-                                                            return (
-                                                                <span
-                                                                    key={year}
-                                                                    className="absolute top-0 bottom-0 w-px bg-black/10 dark:bg-white/10"
-                                                                    style={{ left: `${left}%` }}
-                                                                />
-                                                            );
-                                                        })}
-                                                        <span
-                                                            className={`absolute top-0 bottom-0 rounded-full transition ${
+                                                <li key={item.id}>
+                                                    <button
+                                                        type="button"
+                                                        aria-expanded={activeId === item.id}
+                                                        onClick={() =>
+                                                            setActiveId(
                                                                 activeId === item.id
-                                                                    ? "brightness-110"
-                                                                    : ""
-                                                            } ${trackBar[track]}`}
-                                                            style={{
-                                                                left: `${bar.left}%`,
-                                                                width: `${Math.max(bar.width, 1.1)}%`,
-                                                            }}
-                                                        />
-                                                    </div>
-
-                                                    <div
-                                                        role="tooltip"
-                                                        className={`pointer-events-none absolute left-0 top-[calc(100%-4px)] z-30 w-80 rounded-xl border border-black/10 bg-white p-3 text-xs shadow-lg dark:border-white/10 dark:bg-slate-900 ${
+                                                                    ? null
+                                                                    : item.id
+                                                            )
+                                                        }
+                                                        className={`w-full rounded-xl px-1 py-1.5 text-left transition ${
                                                             activeId === item.id
-                                                                ? "block"
-                                                                : "hidden"
+                                                                ? "bg-black/[0.04] dark:bg-white/[0.06]"
+                                                                : "hover:bg-black/[0.03] dark:hover:bg-white/[0.04]"
                                                         }`}
                                                     >
-                                                        <p className="font-semibold text-slate-900 dark:text-white">
-                                                            {item.org}
-                                                        </p>
-                                                        <p className="mt-0.5 text-slate-600 dark:text-white/70">
-                                                            {item.title}
-                                                        </p>
-                                                        <p className="mt-1 tabular-nums text-slate-400 dark:text-white/50">
-                                                            {formatRange(item.start, item.end)}
-                                                        </p>
-                                                        <p className="mt-2 leading-relaxed text-slate-600 dark:text-white/70">
-                                                            {item.summary}
-                                                        </p>
-                                                    </div>
+                                                        <div className="flex items-center gap-4">
+                                                            <div
+                                                                className="shrink-0"
+                                                                style={{ width: LABEL_WIDTH }}
+                                                            >
+                                                                <p className="text-sm font-semibold leading-snug text-slate-900 dark:text-white">
+                                                                    {shortOrg(item)}
+                                                                </p>
+                                                                <p className="text-[12px] leading-snug text-slate-500 dark:text-white/50">
+                                                                    {item.title}
+                                                                </p>
+                                                                <p className="mt-0.5 text-[11px] tabular-nums text-slate-400 dark:text-white/40">
+                                                                    {formatRange(
+                                                                        item.start,
+                                                                        item.end
+                                                                    )}
+                                                                </p>
+                                                            </div>
+
+                                                            <div className="relative h-3 min-w-0 flex-1 rounded-full bg-black/5 dark:bg-white/10">
+                                                                {axisYears.map((year) => {
+                                                                    const left =
+                                                                        ((year * 12 - minMonth) /
+                                                                            span) *
+                                                                        100;
+                                                                    if (left <= 0 || left >= 100)
+                                                                        return null;
+                                                                    return (
+                                                                        <span
+                                                                            key={year}
+                                                                            className="absolute top-0 bottom-0 w-px bg-black/10 dark:bg-white/10"
+                                                                            style={{
+                                                                                left: `${left}%`,
+                                                                            }}
+                                                                        />
+                                                                    );
+                                                                })}
+                                                                <span
+                                                                    className={`absolute top-0 bottom-0 rounded-full ${trackBar[track]}`}
+                                                                    style={{
+                                                                        left: `${bar.left}%`,
+                                                                        width: `${Math.max(bar.width, 1.1)}%`,
+                                                                    }}
+                                                                />
+                                                            </div>
+                                                        </div>
+
+                                                        {activeId === item.id && (
+                                                            <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-white/70">
+                                                                {item.org}
+                                                                {" — "}
+                                                                {item.summary}
+                                                            </p>
+                                                        )}
+                                                    </button>
                                                 </li>
                                             );
                                         })}

@@ -7,15 +7,15 @@
 export const site = {
     name: "Vasil Borisov",
     nickname: "Baca",
-    professionalTitle: "Electro-Technical Officer | Industrial Systems & Software Developer",
+    professionalTitle: "Electro-Technical Officer | Industrial Systems & Software Engineer",
     tagline:
         "Marine electrical and automation engineer building software for real-world systems — from vessel instrumentation and navigation to production web and mobile platforms.",
     heroDescription:
         "Industrial systems, marine engineering and software — from sensors and protocols to production applications.",
     description:
-        "Electro-Technical Officer and software developer building marine navigation, industrial communication, simulation, web and mobile systems. Creator of Extasy Complete Navigation, MarineSimulator, Sowify and MLM No Limit.",
+        "Electro-Technical Officer and software engineer building marine navigation, industrial communication, simulation, web and mobile systems. Creator of Extasy Complete Navigation, MarineSimulator, Sowify and MLM No Limit.",
     ogDescription:
-        "Electro-Technical Officer and software developer building marine navigation, industrial communication, simulation, web and mobile systems.",
+        "Electro-Technical Officer and software engineer building marine navigation, industrial communication, simulation, web and mobile systems.",
     ogSubtitle: "Marine Systems · Swift · Next.js · NMEA 0183 · Industrial Communications",
     role: "Electro-Technical Officer aboard R/V Falkor (too) at Schmidt Ocean Institute",
     url: "https://bacataborisov-dev.pro",
@@ -28,9 +28,9 @@ export const site = {
     },
 
     about: [
-        "I am an Electro-Technical Officer and software developer with more than 14 years of experience in marine electrical engineering, automation, control systems and technical troubleshooting.",
-        "I currently serve as the Electro-Technical Officer aboard Schmidt Ocean Institute's research vessel R/V Falkor (too), where I am responsible for the vessel's electrical power, propulsion control, automation, instrumentation, machinery electrical systems and bridge/navigation electronics.",
-        "Alongside my marine engineering career, I design and build software. My projects range from real-time marine telemetry, navigation and diagnostic systems to simulation tools and full-stack production web/mobile platforms. I am particularly interested in the boundary between physical systems and software: how data moves from sensors and equipment through communication protocols, processing and diagnostics to the applications people actually use.",
+        "I am an Electro-Technical Officer and software engineer with 14+ years of experience in marine electrical engineering, automation, control systems and technical troubleshooting.",
+        "I currently serve as sole ETO aboard Schmidt Ocean Institute's research vessel R/V Falkor (too), responsible for electrical power, propulsion control, automation, instrumentation and bridge/navigation systems.",
+        "Alongside my marine engineering career, I design and develop software ranging from real-time communication, navigation and diagnostic systems to simulation tools and production web and mobile applications. My work combines practical engineering experience with software development, industrial communications, networking and root-cause troubleshooting.",
     ] as const,
 
     beyondEngineering:
@@ -38,7 +38,9 @@ export const site = {
 
     skills: [
         "Marine electrical systems",
+        "HV / LV power",
         "PLCs & automation",
+        "VFDs & propulsion control",
         "Industrial instrumentation",
         "RS-232 / RS-422 / RS-485",
         "Modbus",
@@ -48,6 +50,7 @@ export const site = {
         "TCP / UDP",
         "Swift",
         "SwiftUI",
+        "UIKit",
         "TypeScript",
         "React",
         "Next.js",
@@ -55,9 +58,11 @@ export const site = {
         "Expo",
         "Python",
         "C Programming",
+        "SQL",
         "Supabase",
         "PostgreSQL",
         "Raspberry Pi",
+        "Linux",
     ] as const,
 
     languages: [
@@ -65,28 +70,37 @@ export const site = {
         { name: "English", level: "Fluent" },
     ] as const,
 
-    contentUpdated: "2026-08-19",
+    contentUpdated: "2026-08-18",
 
     education: [
         {
             degree: "MSc — Simulator Engineering in Maritime, Transport and Aviation",
-            school: "Nikola Vaptsarov Naval Academy",
+            school: "Nikola Vaptsarov Naval Academy, Varna",
             status: "in progress" as const,
             years: "In progress",
         },
         {
             degree: "BSc — Ship Electrical Engineering",
-            school: "Nikola Vaptsarov Naval Academy",
+            school: "Nikola Vaptsarov Naval Academy, Varna",
             status: "completed" as const,
             years: "Sep 2007 – Oct 2012",
         },
         {
-            degree: "Advanced Mathematics Program",
-            school: "High School of Mathematics, Varna",
+            degree: "Secondary Education — English & Mathematics",
+            school: "High School of Mathematics “Dr Petar Beron”, Varna",
             status: "completed" as const,
             years: "Sep 2002 – Jun 2007",
         },
     ],
+
+    certifications: [
+        "Electro-Technical Officer (Unlimited)",
+        "High Voltage Training",
+        "ABB Azipod Technical Training — Helsinki",
+        "STCW",
+        "iOS & Swift Development",
+        "C Programming",
+    ] as const,
 
     currently: {
         working:
@@ -126,20 +140,24 @@ export const heroSkills = [
 /** Skills shown on the about page */
 export const aboutSkills = [
     "Marine electrical systems",
+    "HV / LV power",
     "PLCs & automation",
+    "VFDs & propulsion control",
     "Power management",
     "Industrial instrumentation",
     "Modbus",
     "CAN / CANopen",
     "MQTT",
     "NMEA 0183",
-    "Swift / SwiftUI",
+    "Swift / SwiftUI / UIKit",
     "TypeScript / React / Next.js",
     "React Native / Expo",
     "Python",
     "C Programming",
+    "SQL",
     "Supabase / PostgreSQL",
     "Raspberry Pi",
+    "Linux",
 ] as const;
 
 export const cardGradients = [

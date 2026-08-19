@@ -1,6 +1,7 @@
 // lib/experience.ts
 // Career timeline — YYYY-MM dates.
-// Sea / business months from public LinkedIn (Aug 2026).
+// Sea months from public LinkedIn where the CV only has years.
+// ICS start year from CV (2009); month not specified.
 // Saga: one 3-month contract immediately after ACL (confirmed).
 // Education: BSc and high school months confirmed; MSc in progress.
 
@@ -37,7 +38,7 @@ export const experience: ExperienceItem[] = [
         start: "2022-01",
         end: null,
         summary:
-            "Sole ETO responsible for vessel electrical power, automation, propulsion control and navigation systems.",
+            "Sole ETO for electrical power, automation, propulsion control, bridge/navigation and machinery systems — including generation and distribution up to 690 VAC, Voith Schneider propulsion, thrusters, cranes, and PLC/industrial communications (Modbus, CAN, serial, Ethernet, NMEA).",
     },
     {
         id: "royal-caribbean-2nd",
@@ -48,7 +49,7 @@ export const experience: ExperienceItem[] = [
         start: "2019-03",
         end: "2022-01",
         summary:
-            "HV power, ABB Azipod propulsion, generators, automation and major electrical systems.",
+            "HV/LV power, 11 kV ABB Azipod propulsion, generators and automation. Promoted from 3rd EE; led electrical work on the 2021 Cádiz bow-thruster retrofit and wrote a Python tool for insulation-resistance fault calculations.",
     },
     {
         id: "royal-caribbean-3rd",
@@ -89,18 +90,18 @@ export const experience: ExperienceItem[] = [
         start: "2012-04",
         end: "2017-01",
         summary:
-            "Electrical power, automation, motors and navigation systems aboard product carriers.",
+            "Electrical power, automation, motors and navigation systems aboard product carriers, including dry docks, retrofit projects and inspections.",
     },
     {
         id: "ics",
-        title: "Software Engineer",
+        title: "Partner / Technical Projects",
         org: "ICS — Integrated Computer Systems",
         barLabel: "ICS",
         track: "business",
-        start: "2010-06",
+        start: "2009-01",
         end: null,
         summary:
-            "Hardware/software development for computer systems, Linux, and embedded projects.",
+            "Ongoing computer systems, software and engineering projects alongside the maritime career — from sales and Linux support into hardware/software work including instrumentation, embedded systems, C and Raspberry Pi.",
     },
     {
         id: "oriflame",
@@ -111,12 +112,12 @@ export const experience: ExperienceItem[] = [
         start: "2020-06",
         end: null,
         summary:
-            "Customer and consultant network management, training, communication and sales support.",
+            "Manage and support a network of customers and consultants through communication, product training, sales support and development.",
     },
     {
         id: "naval-academy-bsc",
         title: "BSc — Ship Electrical Engineering",
-        org: "Nikola Vaptsarov Naval Academy",
+        org: "Nikola Vaptsarov Naval Academy, Varna",
         barLabel: "Naval Academy · BSc",
         track: "education",
         start: "2007-09",
@@ -125,23 +126,23 @@ export const experience: ExperienceItem[] = [
     },
     {
         id: "high-school-math",
-        title: "Advanced Mathematics",
-        org: "High School of Mathematics, Varna",
+        title: "Secondary Education — English & Mathematics",
+        org: "High School of Mathematics “Dr Petar Beron”, Varna",
         barLabel: "Math High School",
         track: "education",
         start: "2002-09",
         end: "2007-06",
-        summary: "Specialized mathematics program.",
+        summary: "English and mathematics programme.",
     },
     {
         id: "naval-academy-msc",
-        title: "MSc — Simulator Engineering",
-        org: "Nikola Vaptsarov Naval Academy",
+        title: "MSc — Simulator Engineering in Maritime, Transport and Aviation",
+        org: "Nikola Vaptsarov Naval Academy, Varna",
         barLabel: "Naval Academy · MSc",
         track: "education",
         start: "2023-01",
         end: null,
-        summary: "Postgraduate study in maritime, transport and aviation simulation engineering.",
+        summary: "In progress — postgraduate study in maritime, transport and aviation simulation engineering.",
     },
     {
         id: "extasy",
@@ -151,7 +152,8 @@ export const experience: ExperienceItem[] = [
         track: "software",
         start: "2023-01",
         end: null,
-        summary: "Real-time iOS/iPadOS yacht navigation, racing and telemetry system.",
+        summary:
+            "Real-time iOS/iPadOS sailing navigation and racing system — NMEA 0183 over UDP/TCP, AIS, polar VMG/VMC and an Apple Watch companion.",
     },
     {
         id: "mlm-no-limit",
@@ -159,9 +161,9 @@ export const experience: ExperienceItem[] = [
         org: "Independent Product",
         barLabel: "MLM No Limit",
         track: "software",
-        start: "2024-01",
+        start: "2025-01",
         end: null,
-        summary: "Production full-stack web, iOS and Android education platform.",
+        summary: "Production education platform — Next.js web app plus published iOS and Android apps.",
     },
     {
         id: "marine-simulator",
@@ -171,7 +173,8 @@ export const experience: ExperienceItem[] = [
         track: "software",
         start: "2025-06",
         end: null,
-        summary: "macOS NMEA 0183 instrument simulator and communication test bench.",
+        summary:
+            "macOS NMEA 0183 simulation and test bench — 21 sentence types, fault injection and UDP/TCP output for testing navigation software.",
     },
     {
         id: "sowify",
@@ -181,7 +184,8 @@ export const experience: ExperienceItem[] = [
         track: "software",
         start: "2022-01",
         end: "2023-12",
-        summary: "Raspberry Pi / iOS field diagnostic system for serial equipment over MQTT.",
+        summary:
+            "Portable field diagnostic system — bidirectional industrial serial access from iOS through a Raspberry Pi and MQTT.",
     },
 ];
 
