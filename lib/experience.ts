@@ -25,14 +25,14 @@ export const trackLabels: Record<Track, string> = {
     software: "Software projects",
 };
 
-export const trackOrder: Track[] = ["sea", "business", "education", "software"];
+export const trackOrder: Track[] = ["sea", "software", "business", "education"];
 
 export const experience: ExperienceItem[] = [
     {
         id: "soi-falkor-too",
         title: "Electro-Technical Officer",
         org: "Schmidt Ocean Institute — R/V Falkor (too)",
-        barLabel: "Schmidt Ocean Institute",
+        barLabel: "Schmidt Ocean",
         track: "sea",
         start: "2022-01",
         end: null,
@@ -64,7 +64,7 @@ export const experience: ExperienceItem[] = [
         id: "saga-cruises",
         title: "Electronics / AV-IT Engineer",
         org: "Saga Cruises — Saga Pearl II",
-        barLabel: "Saga Cruises",
+        barLabel: "Saga",
         track: "sea",
         start: "2017-09",
         end: "2017-11",
@@ -127,7 +127,7 @@ export const experience: ExperienceItem[] = [
         id: "high-school-math",
         title: "Advanced Mathematics",
         org: "High School of Mathematics, Varna",
-        barLabel: "High School of Mathematics",
+        barLabel: "Math High School",
         track: "education",
         start: "2002-09",
         end: "2007-06",

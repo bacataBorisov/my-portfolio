@@ -42,27 +42,6 @@ export default function ScreenshotGallery({ title, shots, device }: Props) {
         [current, instanceRef]
     );
 
-    if (device === "macos") {
-        return (
-            <>
-                <div className="grid gap-4 sm:grid-cols-2">
-                    {shots.map((src, i) => (
-                        <DeviceFrame
-                            key={src}
-                            src={src}
-                            alt={`${title} screenshot ${i + 1}`}
-                            device="macos"
-                            title={title}
-                            priority={i === 0}
-                            onClick={() => setOpen(i)}
-                        />
-                    ))}
-                </div>
-                <Lightbox title={title} shots={shots} open={open} setOpen={setOpen} />
-            </>
-        );
-    }
-
     if (shots.length === 1) {
         return (
             <DeviceFrame
@@ -77,48 +56,59 @@ export default function ScreenshotGallery({ title, shots, device }: Props) {
     }
 
     return (
-        <div className="relative">
-            <div ref={sliderRef} className="keen-slider">
-                {shots.map((src, i) => (
-                    <div key={src + i} className="keen-slider__slide px-1">
-                        <DeviceFrame
-                            src={src}
-                            alt={`${title} screenshot ${i + 1}`}
-                            device={device}
-                            title={title}
-                            priority={i === 0}
-                            onClick={() => setOpen(i)}
-                        />
-                    </div>
-                ))}
+        <div>
+            <div className="group relative">
+                <div ref={sliderRef} className="keen-slider">
+                    {shots.map((src, i) => (
+                        <div key={src + i} className="keen-slider__slide px-1">
+                            <DeviceFrame
+                                src={src}
+                                alt={`${title} screenshot ${i + 1}`}
+                                device={device}
+                                title={title}
+                                priority={i === 0}
+                                onClick={() => setOpen(i)}
+                            />
+                        </div>
+                    ))}
+                </div>
+                <NavButton
+                    className="absolute left-3 top-1/2 -translate-y-1/2 md:opacity-0 md:group-hover:opacity-100"
+                    label="Previous"
+                    onClick={() => go(-1)}
+                />
+                <NavButton
+                    className="absolute right-3 top-1/2 -translate-y-1/2 md:opacity-0 md:group-hover:opacity-100"
+                    label="Next"
+                    onClick={() => go(1)}
+                />
             </div>
 
             {shots.length > 1 && (
                 <>
-                    <NavButton
-                        className="absolute left-1 top-1/2 -translate-y-1/2"
-                        label="Previous"
-                        onClick={() => go(-1)}
-                    />
-                    <NavButton
-                        className="absolute right-1 top-1/2 -translate-y-1/2"
-                        label="Next"
-                        onClick={() => go(1)}
-                    />
-                    <div className="mt-3 flex items-center justify-center gap-2">
-                        {shots.map((_, i) => (
+                    <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
+                        {shots.map((src, i) => (
                             <button
-                                key={i}
+                                key={src}
                                 aria-label={`Go to slide ${i + 1}`}
+                                aria-current={current === i}
                                 onClick={() => instanceRef.current?.moveToIdx(i)}
-                                className={`h-1.5 w-4 rounded-full transition ${
+                                className={`relative h-14 w-[5.5rem] shrink-0 overflow-hidden rounded-lg border transition sm:h-16 sm:w-28 ${
                                     current === i
-                                        ? "bg-hummingbird-teal dark:bg-hummingbird-aqua"
-                                        : "bg-black/20 hover:bg-black/30 dark:bg-white/25 dark:hover:bg-white/40"
+                                        ? "border-hummingbird-teal ring-2 ring-hummingbird-teal/40 dark:border-hummingbird-aqua dark:ring-hummingbird-aqua/40"
+                                        : "border-black/15 opacity-70 hover:opacity-100 dark:border-white/15"
                                 }`}
-                            />
+                            >
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img src={src} alt="" className="h-full w-full object-cover" />
+                            </button>
                         ))}
                     </div>
+                    {device === "macos" && (
+                        <p className="mt-2 text-center text-xs text-slate-400 dark:text-white/40">
+                            Tap a screenshot to view it full screen
+                        </p>
+                    )}
                 </>
             )}
 
@@ -142,7 +132,7 @@ function Lightbox({
         <AnimatePresence>
             {open !== null && (
                 <motion.div
-                    className="fixed inset-0 z-[999] flex items-center justify-center bg-black/80 p-4"
+                    className="fixed inset-0 z-[999] flex items-center justify-center bg-black/90 p-2 sm:p-4"
                     onClick={() => setOpen(null)}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -151,7 +141,7 @@ function Lightbox({
                     role="dialog"
                 >
                     <motion.div
-                        className="relative w-full max-w-5xl"
+                        className="relative flex max-h-[94vh] w-full max-w-[96vw] flex-col items-center"
                         initial={{ scale: 0.98, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0.98, opacity: 0 }}
@@ -162,7 +152,7 @@ function Lightbox({
                         <img
                             src={shots[open]}
                             alt={`${title} enlarged ${open + 1}`}
-                            className="max-h-[80vh] w-full rounded-lg object-contain"
+                            className="max-h-[90vh] w-auto max-w-full rounded-lg object-contain"
                         />
                         {shots.length > 1 && (
                             <>
@@ -179,7 +169,7 @@ function Lightbox({
                             </>
                         )}
                         <p className="mt-2 text-center text-xs text-white/60">
-                            Click outside to close · ← → to browse
+                            Tap outside to close · swipe or ← → to browse
                         </p>
                     </motion.div>
                 </motion.div>
@@ -197,13 +187,26 @@ function NavButton({
     label: string;
     onClick: () => void;
 }) {
+    const prev = label === "Previous";
     return (
         <button
+            type="button"
             aria-label={label}
             onClick={onClick}
-            className={`grid h-9 w-9 place-items-center rounded-full border border-black/20 bg-white/80 text-slate-800 hover:bg-white dark:border-white/20 dark:bg-black/50 dark:text-white dark:hover:bg-black/70 ${className}`}
+            className={`grid h-11 w-11 place-items-center rounded-full bg-white/70 text-slate-800 shadow-lg shadow-black/10 backdrop-blur-md transition hover:scale-105 hover:bg-white/90 dark:bg-black/45 dark:text-white dark:shadow-black/40 dark:hover:bg-black/60 ${className}`}
         >
-            <span className="text-lg leading-none">{label === "Previous" ? "‹" : "›"}</span>
+            <svg
+                viewBox="0 0 24 24"
+                className="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden
+            >
+                {prev ? <path d="M15 5 8 12l7 7" /> : <path d="m9 5 7 7-7 7" />}
+            </svg>
         </button>
     );
 }

@@ -1,144 +1,192 @@
+"use client";
+
+import { useState } from "react";
 import {
-    buildTimelineRows,
+    currentMonthIndex,
     experience,
     formatRange,
+    parseMonth,
     trackLabels,
+    trackOrder,
+    type ExperienceItem,
     type Track,
 } from "@/lib/experience";
 
-const BAR_HEIGHT = 32;
-const SUBLANE_GAP = 10;
-const TRACK_GAP = 28;
-const LABEL_WIDTH = 104;
+const LABEL_WIDTH = 320;
 
-const trackBarClass: Record<Track, string> = {
-    sea: "bg-hummingbird-teal text-white",
-    business: "bg-hummingbird-purple text-white",
-    education: "bg-hummingbird-indigo text-white",
-    software: "bg-hummingbird-aqua text-slate-900",
-};
-
-const trackLegendClass: Record<Track, string> = {
+const trackBar: Record<Track, string> = {
     sea: "bg-hummingbird-teal",
     business: "bg-hummingbird-purple",
     education: "bg-hummingbird-indigo",
     software: "bg-hummingbird-aqua",
 };
 
-export default function ExperienceTimeline() {
-    const { rows, minMonth, maxMonth, years } = buildTimelineRows(experience);
+const trackDot: Record<Track, string> = {
+    sea: "bg-hummingbird-teal",
+    business: "bg-hummingbird-purple",
+    education: "bg-hummingbird-indigo",
+    software: "bg-hummingbird-aqua",
+};
+
+function timelineSpan() {
+    const now = currentMonthIndex();
+    const minMonth = Math.min(...experience.map((i) => parseMonth(i.start)));
+    const maxMonth = Math.max(
+        ...experience.map((i) => (i.end ? parseMonth(i.end) : now)),
+        now
+    );
     const span = Math.max(maxMonth - minMonth, 1);
+    const minYear = Math.floor(minMonth / 12);
+    const maxYear = Math.floor(maxMonth / 12);
+    const years: number[] = [];
+    for (let y = minYear; y <= maxYear; y++) years.push(y);
+    return { minMonth, span, years };
+}
+
+function barPosition(item: ExperienceItem, minMonth: number, span: number) {
+    const now = currentMonthIndex();
+    const start = parseMonth(item.start);
+    const end = item.end ? parseMonth(item.end) : now;
+    return {
+        left: ((start - minMonth) / span) * 100,
+        width: (Math.max(end - start, 1) / span) * 100,
+    };
+}
+
+function shortOrg(item: ExperienceItem) {
+    return item.org.split(" — ")[0];
+}
+
+export default function ExperienceTimeline() {
+    const [activeId, setActiveId] = useState<string | null>(null);
+    const { minMonth, span, years } = timelineSpan();
     const axisYears = years.filter((y, i) => i === 0 || i === years.length - 1 || y % 2 === 0);
 
     return (
         <div className="rounded-2xl border border-black/10 bg-white/40 p-4 backdrop-blur dark:border-white/10 dark:bg-white/5 sm:p-6">
-            <div>
-                <div
-                    className="relative mb-2 border-b border-black/10 dark:border-white/10"
-                    style={{ marginLeft: LABEL_WIDTH, height: 22 }}
-                >
-                    {axisYears.map((year) => {
-                        const leftPct = ((year * 12 - minMonth) / span) * 100;
-                        if (leftPct < 0 || leftPct > 100) return null;
-                        return (
-                            <span
-                                key={year}
-                                className="absolute top-0 -translate-x-1/2 text-[10px] tabular-nums text-slate-400 dark:text-white/40"
-                                style={{ left: `${leftPct}%` }}
-                            >
-                                {year}
-                            </span>
-                        );
-                    })}
-                </div>
-
-                <div className="flex flex-col" style={{ gap: TRACK_GAP }}>
-                    {rows.map(({ track, sublaneCount, items }) => {
-                        const rowHeight =
-                            sublaneCount * BAR_HEIGHT + Math.max(0, sublaneCount - 1) * SUBLANE_GAP;
-
-                        return (
-                            <div key={track} className="flex items-stretch gap-2 sm:gap-3">
-                                <div
-                                    className="shrink-0 pt-1 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-white/50"
-                                    style={{ width: LABEL_WIDTH }}
-                                >
-                                    {trackLabels[track]}
-                                </div>
-
-                                <div className="relative min-w-0 flex-1" style={{ height: rowHeight }}>
-                                    {axisYears.map((year) => {
-                                        const leftPct = ((year * 12 - minMonth) / span) * 100;
-                                        if (leftPct <= 0 || leftPct >= 100) return null;
-                                        return (
-                                            <div
-                                                key={year}
-                                                className="pointer-events-none absolute top-0 bottom-0 w-px bg-black/5 dark:bg-white/5"
-                                                style={{ left: `${leftPct}%` }}
-                                            />
-                                        );
-                                    })}
-
-                                    {items.map((item) => (
-                                        <div
-                                            key={item.id}
-                                            className="group absolute focus-within:z-20 hover:z-20"
-                                            style={{
-                                                top: item.sublane * (BAR_HEIGHT + SUBLANE_GAP),
-                                                left: `${item.leftPct}%`,
-                                                width: `${Math.max(item.widthPct, 2.5)}%`,
-                                                height: BAR_HEIGHT,
-                                            }}
-                                        >
-                                            <div
-                                                tabIndex={0}
-                                                role="img"
-                                                aria-label={`${item.title} at ${item.org}, ${formatRange(item.start, item.end)}`}
-                                                className={`flex h-full cursor-default items-center overflow-hidden rounded-full px-3 outline-none ring-hummingbird-aqua/60 transition hover:brightness-110 focus-visible:ring-2 ${trackBarClass[track]}`}
-                                            >
-                                                <span className="truncate text-[13px] font-semibold leading-none tracking-tight">
-                                                    {item.barLabel}
-                                                </span>
-                                            </div>
-
-                                            <div
-                                                className="pointer-events-none absolute left-0 top-full z-30 mt-2 hidden w-64 rounded-lg border border-black/10 bg-white p-3 text-xs shadow-lg group-focus-within:block group-hover:block dark:border-white/10 dark:bg-slate-900"
-                                                role="tooltip"
-                                            >
-                                                <p className="font-semibold text-slate-900 dark:text-white">
-                                                    {item.title}
-                                                </p>
-                                                <p className="mt-0.5 text-slate-600 dark:text-white/70">
-                                                    {item.org}
-                                                </p>
-                                                <p className="mt-1 text-slate-400 dark:text-white/50">
-                                                    {formatRange(item.start, item.end)}
-                                                </p>
-                                                <p className="mt-2 leading-relaxed text-slate-600 dark:text-white/70">
-                                                    {item.summary}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-            </div>
-
-            <div className="mt-6 flex flex-wrap gap-4 border-t border-black/10 pt-4 dark:border-white/10">
-                {(Object.keys(trackLabels) as Track[]).map((track) => (
+            <div className="overflow-x-auto">
+                <div className="min-w-[880px] pb-28">
                     <div
-                        key={track}
-                        className="flex items-center gap-2 text-xs text-slate-600 dark:text-white/70"
+                        className="relative mb-3 h-5 border-b border-black/10 dark:border-white/10"
+                        style={{ marginLeft: LABEL_WIDTH }}
                     >
-                        <span
-                            className={`inline-block h-2.5 w-2.5 rounded-full ${trackLegendClass[track]}`}
-                        />
-                        {trackLabels[track]}
+                        {axisYears.map((year) => {
+                            const left = ((year * 12 - minMonth) / span) * 100;
+                            if (left < 0 || left > 100) return null;
+                            return (
+                                <span
+                                    key={year}
+                                    className="absolute top-0 -translate-x-1/2 text-[10px] tabular-nums text-slate-400 dark:text-white/40"
+                                    style={{ left: `${left}%` }}
+                                >
+                                    {year}
+                                </span>
+                            );
+                        })}
                     </div>
-                ))}
+
+                    <div className="space-y-6">
+                        {trackOrder.map((track) => {
+                            const items = experience
+                                .filter((item) => item.track === track)
+                                .sort((a, b) => parseMonth(b.start) - parseMonth(a.start));
+
+                            return (
+                                <section key={track}>
+                                    <h2 className="mb-2 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-widest text-slate-500 dark:text-white/50">
+                                        <span
+                                            className={`h-2.5 w-2.5 rounded-full ${trackDot[track]}`}
+                                        />
+                                        {trackLabels[track]}
+                                    </h2>
+
+                                    <ol className="space-y-1.5">
+                                        {items.map((item) => {
+                                            const bar = barPosition(item, minMonth, span);
+                                            return (
+                                                <li
+                                                    key={item.id}
+                                                    className={`relative flex items-center gap-4 rounded-xl px-1 py-1 ${
+                                                        activeId === item.id
+                                                            ? "bg-black/[0.04] dark:bg-white/[0.06]"
+                                                            : ""
+                                                    }`}
+                                                    onMouseEnter={() => setActiveId(item.id)}
+                                                    onMouseLeave={() => setActiveId(null)}
+                                                >
+                                                    <div
+                                                        className="shrink-0"
+                                                        style={{ width: LABEL_WIDTH }}
+                                                    >
+                                                        <p className="text-sm font-semibold leading-snug text-slate-900 dark:text-white">
+                                                            {shortOrg(item)}
+                                                        </p>
+                                                        <p className="text-[12px] leading-snug text-slate-500 dark:text-white/50">
+                                                            {item.title}
+                                                        </p>
+                                                        <p className="mt-0.5 text-[11px] tabular-nums text-slate-400 dark:text-white/40">
+                                                            {formatRange(item.start, item.end)}
+                                                        </p>
+                                                    </div>
+
+                                                    <div className="relative h-3 min-w-0 flex-1 rounded-full bg-black/5 dark:bg-white/10">
+                                                        {axisYears.map((year) => {
+                                                            const left =
+                                                                ((year * 12 - minMonth) / span) *
+                                                                100;
+                                                            if (left <= 0 || left >= 100)
+                                                                return null;
+                                                            return (
+                                                                <span
+                                                                    key={year}
+                                                                    className="absolute top-0 bottom-0 w-px bg-black/10 dark:bg-white/10"
+                                                                    style={{ left: `${left}%` }}
+                                                                />
+                                                            );
+                                                        })}
+                                                        <span
+                                                            className={`absolute top-0 bottom-0 rounded-full transition ${
+                                                                activeId === item.id
+                                                                    ? "brightness-110"
+                                                                    : ""
+                                                            } ${trackBar[track]}`}
+                                                            style={{
+                                                                left: `${bar.left}%`,
+                                                                width: `${Math.max(bar.width, 1.1)}%`,
+                                                            }}
+                                                        />
+                                                    </div>
+
+                                                    <div
+                                                        role="tooltip"
+                                                        className={`pointer-events-none absolute left-0 top-[calc(100%-4px)] z-30 w-80 rounded-xl border border-black/10 bg-white p-3 text-xs shadow-lg dark:border-white/10 dark:bg-slate-900 ${
+                                                            activeId === item.id
+                                                                ? "block"
+                                                                : "hidden"
+                                                        }`}
+                                                    >
+                                                        <p className="font-semibold text-slate-900 dark:text-white">
+                                                            {item.org}
+                                                        </p>
+                                                        <p className="mt-0.5 text-slate-600 dark:text-white/70">
+                                                            {item.title}
+                                                        </p>
+                                                        <p className="mt-1 tabular-nums text-slate-400 dark:text-white/50">
+                                                            {formatRange(item.start, item.end)}
+                                                        </p>
+                                                        <p className="mt-2 leading-relaxed text-slate-600 dark:text-white/70">
+                                                            {item.summary}
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                            );
+                                        })}
+                                    </ol>
+                                </section>
+                            );
+                        })}
+                    </div>
+                </div>
             </div>
         </div>
     );

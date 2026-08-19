@@ -21,21 +21,11 @@ export default function DeviceFrame({ src, alt, device, title, priority, onClick
     if (device === "macos") {
         return (
             <figure
-                className={`overflow-hidden rounded-xl border border-black/15 bg-slate-200/80 dark:border-white/15 dark:bg-black/50 ${onClick ? "cursor-zoom-in" : ""}`}
+                className={`overflow-hidden rounded-xl border border-black/15 bg-black/5 dark:border-white/15 dark:bg-black/40 ${onClick ? "cursor-zoom-in" : ""}`}
                 onClick={onClick}
             >
-                <div className="flex items-center gap-1.5 border-b border-black/10 bg-slate-100 px-3 py-2 dark:border-white/10 dark:bg-white/10">
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" aria-hidden />
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" aria-hidden />
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" aria-hidden />
-                    {title && (
-                        <figcaption className="ml-2 truncate text-[11px] text-slate-500 dark:text-white/50">
-                            {title}
-                        </figcaption>
-                    )}
-                </div>
                 <div
-                    className="relative w-full bg-black/5 dark:bg-black/30"
+                    className="relative w-full"
                     style={{ aspectRatio: aspect.macos }}
                 >
                     <Image
@@ -43,7 +33,7 @@ export default function DeviceFrame({ src, alt, device, title, priority, onClick
                         alt={alt}
                         fill
                         priority={priority}
-                        sizes="(max-width: 768px) 100vw, 800px"
+                        sizes="(max-width: 768px) 100vw, 1100px"
                         className="object-contain"
                     />
                 </div>
