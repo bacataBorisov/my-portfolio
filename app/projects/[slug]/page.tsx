@@ -6,8 +6,7 @@ import { notFound } from "next/navigation";
 import Section from "@/components/Section";
 import Badge from "@/components/Badge";
 import Button from "@/components/Button";
-import CarouselGallery from "@/components/CarouselGallery";
-import Shot from "@/components/Shot";
+import ScreenshotGallery from "@/components/ScreenshotGallery";
 import { projects, type DemoLinkIcon } from "@/lib/projects";
 import { site } from "@/lib/site";
 import { FaApple, FaGithub, FaGlobe, FaGooglePlay, FaPlay } from "react-icons/fa";
@@ -68,11 +67,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         demoLinks,
         icon,
         iconClassName = "",
-        coverAspect,
     } = project;
 
     return (
-        <div className="mx-auto max-w-3xl space-y-10">
+        <div className="mx-auto max-w-4xl space-y-10">
             {/* Back link */}
             <Button href="/projects" variant="secondary" size="sm">
                 ← All projects
@@ -118,24 +116,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 ) : null}
             </header>
 
-            {/* Screenshots */}
             {project.covers && project.covers.length > 0 && (
                 <div className="mt-6">
-                    {project.covers.length === 1 ? (
-                        <Shot
-                            src={project.covers[0]}
-                            alt={`${title} screenshot`}
-                            aspect={coverAspect}
-                            maxW={380}
-                        />
-                    ) : (
-                        <CarouselGallery
-                            title={project.title}
-                            shots={project.covers}
-                            aspect={4 / 3}
-                            maxVH={{ base: 70, md: 70, lg: 80 }}
-                        />
-                    )}
+                    <ScreenshotGallery
+                        title={project.title}
+                        shots={project.covers}
+                        device={project.coverDevice ?? "ipad"}
+                    />
                 </div>
             )}
 

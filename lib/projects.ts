@@ -8,6 +8,7 @@ export type Project = {
     status?: string;
     covers?: string[];
     coverAspect?: number;
+    coverDevice?: "iphone" | "ipad" | "macos";
     highlights?: string[];
     repoUrl?: string;
     demoLinks?: { label: string; href: string; icon?: DemoLinkIcon }[];
@@ -24,6 +25,7 @@ export const projects: Project[] = [
             "Real-time iOS/iPadOS sailing navigation and racing system integrating yacht instrumentation through NMEA 0183 over UDP/TCP, with navigation, tactical racing, performance and diagnostic tools.",
         status: "In development / on-water testing · target v1.0 early 2027",
         tags: ["iOS", "iPadOS", "SwiftUI", "NMEA 0183", "UDP", "TCP", "watchOS"],
+        coverDevice: "ipad",
         covers: [
             "/images/map_vmg_light_dark.png",
             "/images/map_vmg_light.png",
@@ -103,6 +105,7 @@ export const projects: Project[] = [
             "A macOS NMEA 0183 instrument simulator and test bench that generates coherent vessel/sensor data and streams it over UDP/TCP to navigation applications.",
         status: "Working development / test tool",
         tags: ["macOS", "SwiftUI", "NMEA 0183", "UDP", "TCP", "MapKit"],
+        coverDevice: "macos",
         covers: ["/images/dashboard.png", "/images/configuration_page.png"],
         highlights: [
             "Generates coherent vessel state — not unrelated random sensor values",
@@ -124,6 +127,7 @@ export const projects: Project[] = [
         status: "Working field prototype / sideloaded development tool",
         tags: ["Swift", "UIKit", "Python", "MQTT", "Raspberry Pi", "RS-232/422/485"],
         covers: ["/images/iphone_sowify.png"],
+        coverDevice: "iphone",
         coverAspect: 863 / 1722,
         highlights: [
             "Replaces laptop + serial adapter workflow in difficult-access locations",
