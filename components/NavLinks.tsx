@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import ThemeToggle from "./ThemeToggle";
 
 const links = [
-    { href: "/", label: "Home" },
     { href: "/projects", label: "Work" },
     { href: "/experience", label: "Experience" },
     { href: "/about", label: "About" },
@@ -18,7 +17,7 @@ export default function NavLinks() {
     return (
         <div className="flex min-w-0 items-center gap-0.5 overflow-x-auto text-xs sm:gap-1 sm:text-sm">
             {links.map(({ href, label }) => {
-                const active = href === "/" ? pathname === "/" : pathname.startsWith(href);
+                const active = pathname === href || pathname.startsWith(href + "/");
                 return (
                     <Link
                         key={href}
