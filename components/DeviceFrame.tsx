@@ -13,7 +13,7 @@ type Props = {
 
 const aspect: Record<Exclude<DeviceKind, "macos">, string> = {
     iphone: "9 / 19.5",
-    ipad: "4 / 3",
+    ipad: "2360 / 1640",
 };
 
 export default function DeviceFrame({ src, alt, device, priority, onClick }: Props) {
@@ -37,23 +37,16 @@ export default function DeviceFrame({ src, alt, device, priority, onClick }: Pro
 
     if (device === "ipad") {
         return (
-            <figure
-                className={`mx-auto max-w-3xl rounded-[1.75rem] border-[10px] border-slate-800 bg-slate-800 p-1.5 dark:border-slate-700 dark:bg-slate-700 ${onClick ? "cursor-zoom-in" : ""}`}
-                onClick={onClick}
-            >
-                <div
-                    className="relative overflow-hidden rounded-[1.1rem] bg-black"
-                    style={{ aspectRatio: aspect.ipad }}
-                >
-                    <Image
-                        src={src}
-                        alt={alt}
-                        fill
-                        priority={priority}
-                        sizes="(max-width: 768px) 100vw, 720px"
-                        className="object-contain"
-                    />
-                </div>
+            <figure className={onClick ? "cursor-zoom-in" : ""} onClick={onClick}>
+                <Image
+                    src={src}
+                    alt={alt}
+                    width={1920}
+                    height={1334}
+                    priority={priority}
+                    sizes="(max-width: 768px) 100vw, 896px"
+                    className="h-auto w-full rounded-2xl"
+                />
             </figure>
         );
     }

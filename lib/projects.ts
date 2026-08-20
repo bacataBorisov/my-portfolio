@@ -27,32 +27,19 @@ export const projects: Project[] = [
         tags: ["iOS", "iPadOS", "SwiftUI", "NMEA 0183", "UDP", "TCP", "watchOS"],
         coverDevice: "ipad",
         covers: [
-            "/images/map_vmg_light_dark.png",
-            "/images/map_vmg_light.png",
-            "/images/starting_view_dark.png",
-            "/images/starting_view_light.png",
-            "/images/vmg_ultimate_dark.png",
-            "/images/vmg_ultimate_light.png",
+            "/images/extasy/map.webp",
+            "/images/extasy/trim.webp",
+            "/images/extasy/start.webp",
+            "/images/extasy/wind.webp",
+            "/images/extasy/data.webp",
         ],
         highlights: [
-            "Concurrent telemetry pipeline for ~37 NMEA/AIS formats with checksum validation",
+            "Concurrent telemetry pipeline for NMEA/AIS formats with checksum validation",
             "Source arbitration, sensor-health monitoring and connection recovery",
             "Polar-based VMG/VMC, laylines, start-line geometry and wind-shift analysis",
             "Live communication diagnostics and Apple Watch companion",
             "600+ automated XCTest methods and on-water validation",
             "Not yet on the App Store",
-        ],
-        demoLinks: [
-            {
-                label: "iPhone demo video",
-                href: "https://drive.google.com/file/d/1rVJDbGBMlsVFmgOLY960FpXGMJToISZk/view?usp=sharing",
-                icon: "video",
-            },
-            {
-                label: "iPad demo video",
-                href: "https://drive.google.com/file/d/1omNMziGSfN7exxU7LXaitJ29QClQm2Oh/view?usp=sharing",
-                icon: "video",
-            },
         ],
     },
 
