@@ -88,3 +88,10 @@
 img[data-nimg] {
     opacity: 1 !important;
 }
+
+@media (max-width: 767px) {
+    .yarl__button_prev,
+    .yarl__button_next {
+        display: none;
+    }
+}
