@@ -82,7 +82,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
                     <div className="sticky top-0 z-50 border-b border-black/10 bg-white/80 backdrop-blur-xl pt-[env(safe-area-inset-top,0px)] dark:border-white/10 dark:bg-black/30">
                         <nav className="mx-auto grid max-w-5xl grid-cols-[1fr_auto_1fr] items-center px-3 py-3 sm:px-4">
-                            <Link href="/" className="justify-self-start" aria-label="Home">
+                            <Link
+                                href="/"
+                                className="inline-flex min-h-11 min-w-11 items-center justify-self-start sm:min-h-0 sm:min-w-0"
+                                aria-label="Home"
+                            >
                                 <Image
                                     src="/icons/brand-bb.png"
                                     alt=""

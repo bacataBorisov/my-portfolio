@@ -11,7 +11,7 @@ export default function ThemeToggle() {
     useEffect(() => setMounted(true), []);
 
     if (!mounted) {
-        return <div className="h-8 w-8" />;
+        return <div className="h-11 w-11 sm:h-8 sm:w-8" />;
     }
 
     const isDark = resolvedTheme === "dark";
@@ -20,7 +20,7 @@ export default function ThemeToggle() {
         <button
             onClick={() => setTheme(isDark ? "light" : "dark")}
             aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-            className="flex h-8 w-8 items-center justify-center rounded-full text-slate-600 transition hover:bg-black/10 dark:text-white/70 dark:hover:bg-white/10"
+            className="flex h-11 w-11 items-center justify-center rounded-full text-slate-600 transition hover:bg-black/10 dark:text-white/70 dark:hover:bg-white/10 sm:h-8 sm:w-8"
         >
             {isDark ? (
                 // Sun icon

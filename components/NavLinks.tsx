@@ -22,7 +22,7 @@ export default function NavLinks() {
                         key={href}
                         href={href}
                         aria-current={active ? "page" : undefined}
-                        className={`whitespace-nowrap rounded-md px-2 py-1.5 text-center transition sm:px-3 ${
+                        className={`inline-flex min-h-11 items-center whitespace-nowrap rounded-md px-2.5 py-2 text-center transition sm:min-h-0 sm:px-3 sm:py-1.5 ${
                             active
                                 ? "text-hummingbird-teal font-medium dark:text-hummingbird-aqua"
                                 : "text-slate-600 hover:text-hummingbird-teal dark:text-white/70 dark:hover:text-hummingbird-aqua"

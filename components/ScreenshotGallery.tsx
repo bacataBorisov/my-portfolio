@@ -13,9 +13,32 @@ type Props = {
     device: DeviceKind;
 };
 
+const SWIPE_HINT_KEY = "gallery-swipe-hint-seen";
+
 export default function ScreenshotGallery({ title, shots, device }: Props) {
     const [current, setCurrent] = useState(0);
     const [open, setOpen] = useState<number | null>(null);
+    const [showSwipeHint, setShowSwipeHint] = useState(false);
+
+    useEffect(() => {
+        try {
+            setShowSwipeHint(localStorage.getItem(SWIPE_HINT_KEY) !== "1");
+        } catch {
+            setShowSwipeHint(true);
+        }
+    }, []);
+
+    const dismissSwipeHint = useCallback(() => {
+        setShowSwipeHint((visible) => {
+            if (!visible) return false;
+            try {
+                localStorage.setItem(SWIPE_HINT_KEY, "1");
+            } catch {
+                /* ignore quota / private mode */
+            }
+            return false;
+        });
+    }, []);
 
     const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
         {
@@ -23,7 +46,9 @@ export default function ScreenshotGallery({ title, shots, device }: Props) {
             rubberband: true,
             slides: { perView: 1 },
             slideChanged(s) {
-                setCurrent(s.track.details.rel);
+                const rel = s.track.details.rel;
+                setCurrent(rel);
+                if (rel !== 0) dismissSwipeHint();
             },
         },
         [
@@ -126,9 +151,16 @@ export default function ScreenshotGallery({ title, shots, device }: Props) {
                             </button>
                         ))}
                     </div>
-                    {device === "macos" && (
+                    {(showSwipeHint || device === "macos") && (
                         <p className="mt-2 text-center text-xs text-slate-400 dark:text-white/40">
-                            Tap to enlarge
+                            {showSwipeHint ? (
+                                <span className="md:hidden">Swipe for more · tap to enlarge</span>
+                            ) : null}
+                            {device === "macos" ? (
+                                <span className={showSwipeHint ? "hidden md:inline" : undefined}>
+                                    Tap to enlarge
+                                </span>
+                            ) : null}
                         </p>
                     )}
                 </>
