@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import DeviceFrame, { type DeviceKind } from "./DeviceFrame";
 
 type Props = {
@@ -16,14 +17,27 @@ export default function ScreenshotGallery({ title, shots, device }: Props) {
     const [current, setCurrent] = useState(0);
     const [open, setOpen] = useState<number | null>(null);
 
-    const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
-        loop: shots.length > 1,
-        rubberband: true,
-        slides: { perView: 1 },
-        slideChanged(s) {
-            setCurrent(s.track.details.rel);
+    const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
+        {
+            loop: false,
+            rubberband: true,
+            slides: { perView: 1 },
+            slideChanged(s) {
+                setCurrent(s.track.details.rel);
+            },
         },
-    });
+        [
+            (slider) => {
+                const refresh = () => slider.update();
+                slider.on("created", () => {
+                    slider.container.querySelectorAll("img").forEach((img) => {
+                        if (img.complete) refresh();
+                        else img.addEventListener("load", refresh, { once: true });
+                    });
+                });
+            },
+        ]
+    );
 
     useEffect(() => {
         if (open === null) return;
@@ -60,14 +74,17 @@ export default function ScreenshotGallery({ title, shots, device }: Props) {
             <div className="group relative">
                 <div ref={sliderRef} className="keen-slider">
                     {shots.map((src, i) => (
-                        <div key={src + i} className="keen-slider__slide px-1">
+                        <div
+                            key={src + i}
+                            className="keen-slider__slide cursor-zoom-in px-1"
+                            onClick={() => setOpen(i)}
+                        >
                             <DeviceFrame
                                 src={src}
                                 alt={`${title} screenshot ${i + 1}`}
                                 device={device}
                                 title={title}
                                 priority={i === 0}
-                                onClick={() => setOpen(i)}
                             />
                         </div>
                     ))}
@@ -99,8 +116,13 @@ export default function ScreenshotGallery({ title, shots, device }: Props) {
                                         : "border-black/15 opacity-70 hover:opacity-100 dark:border-white/15"
                                 }`}
                             >
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img src={src} alt="" className="h-full w-full object-cover" />
+                                <Image
+                                    src={src.replace(/(\.[a-z]+)$/, "-thumb$1")}
+                                    alt=""
+                                    fill
+                                    sizes="112px"
+                                    className="object-cover"
+                                />
                             </button>
                         ))}
                     </div>
@@ -152,7 +174,7 @@ function Lightbox({
                         <img
                             src={shots[open]}
                             alt={`${title} enlarged ${open + 1}`}
-                            className="max-h-[90vh] w-auto max-w-full rounded-lg object-contain"
+                            className="max-h-[90vh] w-auto max-w-full"
                         />
                         {shots.length > 1 && (
                             <>

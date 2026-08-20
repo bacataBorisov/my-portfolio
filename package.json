@@ -5,8 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "precheck": "npm run build",
-    "build": "next build",
+    "precheck": "NEXT_DIST_DIR=.next-precheck next build",
+    "build": "node scripts/next-build.mjs",
     "start": "next start",
     "lint": "eslint",
     "format": "prettier --write .",

@@ -14,7 +14,7 @@ export default function NavLinks() {
     const pathname = usePathname();
 
     return (
-        <div className="flex items-center gap-0.5 text-[11px] sm:gap-1 sm:text-sm">
+        <div className="flex items-center gap-0.5 text-[13px] sm:gap-1 sm:text-sm">
             {links.map(({ href, label }) => {
                 const active = pathname === href || pathname.startsWith(href + "/");
                 return (

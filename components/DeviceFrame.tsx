@@ -11,33 +11,25 @@ type Props = {
     onClick?: () => void;
 };
 
-const aspect: Record<DeviceKind, string> = {
+const aspect: Record<Exclude<DeviceKind, "macos">, string> = {
     iphone: "9 / 19.5",
     ipad: "4 / 3",
-    macos: "16 / 10",
 };
 
 export default function DeviceFrame({ src, alt, device, priority, onClick }: Props) {
     if (device === "macos") {
         return (
-            <figure
-                className={`overflow-hidden rounded-xl border border-black/15 bg-black/5 dark:border-white/15 dark:bg-black/40 ${onClick ? "cursor-zoom-in" : ""}`}
-                onClick={onClick}
-            >
+            <figure className={onClick ? "cursor-zoom-in" : ""} onClick={onClick}>
                 <div className="overflow-x-auto md:overflow-visible">
-                    <div
-                        className="relative min-w-[40rem] md:min-w-0"
-                        style={{ aspectRatio: aspect.macos }}
-                    >
-                        <Image
-                            src={src}
-                            alt={alt}
-                            fill
-                            priority={priority}
-                            sizes="(max-width: 768px) 640px, 1100px"
-                            className="object-contain"
-                        />
-                    </div>
+                    <Image
+                        src={src}
+                        alt={alt}
+                        width={1920}
+                        height={1133}
+                        priority={priority}
+                        sizes="(max-width: 768px) 640px, 1100px"
+                        className="h-auto w-full min-w-[40rem] md:min-w-0 bg-transparent"
+                    />
                 </div>
             </figure>
         );
