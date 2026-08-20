@@ -20,6 +20,7 @@ type AsLink = BaseProps & {
 type AsButton = BaseProps & {
     href?: never;
     external?: never;
+    download?: never;
     onClick?: () => void;
     disabled?: boolean;
     type?: "button" | "submit";

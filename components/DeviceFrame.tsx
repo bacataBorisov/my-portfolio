@@ -17,7 +17,7 @@ const aspect: Record<DeviceKind, string> = {
     macos: "16 / 10",
 };
 
-export default function DeviceFrame({ src, alt, device, title, priority, onClick }: Props) {
+export default function DeviceFrame({ src, alt, device, priority, onClick }: Props) {
     if (device === "macos") {
         return (
             <figure
