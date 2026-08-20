@@ -11,6 +11,12 @@ import ThemeProvider from "@/components/ThemeProvider";
 import ThemeToggle from "@/components/ThemeToggle";
 import { site } from "@/lib/site";
 
+export const viewport = {
+    width: "device-width",
+    initialScale: 1,
+    viewportFit: "cover",
+};
+
 const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -74,7 +80,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
                     <HummingbirdAura />
 
-                    <div className="sticky top-0 z-50 border-b border-black/10 bg-white/80 backdrop-blur-xl dark:border-white/10 dark:bg-black/30">
+                    <div className="sticky top-0 z-50 border-b border-black/10 bg-white/80 backdrop-blur-xl pt-[env(safe-area-inset-top,0px)] dark:border-white/10 dark:bg-black/30">
                         <nav className="mx-auto grid max-w-5xl grid-cols-[1fr_auto_1fr] items-center px-3 py-3 sm:px-4">
                             <Link href="/" className="justify-self-start" aria-label="Home">
                                 <Image
@@ -96,12 +102,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
                     <main
                         id="main-content"
-                        className="mx-auto w-full max-w-5xl flex-grow px-4 py-10"
+                        className="mx-auto w-full max-w-5xl flex-grow px-4 py-10 max-sm:pb-[calc(6.5rem+env(safe-area-inset-bottom,0px))]"
                     >
                         <RouteTransition>{children}</RouteTransition>
                     </main>
 
-                    <footer className="border-t border-hummingbird-aqua/20 py-4 text-xs text-hummingbird-teal/70 dark:border-hummingbird-aqua/15 dark:text-hummingbird-aqua/60">
+                    <footer className="border-t border-hummingbird-aqua/20 py-4 pb-[max(1rem,env(safe-area-inset-bottom,0px))] text-xs text-hummingbird-teal/70 dark:border-hummingbird-aqua/15 dark:text-hummingbird-aqua/60">
                         <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-2 px-4 sm:flex-row">
                             <p>
                                 © {year} {site.name}

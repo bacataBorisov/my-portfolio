@@ -120,7 +120,7 @@ export default function ChatWidget() {
                 aria-label={open ? "Close chat assistant" : "Open chat assistant"}
                 aria-expanded={open}
                 aria-controls="chat-panel"
-                className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-hummingbird-teal shadow-lg transition hover:bg-hummingbird-sage focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hummingbird-aqua focus-visible:ring-offset-2"
+                className="fixed bottom-[calc(1.5rem+env(safe-area-inset-bottom,0px))] right-[calc(1.5rem+env(safe-area-inset-right,0px))] z-50 flex h-14 w-14 items-center justify-center rounded-full bg-hummingbird-teal shadow-lg transition hover:bg-hummingbird-sage focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hummingbird-aqua focus-visible:ring-offset-2"
             >
                 {open ? (
                     <svg
@@ -172,7 +172,7 @@ export default function ChatWidget() {
                     role="dialog"
                     aria-modal="true"
                     aria-label={`Chat with ${site.name.split(" ")[0]}'s AI assistant`}
-                    className="fixed inset-x-3 bottom-24 z-50 flex max-h-[min(70vh,32rem)] w-auto flex-col rounded-2xl border border-black/10 bg-white/95 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-black/70 sm:inset-x-auto sm:right-6 sm:w-[380px]"
+                    className="fixed bottom-[calc(6rem+env(safe-area-inset-bottom,0px))] left-[max(0.75rem,env(safe-area-inset-left,0px))] right-[max(0.75rem,env(safe-area-inset-right,0px))] z-50 flex max-h-[min(70vh,32rem)] w-auto flex-col rounded-2xl border border-black/10 bg-white/95 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-black/70 sm:inset-x-auto sm:right-[calc(1.5rem+env(safe-area-inset-right,0px))] sm:w-[380px]"
                 >
                     <div className="flex items-center gap-3 border-b border-black/10 px-4 py-3 dark:border-white/10">
                         <div
