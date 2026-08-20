@@ -341,14 +341,15 @@ function LightboxImage({
     return (
         <div
             ref={containerRef}
-            className="flex max-h-[90vh] w-full max-w-[96vw] touch-none items-center justify-center overflow-hidden"
+            className="relative touch-none overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
         >
             {/* eslint-disable-next-line @next/next/no-img-element -- pinch-zoom in lightbox */}
             <img
                 src={src}
                 alt={alt}
                 draggable={false}
-                className="max-h-[90vh] w-auto max-w-full select-none"
+                className="block max-h-[90vh] w-auto max-w-[96vw] select-none"
                 style={{
                     transform: `translate(${offset.x}px, ${offset.y}px) scale(${scale})`,
                     transformOrigin: "center center",
@@ -400,7 +401,7 @@ function Lightbox({
         <AnimatePresence>
             {open !== null && (
                 <motion.div
-                    className="fixed inset-0 z-[999] touch-none overscroll-none bg-black/90 p-2 sm:p-4"
+                    className="fixed inset-0 z-[999] overscroll-none bg-black/90 p-2 sm:p-4"
                     onClick={() => setOpen(null)}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -409,28 +410,29 @@ function Lightbox({
                     role="dialog"
                 >
                     <motion.div
-                        className="relative flex h-full w-full max-h-[94vh] flex-col items-center justify-center"
+                        className="pointer-events-none relative flex h-full w-full flex-col items-center justify-center"
                         initial={{ scale: 0.98, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0.98, opacity: 0 }}
                         transition={{ duration: 0.18, ease: "easeOut" }}
-                        onClick={(e) => e.stopPropagation()}
                     >
-                        <LightboxImage
-                            src={shots[open]}
-                            alt={`${title} enlarged ${open + 1}`}
-                            onSwipePrev={swipePrev}
-                            onSwipeNext={swipeNext}
-                        />
+                        <div className="pointer-events-auto">
+                            <LightboxImage
+                                src={shots[open]}
+                                alt={`${title} enlarged ${open + 1}`}
+                                onSwipePrev={swipePrev}
+                                onSwipeNext={swipeNext}
+                            />
+                        </div>
                         {shots.length > 1 && (
                             <>
                                 <NavButton
-                                    className="absolute left-2 top-1/2 -translate-y-1/2 max-md:hidden"
+                                    className="pointer-events-auto absolute left-2 top-1/2 -translate-y-1/2 max-md:hidden"
                                     label="Previous"
                                     onClick={() => setOpen(Math.max(0, open - 1))}
                                 />
                                 <NavButton
-                                    className="absolute right-2 top-1/2 -translate-y-1/2 max-md:hidden"
+                                    className="pointer-events-auto absolute right-2 top-1/2 -translate-y-1/2 max-md:hidden"
                                     label="Next"
                                     onClick={() => setOpen(Math.min(shots.length - 1, open + 1))}
                                 />
@@ -465,7 +467,10 @@ function NavButton({
         <button
             type="button"
             aria-label={label}
-            onClick={onClick}
+            onClick={(e) => {
+                e.stopPropagation();
+                onClick();
+            }}
             className={`grid h-11 w-11 place-items-center rounded-full bg-white/70 text-slate-800 shadow-lg shadow-black/10 backdrop-blur-md transition hover:scale-105 hover:bg-white/90 dark:bg-black/45 dark:text-white dark:shadow-black/40 dark:hover:bg-black/60 ${className}`}
         >
             <svg
