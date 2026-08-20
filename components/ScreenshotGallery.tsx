@@ -139,6 +139,162 @@ export default function ScreenshotGallery({ title, shots, device }: Props) {
     );
 }
 
+function getTouchDistance(a: Touch, b: Touch) {
+    const dx = a.clientX - b.clientX;
+    const dy = a.clientY - b.clientY;
+    return Math.hypot(dx, dy);
+}
+
+function LightboxImage({
+    src,
+    alt,
+    onSwipePrev,
+    onSwipeNext,
+}: {
+    src: string;
+    alt: string;
+    onSwipePrev?: () => void;
+    onSwipeNext?: () => void;
+}) {
+    const [scale, setScale] = useState(1);
+    const [offset, setOffset] = useState({ x: 0, y: 0 });
+    const scaleRef = useRef(1);
+    const offsetRef = useRef({ x: 0, y: 0 });
+    const pinchStart = useRef<{ distance: number; scale: number } | null>(null);
+    const panStart = useRef<{ x: number; y: number; ox: number; oy: number } | null>(null);
+    const swipeStart = useRef<number | null>(null);
+    const lastTap = useRef(0);
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    scaleRef.current = scale;
+    offsetRef.current = offset;
+
+    useEffect(() => {
+        setScale(1);
+        setOffset({ x: 0, y: 0 });
+    }, [src]);
+
+    useEffect(() => {
+        const el = containerRef.current;
+        if (!el) return;
+
+        const onTouchStart = (e: TouchEvent) => {
+            if (e.touches.length === 2) {
+                swipeStart.current = null;
+                panStart.current = null;
+                pinchStart.current = {
+                    distance: getTouchDistance(e.touches[0], e.touches[1]),
+                    scale: scaleRef.current,
+                };
+            } else if (e.touches.length === 1) {
+                pinchStart.current = null;
+                if (scaleRef.current > 1) {
+                    panStart.current = {
+                        x: e.touches[0].clientX,
+                        y: e.touches[0].clientY,
+                        ox: offsetRef.current.x,
+                        oy: offsetRef.current.y,
+                    };
+                } else {
+                    swipeStart.current = e.touches[0].clientX;
+                }
+            }
+        };
+
+        const onTouchMove = (e: TouchEvent) => {
+            if (e.touches.length === 2 && pinchStart.current) {
+                e.preventDefault();
+                const distance = getTouchDistance(e.touches[0], e.touches[1]);
+                const next =
+                    pinchStart.current.scale * (distance / pinchStart.current.distance);
+                setScale(Math.min(4, Math.max(1, next)));
+                return;
+            }
+
+            if (e.touches.length === 1 && scaleRef.current > 1 && panStart.current) {
+                e.preventDefault();
+                const dx = e.touches[0].clientX - panStart.current.x;
+                const dy = e.touches[0].clientY - panStart.current.y;
+                setOffset({
+                    x: panStart.current.ox + dx,
+                    y: panStart.current.oy + dy,
+                });
+            }
+        };
+
+        const onTouchEnd = (e: TouchEvent) => {
+            if (scaleRef.current <= 1.02) {
+                setScale(1);
+                setOffset({ x: 0, y: 0 });
+            }
+
+            pinchStart.current = null;
+            panStart.current = null;
+
+            if (swipeStart.current !== null && scaleRef.current <= 1) {
+                const touch = e.changedTouches[0];
+                if (touch) {
+                    const dx = touch.clientX - swipeStart.current;
+                    if (Math.abs(dx) >= 40) {
+                        if (dx > 0) onSwipePrev?.();
+                        else onSwipeNext?.();
+                        swipeStart.current = null;
+                        lastTap.current = 0;
+                        return;
+                    }
+                }
+            }
+            swipeStart.current = null;
+
+            if (e.changedTouches.length !== 1) return;
+            const now = Date.now();
+            if (now - lastTap.current < 300) {
+                if (scaleRef.current > 1) {
+                    setScale(1);
+                    setOffset({ x: 0, y: 0 });
+                } else {
+                    setScale(2.5);
+                }
+                lastTap.current = 0;
+            } else {
+                lastTap.current = now;
+            }
+        };
+
+        el.addEventListener("touchstart", onTouchStart, { passive: true });
+        el.addEventListener("touchmove", onTouchMove, { passive: false });
+        el.addEventListener("touchend", onTouchEnd, { passive: true });
+
+        return () => {
+            el.removeEventListener("touchstart", onTouchStart);
+            el.removeEventListener("touchmove", onTouchMove);
+            el.removeEventListener("touchend", onTouchEnd);
+        };
+    }, [onSwipePrev, onSwipeNext, src]);
+
+    const resetTransform = scale === 1 && offset.x === 0 && offset.y === 0;
+
+    return (
+        <div
+            ref={containerRef}
+            className="flex max-h-[90vh] w-full max-w-[96vw] touch-none items-center justify-center overflow-hidden"
+        >
+            {/* eslint-disable-next-line @next/next/no-img-element -- pinch-zoom in lightbox */}
+            <img
+                src={src}
+                alt={alt}
+                draggable={false}
+                className="max-h-[90vh] w-auto max-w-full select-none"
+                style={{
+                    transform: `translate(${offset.x}px, ${offset.y}px) scale(${scale})`,
+                    transformOrigin: "center center",
+                    transition: resetTransform ? "transform 0.2s ease-out" : "none",
+                }}
+            />
+        </div>
+    );
+}
+
 function Lightbox({
     title,
     shots,
@@ -150,26 +306,37 @@ function Lightbox({
     open: number | null;
     setOpen: (i: number | null) => void;
 }) {
-    const touchStartX = useRef<number | null>(null);
+    useEffect(() => {
+        if (open === null) return;
 
-    const onTouchStart = (e: React.TouchEvent) => {
-        touchStartX.current = e.touches[0].clientX;
-    };
+        const prevOverflow = document.body.style.overflow;
+        document.body.style.overflow = "hidden";
 
-    const onTouchEnd = (e: React.TouchEvent) => {
-        if (touchStartX.current === null || open === null || shots.length <= 1) return;
-        const dx = e.changedTouches[0].clientX - touchStartX.current;
-        touchStartX.current = null;
-        if (Math.abs(dx) < 40) return;
-        if (dx > 0) setOpen(Math.max(0, open - 1));
-        else setOpen(Math.min(shots.length - 1, open + 1));
-    };
+        const viewport = document.querySelector('meta[name="viewport"]');
+        const prevViewport = viewport?.getAttribute("content") ?? null;
+        if (viewport) {
+            viewport.setAttribute(
+                "content",
+                "width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"
+            );
+        }
+
+        return () => {
+            document.body.style.overflow = prevOverflow;
+            if (viewport && prevViewport) viewport.setAttribute("content", prevViewport);
+        };
+    }, [open]);
+
+    const swipePrev =
+        open !== null && open > 0 ? () => setOpen(open - 1) : undefined;
+    const swipeNext =
+        open !== null && open < shots.length - 1 ? () => setOpen(open + 1) : undefined;
 
     return (
         <AnimatePresence>
             {open !== null && (
                 <motion.div
-                    className="fixed inset-0 z-[999] flex items-center justify-center bg-black/90 p-2 sm:p-4"
+                    className="fixed inset-0 z-[999] touch-none overscroll-none bg-black/90 p-2 sm:p-4"
                     onClick={() => setOpen(null)}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -178,23 +345,19 @@ function Lightbox({
                     role="dialog"
                 >
                     <motion.div
-                        className="relative flex max-h-[94vh] w-full max-w-[96vw] flex-col items-center"
+                        className="relative flex h-full w-full max-h-[94vh] flex-col items-center justify-center"
                         initial={{ scale: 0.98, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0.98, opacity: 0 }}
                         transition={{ duration: 0.18, ease: "easeOut" }}
                         onClick={(e) => e.stopPropagation()}
-                        onTouchStart={onTouchStart}
-                        onTouchEnd={onTouchEnd}
                     >
-                        <div className="max-h-[90vh] w-full overflow-auto">
-                            {/* eslint-disable-next-line @next/next/no-img-element -- native img for lightbox pinch-zoom */}
-                            <img
-                                src={shots[open]}
-                                alt={`${title} enlarged ${open + 1}`}
-                                className="mx-auto h-auto w-full max-w-none sm:max-h-[90vh] sm:w-auto"
-                            />
-                        </div>
+                        <LightboxImage
+                            src={shots[open]}
+                            alt={`${title} enlarged ${open + 1}`}
+                            onSwipePrev={swipePrev}
+                            onSwipeNext={swipeNext}
+                        />
                         {shots.length > 1 && (
                             <>
                                 <NavButton
@@ -210,8 +373,12 @@ function Lightbox({
                             </>
                         )}
                         <p className="mt-2 text-center text-xs text-white/60">
-                            <span className="md:hidden">Tap outside to close · swipe to browse</span>
-                            <span className="hidden md:inline">Tap outside to close · swipe or ← → to browse</span>
+                            <span className="md:hidden">
+                                Tap outside to close · pinch or double-tap to zoom · swipe to browse
+                            </span>
+                            <span className="hidden md:inline">
+                                Tap outside to close · swipe or ← → to browse
+                            </span>
                         </p>
                     </motion.div>
                 </motion.div>
