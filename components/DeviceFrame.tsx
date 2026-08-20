@@ -20,17 +20,15 @@ export default function DeviceFrame({ src, alt, device, priority, onClick }: Pro
     if (device === "macos") {
         return (
             <figure className={onClick ? "cursor-zoom-in" : ""} onClick={onClick}>
-                <div className="overflow-x-auto md:overflow-visible">
-                    <Image
-                        src={src}
-                        alt={alt}
-                        width={1920}
-                        height={1133}
-                        priority={priority}
-                        sizes="(max-width: 768px) 640px, 1100px"
-                        className="h-auto w-full min-w-[40rem] md:min-w-0 bg-transparent"
-                    />
-                </div>
+                <Image
+                    src={src}
+                    alt={alt}
+                    width={1920}
+                    height={1133}
+                    priority={priority}
+                    sizes="(max-width: 768px) 100vw, 1100px"
+                    className="h-auto w-full bg-transparent"
+                />
             </figure>
         );
     }

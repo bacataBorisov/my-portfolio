@@ -128,7 +128,7 @@ export default function ScreenshotGallery({ title, shots, device }: Props) {
                     </div>
                     {device === "macos" && (
                         <p className="mt-2 text-center text-xs text-slate-400 dark:text-white/40">
-                            Tap a screenshot to view it full screen
+                            Tap to enlarge
                         </p>
                     )}
                 </>
@@ -170,12 +170,14 @@ function Lightbox({
                         transition={{ duration: 0.18, ease: "easeOut" }}
                         onClick={(e) => e.stopPropagation()}
                     >
-                        {/* eslint-disable-next-line @next/next/no-img-element -- native img for lightbox pinch-zoom */}
-                        <img
-                            src={shots[open]}
-                            alt={`${title} enlarged ${open + 1}`}
-                            className="max-h-[90vh] w-auto max-w-full"
-                        />
+                        <div className="max-h-[90vh] w-full overflow-auto">
+                            {/* eslint-disable-next-line @next/next/no-img-element -- native img for lightbox pinch-zoom */}
+                            <img
+                                src={shots[open]}
+                                alt={`${title} enlarged ${open + 1}`}
+                                className="mx-auto h-auto w-full max-w-none sm:max-h-[90vh] sm:w-auto"
+                            />
+                        </div>
                         {shots.length > 1 && (
                             <>
                                 <NavButton
