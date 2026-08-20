@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import { AnimatePresence, motion } from "framer-motion";
@@ -90,12 +90,12 @@ export default function ScreenshotGallery({ title, shots, device }: Props) {
                     ))}
                 </div>
                 <NavButton
-                    className="absolute left-3 top-1/2 -translate-y-1/2 md:opacity-0 md:group-hover:opacity-100"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 max-md:hidden md:opacity-0 md:group-hover:opacity-100"
                     label="Previous"
                     onClick={() => go(-1)}
                 />
                 <NavButton
-                    className="absolute right-3 top-1/2 -translate-y-1/2 md:opacity-0 md:group-hover:opacity-100"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 max-md:hidden md:opacity-0 md:group-hover:opacity-100"
                     label="Next"
                     onClick={() => go(1)}
                 />
@@ -150,6 +150,21 @@ function Lightbox({
     open: number | null;
     setOpen: (i: number | null) => void;
 }) {
+    const touchStartX = useRef<number | null>(null);
+
+    const onTouchStart = (e: React.TouchEvent) => {
+        touchStartX.current = e.touches[0].clientX;
+    };
+
+    const onTouchEnd = (e: React.TouchEvent) => {
+        if (touchStartX.current === null || open === null || shots.length <= 1) return;
+        const dx = e.changedTouches[0].clientX - touchStartX.current;
+        touchStartX.current = null;
+        if (Math.abs(dx) < 40) return;
+        if (dx > 0) setOpen(Math.max(0, open - 1));
+        else setOpen(Math.min(shots.length - 1, open + 1));
+    };
+
     return (
         <AnimatePresence>
             {open !== null && (
@@ -169,6 +184,8 @@ function Lightbox({
                         exit={{ scale: 0.98, opacity: 0 }}
                         transition={{ duration: 0.18, ease: "easeOut" }}
                         onClick={(e) => e.stopPropagation()}
+                        onTouchStart={onTouchStart}
+                        onTouchEnd={onTouchEnd}
                     >
                         <div className="max-h-[90vh] w-full overflow-auto">
                             {/* eslint-disable-next-line @next/next/no-img-element -- native img for lightbox pinch-zoom */}
@@ -181,19 +198,20 @@ function Lightbox({
                         {shots.length > 1 && (
                             <>
                                 <NavButton
-                                    className="absolute left-2 top-1/2 -translate-y-1/2"
+                                    className="absolute left-2 top-1/2 -translate-y-1/2 max-md:hidden"
                                     label="Previous"
                                     onClick={() => setOpen(Math.max(0, open - 1))}
                                 />
                                 <NavButton
-                                    className="absolute right-2 top-1/2 -translate-y-1/2"
+                                    className="absolute right-2 top-1/2 -translate-y-1/2 max-md:hidden"
                                     label="Next"
                                     onClick={() => setOpen(Math.min(shots.length - 1, open + 1))}
                                 />
                             </>
                         )}
                         <p className="mt-2 text-center text-xs text-white/60">
-                            Tap outside to close · swipe or ← → to browse
+                            <span className="md:hidden">Tap outside to close · swipe to browse</span>
+                            <span className="hidden md:inline">Tap outside to close · swipe or ← → to browse</span>
                         </p>
                     </motion.div>
                 </motion.div>
