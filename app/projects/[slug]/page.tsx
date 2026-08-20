@@ -7,6 +7,7 @@ import Section from "@/components/Section";
 import Badge from "@/components/Badge";
 import Button from "@/components/Button";
 import ScreenshotGallery from "@/components/ScreenshotGallery";
+import StreamEmbed from "@/components/StreamEmbed";
 import { projects, type DemoLinkIcon } from "@/lib/projects";
 import { site } from "@/lib/site";
 import { FaApple, FaGithub, FaGlobe, FaGooglePlay, FaPlay } from "react-icons/fa";
@@ -64,6 +65,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         status,
         highlights,
         repoUrl,
+        demoEmbed,
         demoLinks,
         icon,
         iconClassName = "",
@@ -115,6 +117,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                     </div>
                 ) : null}
             </header>
+
+            {demoEmbed ? (
+                <StreamEmbed src={demoEmbed.src} title={demoEmbed.title ?? `${title} demo`} />
+            ) : null}
 
             {project.covers && project.covers.length > 0 && (
                 <div className="mt-6">

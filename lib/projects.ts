@@ -11,6 +11,7 @@ export type Project = {
     coverDevice?: "iphone" | "ipad" | "macos";
     highlights?: string[];
     repoUrl?: string;
+    demoEmbed?: { src: string; title?: string };
     demoLinks?: { label: string; href: string; icon?: DemoLinkIcon }[];
 };
 
@@ -41,6 +42,10 @@ export const projects: Project[] = [
             "600+ automated XCTest methods and on-water validation",
             "Not yet on the App Store",
         ],
+        demoEmbed: {
+            src: "https://customer-98q256hxauw0ljmi.cloudflarestream.com/a1847eea07e1442daa8b7aea1d9c3ae0/iframe?poster=https%3A%2F%2Fcustomer-98q256hxauw0ljmi.cloudflarestream.com%2Fa1847eea07e1442daa8b7aea1d9c3ae0%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600",
+            title: "Extasy Complete Navigation demo",
+        },
     },
 
     {
