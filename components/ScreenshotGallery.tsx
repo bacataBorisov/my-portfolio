@@ -196,10 +196,16 @@ function LightboxImage({
     const panStart = useRef<{ x: number; y: number; ox: number; oy: number } | null>(null);
     const swipeStart = useRef<number | null>(null);
     const lastTap = useRef(0);
+    const pinchActive = useRef(false);
+    const skipTap = useRef(false);
+    const swipePrevRef = useRef(onSwipePrev);
+    const swipeNextRef = useRef(onSwipeNext);
     const containerRef = useRef<HTMLDivElement>(null);
 
     scaleRef.current = scale;
     offsetRef.current = offset;
+    swipePrevRef.current = onSwipePrev;
+    swipeNextRef.current = onSwipeNext;
 
     useEffect(() => {
         setScale(1);
@@ -214,6 +220,9 @@ function LightboxImage({
             if (e.touches.length === 2) {
                 swipeStart.current = null;
                 panStart.current = null;
+                pinchActive.current = true;
+                skipTap.current = true;
+                lastTap.current = 0;
                 pinchStart.current = {
                     distance: getTouchDistance(e.touches[0], e.touches[1]),
                     scale: scaleRef.current,
@@ -236,6 +245,7 @@ function LightboxImage({
         const onTouchMove = (e: TouchEvent) => {
             if (e.touches.length === 2 && pinchStart.current) {
                 e.preventDefault();
+                skipTap.current = true;
                 const distance = getTouchDistance(e.touches[0], e.touches[1]);
                 const next =
                     pinchStart.current.scale * (distance / pinchStart.current.distance);
@@ -247,6 +257,7 @@ function LightboxImage({
                 e.preventDefault();
                 const dx = e.touches[0].clientX - panStart.current.x;
                 const dy = e.touches[0].clientY - panStart.current.y;
+                if (Math.abs(dx) > 2 || Math.abs(dy) > 2) skipTap.current = true;
                 setOffset({
                     x: panStart.current.ox + dx,
                     y: panStart.current.oy + dy,
@@ -255,21 +266,42 @@ function LightboxImage({
         };
 
         const onTouchEnd = (e: TouchEvent) => {
+            if (e.touches.length === 1 && pinchActive.current) {
+                pinchStart.current = null;
+                panStart.current = {
+                    x: e.touches[0].clientX,
+                    y: e.touches[0].clientY,
+                    ox: offsetRef.current.x,
+                    oy: offsetRef.current.y,
+                };
+                return;
+            }
+
+            if (e.touches.length > 0) return;
+
+            pinchStart.current = null;
+            panStart.current = null;
+            pinchActive.current = false;
+
             if (scaleRef.current <= 1.02) {
                 setScale(1);
                 setOffset({ x: 0, y: 0 });
             }
 
-            pinchStart.current = null;
-            panStart.current = null;
+            if (skipTap.current) {
+                skipTap.current = false;
+                swipeStart.current = null;
+                lastTap.current = 0;
+                return;
+            }
 
             if (swipeStart.current !== null && scaleRef.current <= 1) {
                 const touch = e.changedTouches[0];
                 if (touch) {
                     const dx = touch.clientX - swipeStart.current;
                     if (Math.abs(dx) >= 40) {
-                        if (dx > 0) onSwipePrev?.();
-                        else onSwipeNext?.();
+                        if (dx > 0) swipePrevRef.current?.();
+                        else swipeNextRef.current?.();
                         swipeStart.current = null;
                         lastTap.current = 0;
                         return;
@@ -302,7 +334,7 @@ function LightboxImage({
             el.removeEventListener("touchmove", onTouchMove);
             el.removeEventListener("touchend", onTouchEnd);
         };
-    }, [onSwipePrev, onSwipeNext, src]);
+    }, [src]);
 
     const resetTransform = scale === 1 && offset.x === 0 && offset.y === 0;
 
