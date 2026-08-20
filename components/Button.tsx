@@ -11,6 +11,7 @@ type BaseProps = {
 type AsLink = BaseProps & {
     href: string;
     external?: boolean;
+    download?: string | boolean;
     onClick?: never;
     disabled?: never;
     type?: never;
@@ -55,6 +56,7 @@ export default function Button({
     children,
     href,
     external,
+    download,
     onClick,
     disabled,
     type = "button",
@@ -62,6 +64,17 @@ export default function Button({
     const cls = classes(variant, size, className);
 
     if (href) {
+        if (download) {
+            return (
+                <a
+                    href={href}
+                    download={download === true ? undefined : download}
+                    className={cls}
+                >
+                    {children}
+                </a>
+            );
+        }
         return external ? (
             <a href={href} target="_blank" rel="noreferrer noopener" className={cls}>
                 {children}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Section from "@/components/Section";
 import Badge from "@/components/Badge";
+import Button from "@/components/Button";
 import FadeIn from "@/components/FadeIn";
 import Image from "next/image";
 import Link from "next/link";
@@ -39,6 +40,15 @@ export default function AboutPage() {
                                 {paragraph}
                             </p>
                         ))}
+                        <Button
+                            href={site.cvUrl}
+                            download={site.cvFilename}
+                            variant="secondary"
+                            size="sm"
+                            className="self-start"
+                        >
+                            Download CV
+                        </Button>
                     </div>
                 </div>
             </FadeIn>

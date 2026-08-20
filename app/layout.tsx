@@ -74,16 +74,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     <HummingbirdAura />
 
                     <div className="sticky top-0 z-50 border-b border-black/10 bg-white/80 backdrop-blur-xl dark:border-white/10 dark:bg-black/30">
-                        <nav className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
-                            <Link href="/" className="flex items-center gap-2">
+                        <nav className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-3">
+                            <Link href="/" className="shrink-0" aria-label="Home">
                                 <Image
                                     src="/icons/brand-bb.png"
-                                    alt="Home"
-                                    width={50}
-                                    height={50}
-                                    sizes="50px"
+                                    alt=""
+                                    width={40}
+                                    height={40}
+                                    sizes="40px"
                                     unoptimized
-                                    className="rounded-full"
+                                    className="rounded-full sm:h-[50px] sm:w-[50px]"
                                 />
                             </Link>
                             <NavLinks />

@@ -21,6 +21,8 @@ export const site = {
     url: "https://bacataborisov-dev.pro",
 
     email: "vasil.borisovv@gmail.com",
+    cvUrl: "/cv.pdf",
+    cvFilename: "Vasil-Borisov-CV.pdf",
     social: {
         github: "https://github.com/bacataBorisov",
         linkedin: "https://www.linkedin.com/in/vasil-borisov-b55b8b10b",
@@ -97,6 +99,7 @@ export const site = {
         "Electro-Technical Officer (Unlimited)",
         "High Voltage Training",
         "ABB Azipod Technical Training — Helsinki",
+        "Software Architecture Principles & Practices — Carnegie Mellon University SEI",
         "STCW",
         "iOS & Swift Development",
         "C Programming",

@@ -56,6 +56,7 @@ ${experienceLines}
 
 CONTACT:
 - Email: ${site.email}
+- CV: ${site.url}${site.cvUrl}
 - LinkedIn: ${site.social.linkedin}
 - GitHub: ${site.social.github}
 - Website: ${site.url}

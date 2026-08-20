@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { FaEnvelope, FaLinkedin, FaGithub, FaInstagram } from "react-icons/fa";
+import { FaEnvelope, FaLinkedin, FaGithub, FaInstagram, FaFilePdf } from "react-icons/fa";
 import FadeIn from "@/components/FadeIn";
 import ContactForm from "@/components/ContactForm";
 import { site } from "@/lib/site";
@@ -10,10 +10,16 @@ export const metadata: Metadata = {
 };
 
 const links = [
-    { href: `mailto:${site.email}`, label: site.email, icon: FaEnvelope, external: false },
-    { href: site.social.linkedin, label: "LinkedIn", icon: FaLinkedin, external: true },
-    { href: site.social.github, label: "GitHub", icon: FaGithub, external: true },
-    { href: site.social.instagram, label: "Instagram", icon: FaInstagram, external: true },
+    { href: `mailto:${site.email}`, label: site.email, icon: FaEnvelope, download: undefined },
+    {
+        href: site.cvUrl,
+        label: "Download CV",
+        icon: FaFilePdf,
+        download: site.cvFilename,
+    },
+    { href: site.social.linkedin, label: "LinkedIn", icon: FaLinkedin, download: undefined },
+    { href: site.social.github, label: "GitHub", icon: FaGithub, download: undefined },
+    { href: site.social.instagram, label: "Instagram", icon: FaInstagram, download: undefined },
 ];
 
 export default function ContactPage() {
@@ -45,13 +51,15 @@ export default function ContactPage() {
                         Or find me on
                     </h2>
                     <div className="flex flex-col gap-4 text-slate-600 dark:text-white/70">
-                        {links.map(({ href, label, icon: Icon, external }) => (
+                        {links.map(({ href, label, icon: Icon, download }) => (
                             <a
                                 key={href}
                                 href={href}
-                                {...(external
-                                    ? { target: "_blank", rel: "noreferrer noopener" }
-                                    : {})}
+                                {...(download
+                                    ? { download }
+                                    : href.startsWith("http")
+                                      ? { target: "_blank", rel: "noreferrer noopener" }
+                                      : {})}
                                 className="flex items-center gap-2 hover:text-hummingbird-teal dark:hover:text-hummingbird-aqua transition"
                             >
                                 <Icon className="h-5 w-5" aria-hidden />

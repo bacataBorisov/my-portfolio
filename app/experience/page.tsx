@@ -23,11 +23,9 @@ export default function ExperiencePage() {
                 </p>
             </FadeIn>
 
-            <FadeIn delay={0.05}>
-                <div className="mt-8">
-                    <ExperienceTimeline />
-                </div>
-            </FadeIn>
+            <div className="mt-8">
+                <ExperienceTimeline />
+            </div>
 
             <FadeIn delay={0.1}>
                 <p className="mt-10 text-sm text-slate-500 dark:text-white/60">

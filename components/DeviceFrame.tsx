@@ -24,18 +24,20 @@ export default function DeviceFrame({ src, alt, device, title, priority, onClick
                 className={`overflow-hidden rounded-xl border border-black/15 bg-black/5 dark:border-white/15 dark:bg-black/40 ${onClick ? "cursor-zoom-in" : ""}`}
                 onClick={onClick}
             >
-                <div
-                    className="relative w-full"
-                    style={{ aspectRatio: aspect.macos }}
-                >
-                    <Image
-                        src={src}
-                        alt={alt}
-                        fill
-                        priority={priority}
-                        sizes="(max-width: 768px) 100vw, 1100px"
-                        className="object-contain"
-                    />
+                <div className="overflow-x-auto md:overflow-visible">
+                    <div
+                        className="relative min-w-[40rem] md:min-w-0"
+                        style={{ aspectRatio: aspect.macos }}
+                    >
+                        <Image
+                            src={src}
+                            alt={alt}
+                            fill
+                            priority={priority}
+                            sizes="(max-width: 768px) 640px, 1100px"
+                            className="object-contain"
+                        />
+                    </div>
                 </div>
             </figure>
         );
