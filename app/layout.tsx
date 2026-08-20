@@ -8,6 +8,7 @@ import HummingbirdAura from "@/components/HummingbirdAura";
 import { Analytics } from "@vercel/analytics/next";
 import ChatWidgetLazy from "@/components/ChatWidgetLazy";
 import ThemeProvider from "@/components/ThemeProvider";
+import ThemeToggle from "@/components/ThemeToggle";
 import { site } from "@/lib/site";
 
 const personSchema = {
@@ -74,8 +75,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     <HummingbirdAura />
 
                     <div className="sticky top-0 z-50 border-b border-black/10 bg-white/80 backdrop-blur-xl dark:border-white/10 dark:bg-black/30">
-                        <nav className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-3">
-                            <Link href="/" className="shrink-0" aria-label="Home">
+                        <nav className="mx-auto grid max-w-5xl grid-cols-[1fr_auto_1fr] items-center px-3 py-3 sm:px-4">
+                            <Link href="/" className="justify-self-start" aria-label="Home">
                                 <Image
                                     src="/icons/brand-bb.png"
                                     alt=""
@@ -87,6 +88,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                                 />
                             </Link>
                             <NavLinks />
+                            <div className="justify-self-end">
+                                <ThemeToggle />
+                            </div>
                         </nav>
                     </div>
 

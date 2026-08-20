@@ -114,7 +114,7 @@ export const projects: Project[] = [
         ],
         highlights: [
             "Generates coherent vessel state — not unrelated random sensor values",
-            "21 NMEA 0183 sentence types with realistic instrument update rates",
+            "NMEA 0183 sentence types with realistic instrument update rates",
             "Multi-endpoint UDP and TCP output with fault injection modes",
             "Wind-triangle calculations and polar-interpolated boat speed",
             "Live NMEA and transport history console",

@@ -57,6 +57,20 @@ function shortOrg(item: ExperienceItem) {
     return item.org.split(" — ")[0];
 }
 
+function pickAxisYears(years: number[], minGap: number) {
+    if (years.length === 0) return [];
+    const last = years[years.length - 1];
+    const ticks = [years[0]];
+    for (const year of years) {
+        if (year - ticks[ticks.length - 1] >= minGap) ticks.push(year);
+    }
+    if (ticks[ticks.length - 1] !== last) {
+        if (last - ticks[ticks.length - 1] < minGap) ticks[ticks.length - 1] = last;
+        else ticks.push(last);
+    }
+    return ticks;
+}
+
 function itemsFor(track: Track) {
     return experience
         .filter((item) => item.track === track)
@@ -66,8 +80,8 @@ function itemsFor(track: Track) {
 export default function ExperienceTimeline() {
     const [activeId, setActiveId] = useState<string | null>(null);
     const { minMonth, span, years } = timelineSpan();
-    const desktopYears = years.filter((y, i) => i === 0 || i === years.length - 1 || y % 2 === 0);
-    const mobileYears = years.filter((y, i) => i === 0 || i === years.length - 1 || y % 4 === 0);
+    const desktopYears = pickAxisYears(years, 2);
+    const mobileYears = pickAxisYears(years, 6);
 
     return (
         <div className="rounded-2xl border border-black/10 bg-white/40 p-4 backdrop-blur dark:border-white/10 dark:bg-white/5 sm:p-6">
@@ -120,13 +134,14 @@ function YearAxis({
             className="relative mb-3 h-5 border-b border-black/10 dark:border-white/10"
             style={offset ? { marginLeft: offset } : undefined}
         >
-            {years.map((year) => {
+            {years.map((year, i) => {
                 const left = ((year * 12 - minMonth) / span) * 100;
                 if (left < 0 || left > 100) return null;
+                const edge = i === 0 ? "translate-x-0" : i === years.length - 1 ? "-translate-x-full" : "-translate-x-1/2";
                 return (
                     <span
                         key={year}
-                        className="absolute top-0 -translate-x-1/2 text-[10px] tabular-nums text-slate-400 dark:text-white/40"
+                        className={`absolute top-0 text-[10px] tabular-nums text-slate-400 dark:text-white/40 ${edge}`}
                         style={{ left: `${left}%` }}
                     >
                         {year}

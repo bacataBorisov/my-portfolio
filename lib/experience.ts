@@ -174,7 +174,7 @@ export const experience: ExperienceItem[] = [
         start: "2025-06",
         end: null,
         summary:
-            "macOS NMEA 0183 simulation and test bench — 21 sentence types, fault injection and UDP/TCP output for testing navigation software.",
+            "macOS NMEA 0183 simulation and test bench — fault injection and UDP/TCP output for testing navigation software.",
     },
     {
         id: "sowify",
