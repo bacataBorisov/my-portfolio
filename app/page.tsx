@@ -111,7 +111,11 @@ export default function Page() {
                             <Button href="/about" variant="secondary">
                                 About Me
                             </Button>
-                            <Button href={site.cvUrl} download={site.cvFilename} variant="secondary">
+                            <Button
+                                href={site.cvUrl}
+                                download={site.cvFilename}
+                                variant="secondary"
+                            >
                                 Download CV
                             </Button>
                         </div>

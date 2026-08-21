@@ -31,10 +31,7 @@ const trackDot: Record<Track, string> = {
 function timelineSpan() {
     const now = currentMonthIndex();
     const minMonth = Math.min(...experience.map((i) => parseMonth(i.start)));
-    const maxMonth = Math.max(
-        ...experience.map((i) => (i.end ? parseMonth(i.end) : now)),
-        now
-    );
+    const maxMonth = Math.max(...experience.map((i) => (i.end ? parseMonth(i.end) : now)), now);
     const span = Math.max(maxMonth - minMonth, 1);
     const minYear = Math.floor(minMonth / 12);
     const maxYear = Math.floor(maxMonth / 12);
@@ -137,7 +134,12 @@ function YearAxis({
             {years.map((year, i) => {
                 const left = ((year * 12 - minMonth) / span) * 100;
                 if (left < 0 || left > 100) return null;
-                const edge = i === 0 ? "translate-x-0" : i === years.length - 1 ? "-translate-x-full" : "-translate-x-1/2";
+                const edge =
+                    i === 0
+                        ? "translate-x-0"
+                        : i === years.length - 1
+                          ? "-translate-x-full"
+                          : "-translate-x-1/2";
                 return (
                     <span
                         key={year}
@@ -193,9 +195,7 @@ function TrackList({
                                     >
                                         <div
                                             className={
-                                                stacked
-                                                    ? "space-y-2"
-                                                    : "flex items-center gap-4"
+                                                stacked ? "space-y-2" : "flex items-center gap-4"
                                             }
                                         >
                                             <div

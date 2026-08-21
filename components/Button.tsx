@@ -67,11 +67,7 @@ export default function Button({
     if (href) {
         if (download) {
             return (
-                <a
-                    href={href}
-                    download={download === true ? undefined : download}
-                    className={cls}
-                >
+                <a href={href} download={download === true ? undefined : download} className={cls}>
                     {children}
                 </a>
             );

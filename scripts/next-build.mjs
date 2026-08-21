@@ -14,9 +14,7 @@ function nextDevRunning() {
 const env = { ...process.env };
 if (!onCI && nextDevRunning() && !env.NEXT_DIST_DIR) {
     env.NEXT_DIST_DIR = ".next-precheck";
-    console.warn(
-        "next dev is running — building to .next-precheck so the local server stays up."
-    );
+    console.warn("next dev is running — building to .next-precheck so the local server stays up.");
 }
 
 const child = spawn("next", ["build"], { stdio: "inherit", env, shell: true });

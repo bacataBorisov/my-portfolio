@@ -142,7 +142,8 @@ export const experience: ExperienceItem[] = [
         track: "education",
         start: "2023-01",
         end: null,
-        summary: "In progress — postgraduate study in maritime, transport and aviation simulation engineering.",
+        summary:
+            "In progress — postgraduate study in maritime, transport and aviation simulation engineering.",
     },
     {
         id: "extasy",
@@ -163,7 +164,8 @@ export const experience: ExperienceItem[] = [
         track: "software",
         start: "2025-01",
         end: null,
-        summary: "Production education platform — Next.js web app plus published iOS and Android apps.",
+        summary:
+            "Production education platform — Next.js web app plus published iOS and Android apps.",
     },
     {
         id: "marine-simulator",
